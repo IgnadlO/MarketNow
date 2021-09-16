@@ -1,0 +1,38 @@
+body{
+	background: #f7f7f7;
+}
+
+.cuadrado{
+	background: white;
+	border: 1px solid #aaa;
+	box-shadow: 0 7px 16px 0 rgb(0 0 0 / 5%), 0 1px 3px 0 rgb(0 0 0 / 5%);
+
+	width: 80%;
+	height: 10%;
+	min-width: 480px;
+	margin-top: 20px;
+	margin-left: 50px;
+}
+
+.contenedor-padre{
+	display: flex;
+}
+
+.producto-img{
+	width: 60%;
+	justify-content: center;
+	object-fit: ;
+}
+
+.contenedor-desc{
+	display: flex;
+	border: 1px solid #aaa;
+	width: 50%;
+	height: 10%;
+	margin-top: 10px;
+	justify-content: center;
+}
+
+.label-1{
+	color: black;
+}
