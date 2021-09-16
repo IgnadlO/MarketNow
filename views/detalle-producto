@@ -12,19 +12,42 @@
 <body>
 	<%- include('partials/menuComercio.html', {sitio:'nombre del sitio', nombre: nombre}) %>
 <main>
-
-	
 	<div class="cuadrado">
 		<div class="contenedor-padre">
 			<img class="producto-img" src="/static/img/producto-img.webp">
-			<div>
+			<div class="contenedor-detalles">
 			<div class="contenedor-desc">
 				<label class="label-1"><b>Trago paltero con escencia de manzana</b></label>
+				<div>
+					<!--<i class="fas fa-star icono"></i>
+					<i class="fas fa-star icono"></i>
+					<i class="fas fa-star icono"></i>
+					<i class="fas fa-star icono"></i>
+					<i class="fas fa-star icono"></i> -->
+					<img class="icono" src="/static/img/palta-buena.png">
+					<img class="icono" src="/static/img/palta-buena.png">
+					<img class="icono" src="/static/img/palta-buena.png">
+					<img class="icono" src="/static/img/palta-mala.png">
+					<img class="icono" src="/static/img/palta-mala.png">
+					<label>115 OpiPaltas</label>
+				</div>
 			</div>
+			<label class="precio">$5.654</label>
+			<label>Botella de color salmon con un distintivo amarillo que tiene un texto bastante lindo anque no se que carajo dice. La forma te recuerda a lade las botellas de la realeza paltera. Nashee</label>
+			<label></label>
+			<div>
+				<label>Stock Disponible</label>
+				<div>
+					<label>Cantidad:</label>
+					<input type="number" name="">
+					<label>(5 disponibles)</label>
+				</div>
+				<label>Podes comprar hasta 3 unidades</label>
+			</div>
+			<button class="button_verde">Comprar</button>
 		</div>
 		</div>
 	</div>
-
 <script>feather.replace()</script>
 </main>
 </body>
