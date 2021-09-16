@@ -1,4 +1,3 @@
-<!doctype html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,14 +9,14 @@
 <meta charset="utf-8">
 </head>
 <body>
-<%- include('partials/menuComercio.html', {sitio:'nombre del sitio', nombre: nombre}) %>
+<%- include('partials/menuComercio.html', {sitio:'Productos Faltantes', nombre: nombre}) %>
 <main>
 <div class="contenedor-cuadrado">
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1">54</label>
-				<label class="label-2">Pedidos</label>
+				<label class="label-1" id="info__productos"></label>
+				<label class="label-2">Productos</label>
 			</div>
 			<i class="fas fa-parachute-box icono"></i>
 			
@@ -26,8 +25,8 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1">$10.000</label>
-				<label class="label-2">Monto</label>
+				<label class="label-1" id="info__monto"></label>
+				<label class="label-2">Monto Estimativo</label>
 			</div>
 			<i class="fas fa-wallet icono"></i>
 			
@@ -37,8 +36,8 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1">8</label>			
-				<label class="label-2">Llegan hoy</label>
+				<label class="label-1" id="info__urgente"></label>			
+				<label class="label-2">Urgente</label>
 			</div>
 			<i class="fas fa-calendar-check icono"></i>
 			
@@ -49,7 +48,7 @@
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
 				<label class="label-1">10</label>			
-				<label class="label-2">Proveedores</label>
+				<label class="label-2">No se que poner aca</label>
 			</div>
 			<i class="fas fa-truck icono"></i>
 			
@@ -60,160 +59,36 @@
 <div class="contenedor-padre" style="width: 80%;">
 
 	<div class="contenedor-tabla">
-
 		<div class="tabla-title">
-			<label class="label-3"><b>Pedidos Pendientes</b></label>
+			<label class="label-3"><b>Productos Faltantes</b></label>
+			<button class="button_verde" id="botonPedirTodos">Pedir Todos</button>
 		</div>
-
-		<div class="tabla-rol">
-			<label class="label-4">Numero de pedido</label>
-			<label class="label-proveedor">Proveedor</label>
-			<label class="label-estado">Estado</label>
-
-		</div>
-
-
-		<div class="tabla-descripcion">
-			<div class="contenedor-tabla-descripcion">
-				<label class="label-descripcion">16741</label>
-				<label class="label-raul">Raul Paltero</label>
-				<div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
-				</div>
-				<label class="label-descripcion">16741</label>
-				<label class="label-raul">Raul Paltero</label>
-				<div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
-				</div>
-
-				<label class="label-descripcion">16741</label>
-				<label class="label-raul">Raul Paltero</label>
-				<div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
-				</div>
-
-				<label class="label-descripcion">16741</label>
-				<label class="label-raul">Raul Paltero</label>
-				<div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
-				</div>
-
-				
-
+		<div class="tabla">
+		<table>
+			<thead>
+				<tr>
+					<th><label class="label-titulo">Cantidad</label></th>
+					<th><label class="label-titulo">Producto</label></th>
+					<th><label class="label-titulo">Cant. Minima</label></th>
+					<th><label class="label-titulo">Cant. Ideal</label></th>
+					<th><label class="label-titulo">Estado</label></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="cuerpo">
+			</tbody>
+		</table>
+	</div>
 			</div>
-		</div>
-</div>
-	<div class="contenedor-tabla-proveedores">
-		<div class="tabla-proveedores">
-			<label class="label-3"><b>Proveedores</b></label>
-		</div>
-
-		<div class="tabla-descripcion-proveedores">
-			<div class="contenedor-tabla-descripcion-proveedores">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
-				<div class="nombre-rol">
-					<label class="label-nombre">Raul Paltero</label>
-					<label class="label-rol">Paltas al por mayor</label>
-				</div>
-				<div class="contenedor-icon-desc">
-					<i class="far fa-user-circle desc"></i>
-					<i class="far fa-envelope desc"></i>
-					<i class="fas fa-phone-alt desc"></i>
-				</div>
-			</div>
-
-			<div class="contenedor-tabla-descripcion-proveedores-1">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
-				<div class="nombre-rol">
-					<label class="label-nombre">Pedro Naranja</label>
-					<label class="label-rol">Naranja rica</label>
-				</div>
-				<div class="contenedor-icon-desc">
-					<i class="far fa-user-circle desc"></i>
-					<i class="far fa-envelope desc"></i>
-					<i class="fas fa-phone-alt desc"></i>
-				</div>
-
-			</div>
-
-			<div class="contenedor-tabla-descripcion-proveedores-1">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
-				<div class="nombre-rol">
-					<label class="label-nombre">Joaco Salchicha</label>
-					<label class="label-rol">Salchichero CEO</label>
-				</div>
-				<div class="contenedor-icon-desc">
-					<i class="far fa-user-circle desc"></i>
-					<i class="far fa-envelope desc"></i>
-					<i class="fas fa-phone-alt desc"></i>
-				</div>
-
-			</div>
-
-			<div class="contenedor-tabla-descripcion-proveedores-1">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
-				<div class="nombre-rol">
-					<label class="label-nombre">Mandarina Lopez</label>
-					<label class="label-rol">Media mandarina</label>
-				</div>
-				<div class="contenedor-icon-desc">
-					<i class="far fa-user-circle desc"></i>
-					<i class="far fa-envelope desc"></i>
-					<i class="fas fa-phone-alt desc"></i>
-				</div>
-
-			</div>
-
-			<div class="contenedor-tabla-descripcion-proveedores-1">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
-				<div class="nombre-rol">
-					<label class="label-nombre">Tomas Tomatero</label>
-					<label class="label-rol">Tomatero CEO</label>
-				</div>
-				<div class="contenedor-icon-desc">
-					<i class="far fa-user-circle desc"></i>
-					<i class="far fa-envelope desc"></i>
-					<i class="fas fa-phone-alt desc"></i>
-				</div>
-
-			</div>
-
-			<div class="contenedor-tabla-descripcion-proveedores-1">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
-				<div class="nombre-rol">
-					<label class="label-nombre">Limón Cludia</label>
-					<label class="label-rol">Limones agrios</label>
-				</div>
-				<div class="contenedor-icon-desc">
-					<i class="far fa-user-circle desc"></i>
-					<i class="far fa-envelope desc"></i>
-					<i class="fas fa-phone-alt desc"></i>
-				</div>
-
-			</div>
-
-			<div class="contenedor-tabla-descripcion-proveedores-1">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
-				<div class="nombre-rol">
-					<label class="label-nombre">Lechuga Ramón</label>
-					<label class="label-rol">Lechuguero de profesión</label>
-				</div>
-				<div class="contenedor-icon-desc">
-					<i class="far fa-user-circle desc"></i>
-					<i class="far fa-envelope desc"></i>
-					<i class="fas fa-phone-alt desc"></i>
-				</div>
-
-			</div>
+	
 
 
 		</div>
-
-
 	</div>
 </div>
 
 <script>feather.replace()</script>
+<script src="/static/js/stock-faltante.js"></script>
 </main>
 </body>
 </html>

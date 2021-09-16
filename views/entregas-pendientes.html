@@ -1,3 +1,4 @@
+<!doctype html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +10,14 @@
 <meta charset="utf-8">
 </head>
 <body>
-<%- include('partials/menuComercio.html', {sitio:'Productos Faltantes', nombre: nombre}) %>
+<%- include('partials/menuComercio.html', {sitio:'Entregas Pendientes', nombre: nombre}) %>
 <main>
 <div class="contenedor-cuadrado">
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
 				<label class="label-1">54</label>
-				<label class="label-2">Productos</label>
+				<label class="label-2">Pedidos</label>
 			</div>
 			<i class="fas fa-parachute-box icono"></i>
 			
@@ -26,7 +27,7 @@
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
 				<label class="label-1">$10.000</label>
-				<label class="label-2">Monto Estimativo</label>
+				<label class="label-2">Monto</label>
 			</div>
 			<i class="fas fa-wallet icono"></i>
 			
@@ -37,7 +38,7 @@
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
 				<label class="label-1">8</label>			
-				<label class="label-2">Urgente</label>
+				<label class="label-2">Llegan hoy</label>
 			</div>
 			<i class="fas fa-calendar-check icono"></i>
 			
@@ -48,7 +49,7 @@
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
 				<label class="label-1">10</label>			
-				<label class="label-2">No se que poner aca</label>
+				<label class="label-2">Proveedores</label>
 			</div>
 			<i class="fas fa-truck icono"></i>
 			
@@ -58,40 +59,95 @@
 
 <div class="contenedor-padre" style="width: 80%;">
 
-	<div class="contenedor-tabla">
+	<div class="contenedor-tabla" id="contenedor-tabla">
+
 		<div class="tabla-title">
-			<label class="label-3"><b>Productos Faltantes</b></label>
+			<label class="label-3"><b>Pedidos Pendientes</b></label>
 		</div>
-		<div class="tabla">
-		<table>
-			<thead>
-				<tr>
-					<th><label class="label-titulo">Cantidad</label></th><th><label class="label-titulo">Producto</label></th><th><label class="label-titulo">Estado</label></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><label>1</label></td><td><label>Tomates</label></td><td><div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Poco</label>
-				</div></td>
-				</tr>
-				<tr>
-					<td><label>1</label></td><td><label>Tomates</label></td><td><div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Poco</label>
-				</div></td>
-				</tr>
-				<tr>
-					<td><label>1</label></td><td><label>Tomates</label></td><td><div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Poco</label>
-				</div></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+
+		<div class="tabla-rol">
+			<label class="label-4">Numero de pedido</label>
+			<label class="label-proveedor">Proveedor</label>
+			<label class="label-estado">Estado</label>
+		</div>
+
+
+		<div class="tabla-descripcion">
+			<div class="contenedor-tabla-descripcion">
+				<label class="label-descripcion">16741</label>
+				<label class="label-raul">Raul Paltero</label>
+				<div class="contenedor-status">
+					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
+				</div>
+				<label class="label-descripcion">16741</label>
+				<label class="label-raul">Raul Paltero</label>
+				<div class="contenedor-status">
+					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
+				</div>
+
+				<label class="label-descripcion">16741</label>
+				<label class="label-raul">Raul Paltero</label>
+				<div class="contenedor-status">
+					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
+				</div>
+
+				<label class="label-descripcion">16741</label>
+				<label class="label-raul">Raul Paltero</label>
+				<div class="contenedor-status">
+					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
+				</div>
+
+				
+
 			</div>
-	
+		</div>
+</div>
+	<div class="contenedor-tabla-proveedores">
+		<div class="tabla-proveedores">
+			<label class="label-3"><b>Proveedores</b></label>
+		</div>
 
+		<div class="tabla-descripcion-proveedores">
+			<div class="contenedor-tabla-descripcion-proveedores">
+				<img class="proveedor-img" src="/static/img/proveedor.jpg">
+				<div class="nombre-rol">
+					<label class="label-nombre">Raul Paltero</label>
+					<label class="label-rol">Paltas al por mayor</label>
+				</div>
+				<div class="contenedor-icon-desc">
+					<i class="far fa-user-circle desc"></i>
+					<i class="far fa-envelope desc"></i>
+					<i class="fas fa-phone-alt desc"></i>
+				</div>
+			</div>
 
+			<div class="contenedor-tabla-descripcion-proveedores-1">
+				<img class="proveedor-img" src="/static/img/proveedor.jpg">
+				<div class="nombre-rol">
+					<label class="label-nombre">Pedro Naranja</label>
+					<label class="label-rol">Naranja rica</label>
+				</div>
+				<div class="contenedor-icon-desc">
+					<i class="far fa-user-circle desc"></i>
+					<i class="far fa-envelope desc"></i>
+					<i class="fas fa-phone-alt desc"></i>
+				</div>
+
+			</div>
+
+			<div class="contenedor-tabla-descripcion-proveedores-1">
+				<img class="proveedor-img" src="/static/img/proveedor.jpg">
+				<div class="nombre-rol">
+					<label class="label-nombre">Joaco Salchicha</label>
+					<label class="label-rol">Salchichero CEO</label>
+				</div>
+				<div class="contenedor-icon-desc">
+					<i class="far fa-user-circle desc"></i>
+					<i class="far fa-envelope desc"></i>
+					<i class="fas fa-phone-alt desc"></i>
+				</div>
+
+			</div>
 		</div>
 	</div>
 </div>

@@ -27,11 +27,15 @@
 	</div>
 </div>
 </div>
-
 <div class="contenedor-paltero" id="contenedor-paltero">
-	
+	<% if (rows != null) for (let row in rows) { %>
+		  <div class="palta-1">
+		  <div class="contenedor-imagen" id="<%row.idArtProv%>"><img class="palta-img" src="<%row.imagen%>" width="100%"></div>
+          <div class="monto"><label id="${info[i].idArtProv}"><b>$<%row.precio%></b></label></div>
+          <div class="descripcion" id="${info[i].idArtProv}"><label><%row.descripcion%></label></div>
+          </div>
+	<% } %>
 </div>
-
 </main>
 <script>feather.replace()</script>
 <script src="/static/js/mercado-distribucion.js"></script>
