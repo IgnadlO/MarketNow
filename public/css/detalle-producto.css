@@ -4,35 +4,54 @@ body{
 
 .cuadrado{
 	background: white;
-	border: 1px solid #aaa;
 	box-shadow: 0 7px 16px 0 rgb(0 0 0 / 5%), 0 1px 3px 0 rgb(0 0 0 / 5%);
-
+	border-radius: 15px;
 	width: 80%;
-	height: 10%;
 	min-width: 480px;
+	min-height: 80vh;
 	margin-top: 20px;
 	margin-left: 50px;
+
 }
 
-.contenedor-padre{
+.contenedor-detalles {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 10px;
+	width: 40%;
+	border: 1px solid #ddd;
+	margin: 10px;
+	border-radius: 10px;
+}
+.contenedor-padre {
 	display: flex;
 }
 
 .producto-img{
+	height: 85vh;
 	width: 60%;
 	justify-content: center;
-	object-fit: ;
+	object-fit: contain;
 }
 
 .contenedor-desc{
 	display: flex;
-	border: 1px solid #aaa;
-	width: 50%;
-	height: 10%;
-	margin-top: 10px;
+	flex-direction: column;
+	width: 90%;
 	justify-content: center;
 }
 
 .label-1{
 	color: black;
+}
+
+.precio {
+	font-size: 30px;
+	color: #333;
+}
+
+.icono {
+	color: var(--doradoLg);
+	height: 20px;
 }
