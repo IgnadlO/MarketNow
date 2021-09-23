@@ -49,9 +49,10 @@ ruta.get("/proveedor/:page", auth.verifyLogged, proveedor.proveedor);
 ruta.post("/proveedor/nuevoProducto", upload.single("imagen"), proveedor.nuevoProducto);
 
 //Mercado
-ruta.get("/mercado", controlador.devolverMercadoPage)
-ruta.get("/mercado/:valor", controlador.verMercado);
+ruta.get("/mercado", controlador.mercado)
+ruta.get("/mercado/:producto", auth.verifyLogged, controlador.mercado);
+ruta.get("/mercado/productos/:valor", controlador.verMercado);
 ruta.get('/mercado/verProducto/:idProducto', controlador.verProducto)
-ruta.get("/mercado/mercado-distribucion/:producto", auth.verifyLogged, controlador.verProductoPorUrl);
+
 
 export default ruta;

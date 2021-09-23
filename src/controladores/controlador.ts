@@ -24,32 +24,38 @@ export const devPage = (req: Request, res: Response) => {
 	res.render(param + ".html", ({loged: loged, nombre: 'admin', rol: (req.session.rol)? req.session.rol: null}));
 };
 
-export const devolverMercadoPage = async (req: Request, res: Response) => {
-	res.render('Mercado-Distribucion.html', {
-		nombre: req.session.name,
-		rol: req.session.rol,
-		rows: null})
-}
 export const verMercado = async (req: Request, res: Response) => {
-	const valor = '%' + req.params.valor + '%';
-	const [result, fields] = await promisePool.query("SELECT * FROM articuloproveedor where nombre like ?", valor);
-	const rows = <RowDataPacket>result;
-	res.json(rows);
-}
+	const valores = req.params.valor.split(" ");
+	const resultado = [];
+	const ids: number[] = [];
+	for (let valor of valores) {
+		const buscar = "%" + valor + "%";
+		console.log(valor);
+		const [result, fields] = await promisePool.query("SELECT * FROM articuloproveedor where nombre like ?",buscar);
+		const rows = <RowDataPacket>result;
+		if (rows.length != 0 && !ids.includes(rows[0].idArtProv)) {
+			ids.push(rows[0].idArtProv);
+			resultado.push(rows[0]);
+		}
+	}
+	res.json(resultado);
+};
 
 export const verProducto = async (req: Request, res: Response) => {
 	const id = req.params.idProducto;
 	const [result, fields] = await promisePool.query("SELECT * FROM articuloproveedor where idArtProv = ?", id);
 	const rows = <RowDataPacket>result;
-	res.json(rows);
+	res.render('detalle-producto.html', {
+		nombre: req.session.name,
+		rol: req.session.rol,
+		row: rows[0]
+	})
 }
 
-export const verProductoPorUrl = async (req: Request, res: Response) => {
-	const valor = '%' + req.params.producto + '%';
-	const [result, fields] = await promisePool.query("SELECT * FROM articuloproveedor where nombre like ?", valor);
-	const rows = <RowDataPacket>result;
+export const mercado = async (req: Request, res: Response) => {
+	const valor = (req.params.producto != undefined)? '%' + req.params.producto + '%' : '';
 	res.render('Mercado-Distribucion.html', {
 		nombre: req.session.name,
 		rol: req.session.rol,
-		rows: rows})
+		valor: req.params.producto})
 }

@@ -58,6 +58,7 @@
 
 <main>
 <div class="contenedor__cosas">
+    <div class="contenedor__separar">
     <div class="codigos">
         <label class="input-codigo" >Codigo de barras</label><br>
         <input type="text" class="input-codigo"id="cdb">
@@ -67,15 +68,18 @@
         <label class="input-codigo" >Codigo de cliente</label><br>
         <input type="text" class="input-codigo"id="cdc">
     </div>
+    </div>
 
 <!--------------------------------botones------------------------------------------------------------->
 <div>
+<div class="contenedor__separar">
+    <div class="contenedor__botones">
     <div class="barra">
         <button id="terminarVenta" class="button_verde">Terminar venta</button>
         <button id="cancelarVenta" class="button_verde">Cancelar venta</button>
     </div>
     <p class="total" id="total">Total: $</p>
-</div>
+    </div>
 <!--------------------------------inputs del buscador--------------------------------------------->
     <div class="flex-container-padre">
         <div class="flex-container">
@@ -86,26 +90,27 @@
         
         <div class="container-tabla-buscador scroll">
             <ul class="buscador__lista" id="filtrado">
-                <table class="table"id="tabla">
+                <table class="listaProductos"id="tabla">
                     <tbody id="cuerpo">
                     </tbody>
                 </table>
             </ul>
         </div>
         </div>
+        </div>
     </div>
-
+</div>
 
 <!-----------------------------------------------Tabla------------------------------------------------------------>
 <div id = "main-conteiner">
-    <table class="table" >
-        <thead  >
+    <table class="table">
+        <thead >
             <tr>
                 <th>Codigo de barra</th><th>Nombre</th><th>Precio</th><th>Cantidad</th><th>Quitar</th>
             </tr>
-        </thead><tbody id="cuerpo2">
+        </thead>
+        <tbody id="cuerpo2">
         </tbody>
-        
     </table>
     </main>
 </div>

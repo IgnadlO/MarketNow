@@ -1,5 +1,8 @@
 /*-----------------Cosas----------------------*/
-body{ margin: 0; }
+body{ 
+    margin: 0;
+    background: #f7f7f7;
+}
 main{ 
     margin-left: 4em; 
     transition: all 0.1s;
@@ -84,7 +87,8 @@ label {
     --doradoDr: #b5a067;
     --doradoLg: #e4bc6c;
     --grey: #666666;
-    --fondoLg: #fafafa;
+    --fondoLg: #f7f7f7;
+     --fondoLg: #fafafa;
 /*----------------colores------------------*/
     --color-principal: #4caf50;
     --color-secundario-lg: #e4bc6c;
@@ -94,6 +98,7 @@ label {
     --color-fondo-lg: #fafafa;
     --color-fondo-dark: #333333;
     --color-icono-lg: #999; /*iconos y bordes suaves*/
+    --sombra:  0 7px 16px 0 rgb(0 0 0 / 5%), 0 1px 3px 0 rgb(0 0 0 / 5%);
 }
 
 /*----------------Header-------------------*/
@@ -237,22 +242,23 @@ label {
 .tarjeta{
     display: flex;
     flex-direction: column;
+
 }
 
 .tarjeta__header{
     background: var(--green);
-    border: 1px solid #666;
     border-top-left-radius: 10px; 
     border-top-right-radius: 10px; 
     text-align: center;
     padding: 5px;
+    box-shadow: var(--sombra);
 }
 
 .tarjeta__titulo{ color: #000; }
 
 .tarjeta__contenido{
+    box-shadow: var(--sombra);
     background: #fff;
-    border: 1px solid #666;
     border-bottom-left-radius: 10px; 
     border-bottom-right-radius: 10px;
     border-top: 0; 

@@ -38,7 +38,7 @@ fetch(urlFetch)
       info = data;
       for(let i = 0; i < info.length; i++){
         const reg = document.createElement('tr')
-        reg.innerHTML = `<th>${info[i].nombre}</th><th>${info[i].cantidad}</th><th>$${info[i].precio}</th>`;
+        reg.innerHTML = `<td>${info[i].nombre}</td><td>${info[i].cantidad}</td><td>$${info[i].precio}</td>`;
         bodyDetalles.appendChild(reg);
       }
       

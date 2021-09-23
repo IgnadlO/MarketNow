@@ -9,17 +9,24 @@ body{
 
 
 .contenedor__cosas {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-row-gap: 5%;
 	width: 80%;
 	margin: 20px auto;
+}
+
+.contenedor__separar {
+	padding-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.contenedor__botones {
+	width: 40%;
 }
 
 /** titulos **/
 
 .codigos{
-	width: 80%;
+	width: 40%;
 }
 
 .input-codigo{
@@ -35,10 +42,9 @@ body{
 /** botones **/
 
 .barra{
-	width: 80%;
 	margin-top: 10px;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 }
 
@@ -47,20 +53,19 @@ body{
 .total{
 	text-indent: 10px;
 	font-size: 28px;
-	padding-left: 6%;
 }
 
 /** rectangulo de la derecha **/
 
 .flex-container-padre{
  display: flex;
- width: 80%;
+ width: 40%;
  margin-top: 10px;
- border: 1px solid #666;
+ box-shadow: var(--sombra);
 }
 
 .flex-container{
-	border-right: 1px solid #999;
+	border-right: 1px solid #ddd;
 	display: flex;
 	flex-direction: column;
 	padding: 5px;
@@ -110,7 +115,7 @@ body{
 	margin: auto;
 	width: 80%;
 	margin-top: 1px;
-	padding-top: 5vh;
+	padding-top: 2.5vh;
 }
 
 .table{
@@ -137,9 +142,7 @@ body{
 .buscador_dato:hover { background: var(--doradoLg); }
 
 th,td{
-	
 	padding: 20px 80px 10px 40px;
-
 }
 
 thead{
@@ -150,6 +153,15 @@ thead{
 /**#ddd**/
 tr:nth-child(even){
 	background-color:#ddd ;
+}
+
+.listaProductos { width: 100%; }
+
+.listaProductos th,td{ padding: 20px; }
+
+.listaProductos tr:nth-child(even){
+	background-color:#f5f5f5;
+	border: none;
 }
 /** animacion horrible dela tabla**/
 /**tr:hover td{
@@ -222,4 +234,16 @@ tr:nth-child(even){
 	background-color: green;
 }
 
+.button_verde {
+	margin: 0;
+	width: 45%;
+}
+
+.flex-container input {
+	width: 90%;
+	border: 1px solid #fff;
+	border-bottom: 1px solid #ccc;
+	padding: 5px;
+	outline: none;
+}
 /**------------------------------**/

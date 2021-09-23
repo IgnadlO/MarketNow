@@ -15,6 +15,7 @@ fetch(urlFetch)
       let urgente = 0;
       info.forEach(val => {monto += val.precioUnitario * (val.cantIdeal - val.cantidad)});
       info.forEach(val => {if(val.cantidad >= 0) monto++;})
+      info.forEach(val => {if(val.cantidad == 0) urgente++;})
 
       document.getElementById('info__productos').innerText = productos;
       document.getElementById('info__monto').innerText = '$' + monto;
@@ -32,11 +33,19 @@ fetch(urlFetch)
           <td><div class="contenedor-status">
             <i class="fas fa-circle icon-status" style="color: ${color};"></i><label class="label-status">${estado}</label>
           </div></td>
-          <td><i class="fas fa-search" style="color: var(--doradoLg)"></i></td>
+          <td><i class="fas fa-search buscador" id="${info[i].nombre}" style="color: var(--doradoLg)"></i></td>
         </tr>`;
         cuerpo.insertAdjacentHTML('beforeend', htmlInsert)
+        }
+        const buscadores = document.querySelectorAll('.buscador');
+        for (buscador of buscadores){
+          buscador.addEventListener('click', buscarProducto)
         }
     })
     .catch((error) => {
       console.log(error);
     });
+
+function buscarProducto(e){
+  window.location = '/mercado/' + e.target.id;
+}

@@ -14,27 +14,20 @@
 <main>
 <div class="wrapper">
 	<div class="wrapper__busqueda">
-		<input type="text" class="wrapper__input" id="buscador" name="contra" placeholder="Buscar Productos">
+		<input type="text" class="wrapper__input" id="buscador" name="contra" value="<%= valor %>" placeholder="Buscar Productos">
 		<i class="fas fa-search wrapper__icono"></i>
 	</div>
 	<div class="wrapper__filtros">
 	<p class="wrapper__ordenar"><b>Ordenar por:</b></p>
 	<div class="opciones">
-		<select class="wrapper__select" onchange="Barra_Roles()" name="rol" id="tipo">
+		<select class="wrapper__select" name="rol" id="tipo">
 		<option value="ordenar" selected="select" id="nada">Más Relevantes</option>
-		<option value="2"id="menor">Menor Precio</option>
-    	<option value="3"id="mayor">Mayor Precio</option></select>
+		<option value="0"id="menor">Menor Precio</option>
+    	<option value="1"id="mayor">Mayor Precio</option></select>
 	</div>
 </div>
 </div>
 <div class="contenedor-paltero" id="contenedor-paltero">
-	<% if (rows != null) for (let row in rows) { %>
-		  <div class="palta-1">
-		  <div class="contenedor-imagen" id="<%row.idArtProv%>"><img class="palta-img" src="<%row.imagen%>" width="100%"></div>
-          <div class="monto"><label id="${info[i].idArtProv}"><b>$<%row.precio%></b></label></div>
-          <div class="descripcion" id="${info[i].idArtProv}"><label><%row.descripcion%></label></div>
-          </div>
-	<% } %>
 </div>
 </main>
 <script>feather.replace()</script>

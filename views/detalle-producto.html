@@ -6,18 +6,18 @@
 <link rel="stylesheet" href="/static/css/detalle-producto.css">
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="https://kit.fontawesome.com/ee5c196280.js" crossorigin="anonymous"></script>
-
+<title><%= row.nombre %> | MarketNow</title>
 <meta charset="utf-8">
 </head>
 <body>
-	<%- include('partials/menuComercio.html', {sitio:'nombre del sitio', nombre: nombre}) %>
+	<%- include('partials/menuComercio.html', {sitio: row.nombre, nombre: nombre}) %>
 <main>
 	<div class="cuadrado">
 		<div class="contenedor-padre">
-			<img class="producto-img" src="/static/img/producto-img.webp">
+			<img class="producto-img" src="<%= row.imagen %>">
 			<div class="contenedor-detalles">
 			<div class="contenedor-desc">
-				<label class="label-1"><b>Trago paltero con escencia de manzana</b></label>
+				<label class="label-1"><b><%= row.nombre %></b></label>
 				<div>
 					<!--<i class="fas fa-star icono"></i>
 					<i class="fas fa-star icono"></i>
@@ -32,15 +32,15 @@
 					<label>115 OpiPaltas</label>
 				</div>
 			</div>
-			<label class="precio">$5.654</label>
-			<label>Botella de color salmon con un distintivo amarillo que tiene un texto bastante lindo anque no se que carajo dice. La forma te recuerda a lade las botellas de la realeza paltera. Nashee</label>
+			<label class="precio">$<%= row.precio %></label>
+			<label><%= row.descripcion %></label>
 			<label></label>
 			<div>
 				<label>Stock Disponible</label>
 				<div>
 					<label>Cantidad:</label>
 					<input type="number" name="">
-					<label>(5 disponibles)</label>
+					<label>(Disponibles: <%= row.cantidad %>)</label>
 				</div>
 				<label>Podes comprar hasta 3 unidades</label>
 			</div>

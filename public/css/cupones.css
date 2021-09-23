@@ -9,7 +9,8 @@ label {
 .granContenedor {
 	display: grid;
 	grid-template-columns: 1fr 20em;
-	height: 91vh;
+	height: 90vh;
+	padding: 10px;
 }
 
 .input { margin: 5px auto; }
@@ -58,19 +59,26 @@ label {
 	flex-direction: column-reverse;
 }
 
-/*.tarjeta__header{
-	background: var(--doradoLg);
-}*/
-
-.tarjeta:hover {background-color: rgb(0 0 0 / 10%);}
+.tarjeta__header{
+	color: #222;
+}
 
 .tarjeta__contenido{
 	height: 100%;
 	text-align: center;
 }
 
+.admin__contenido {
+	height: 90%;
+	border-radius: 10px;
+}
+
+.tarjeta {}
+
 .cupon__info {
 	padding-top: 4%;
 	display: flex;
 	justify-content: space-between;
 }
+
+.input { width: 90%; }

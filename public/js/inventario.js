@@ -33,28 +33,72 @@ fetch(urlFetch[pathname])
       console.log(error);
     });
 /*-------------Filtrador----------*/
-const crearTabla = cb => {
-    cuerpo.innerHTML = "";
-    const ord = cb(info);
-    for (let row of ord) {
-      cuerpo.insertAdjacentHTML(
-        "beforeend",
-        `<tr><td>${row .nombre}</td><td>${row .categoria}</td><td>$${row .precioVenta}</td><td>$${row .precioUnitario}</td><td>${row .cantidad}</td><td>${row .cantIdeal}</td></tr>`
-      );
-    }
-  };
 
 function buscar(e) {
   crearTabla(() => info.filter(v => v.nombre.includes(buscador.value)));
 }
 
 function Barra_accion(e){
-  const ordenamiento = {
-    0: ord => ord.sort((a, b) => a.nombre < b.nombre ? -1 : 1),
-    1: ord => ord.sort((a, b) => a.nombre > b.nombre ? -1 : 1),
-    2: ord => ord.sort((a, b) => a.precioVenta < b.precioVenta ? -1 : 1),
-    3: ord => ord.sort((a, b) => a.precioVenta > b.precioVenta ? -1 : 1)
-  }
-
-  crearTabla(ordenamiento[e.target.options.selectedIndex]);
+ if (document.getElementById('ord_a-z').selected == true ){
+    switching = true;
+    while (switching) {
+    switching = false;
+    rows = cuerpo.rows;
+    for (i = 0; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+    }
+    }
+  if (document.getElementById('ord_z-a').selected == true ){
+    switching = true;
+    while (switching) {
+    switching = false;
+    rows = cuerpo.rows;
+    for (i = 0; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+    }
+    }
+  if (document.getElementById('ord_pre_as').selected == true ){
+    cuerpo.innerHTML = '';
+        let ord = info;
+        ord.sort(function(a, b) {
+        if (a.precioVenta < b.precioVenta)
+         return -1;
+        });
+        for(let i = 0; i < ord.length; i++) {
+          cuerpo.insertAdjacentHTML('beforeend',`<tr><td>${ord[i].nombre}</td><td>${ord[i].categoria}</td><td>$${ord[i].precioVenta}</td><td>$${ord[i].precioUnitario}</td><td>${ord[i].cantidad}</td><td>${ord[i].cantIdeal}</td></tr>`)
+        } 
+    }
+  if (document.getElementById('ord_pre_des').selected == true ){
+   cuerpo.innerHTML = '';
+        let ord = info;
+        ord.sort(function(a, b) {
+        if (a.precioVenta > b.precioVenta)
+         return -1;
+        });
+        for(let i = 0; i < ord.length; i++) {
+          cuerpo.insertAdjacentHTML('beforeend',`<tr><td>${ord[i].nombre}</td><td>${ord[i].categoria}</td><td>$${ord[i].precioVenta}</td><td>$${ord[i].precioUnitario}</td><td>${ord[i].cantidad}</td><td>${ord[i].cantIdeal}</td></tr>`)
+        } 
+    }
 }

@@ -69,10 +69,10 @@ input[type="file"] {
     justify-content: space-between;
 }
 
-#previsualizar{
+#previsualizar {
     object-fit: contain;
     border: 1px solid #999;
-    display:block;
+    display: block;
     width: 15vw;
     height: 15vw;
     background: #f3f3f3;
