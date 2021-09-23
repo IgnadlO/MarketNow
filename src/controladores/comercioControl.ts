@@ -65,25 +65,26 @@ export const verProductos = async (req: Request, res: Response) => {
 export const venderProducto = async (req: Request, res: Response) => {
 	const ventas = req.body.ventas;
 	const post = req.body;
+	const idCliente = typeof post.idCliente != 'number' ? null : parseInt(post.idCliente, 10);
 	const [result, fields] = await promisePool.query(
 		"INSERT INTO pedido(monto, estado, fecha, hora, tipo, idUsuario, idComercio) VALUES (?,?,CURDATE(),CURTIME(),?,?,?)",
 		[
 			parseInt(post.monto, 10),
 			"exitoso",
 			2,
-			post.idCliente == undefined ? null : parseInt(post.idCliente, 10),
+			idCliente,
 			req.session.idUser,
 		]
 	);
 	const row = <ResultSetHeader>result;
-	for (let venta of ventas) {
+	for (let i in ventas) {
 		pool.query(
 			"INSERT INTO registrocompra(cantidad,precio,cdb,idProducto,idPedido) VALUES (?,?,?,?,?)",
 			[
-				parseInt(venta.cantidad, 10),
-				parseInt(venta.precio, 10),
-				parseInt(venta.cdb, 10),
-				parseInt(venta.idArticulo, 10),
+				ventas[i].cantidad,
+				ventas[i].precioVenta,
+				ventas[i].cdb,
+				ventas[i].idArticulo,
 				row.insertId,
 			],
 			async (error, result) => {
@@ -93,29 +94,32 @@ export const venderProducto = async (req: Request, res: Response) => {
 						["error", row.insertId]
 					);
 					throw error;
+					res.status(500)
 				}
 			}
 		);
 	}
-	for (let venta of ventas) {
+	for (let i in ventas) {
+		console.log('resta cantidad')
 		const [result, fields] = await promisePool.query(
 			"UPDATE articulocliente set cantidad = cantidad - ? WHERE idArticulo = ?",
-			[parseInt(venta.cantidad, 10), parseInt(venta.idArticulo, 10)]
+			[ventas[i].cantidad, ventas[i].idArticulo]
 		);
 	}
-	if (post.idCliente != undefined) {
+	if (idCliente != null) {
+		console.log('suma puntos')
 		const puntos = parseInt(post.monto, 10) / 100;
 		const subirPuntos = async (sql: string) => {
 			const [result, fields] = await promisePool.query(sql,
 			[
 				puntos,
 				req.session.idUser,
-				parseInt(post.idCliente, 10),
+				idCliente,
 			]
 			);
 		}
 		const [result, fields] = await promisePool.query('SELECT COUNT(*) as total FROM puntosporcomercio WHERE idComercio = ? AND idCliente = ?', 
-			[req.session.idUser, parseInt(post.idCliente, 10)]);
+			[req.session.idUser, idCliente]);
 		const row = <RowDataPacket>result;
 		console.log(row);
 		if(row[0].total >= 1)
@@ -123,6 +127,7 @@ export const venderProducto = async (req: Request, res: Response) => {
 		else
 			 subirPuntos("INSERT INTO puntosporcomercio(cantidad, idComercio, idCliente) VALUES (?,?,?)")
 	}
+	res.status(201)
 };
 
 export const reporteDiario = async (req: Request, res: Response) => {
@@ -160,7 +165,6 @@ export const verDetallesVentas = async (req: Request, res: Response) => {
 export const verFaltantes = async (req: Request, res: Response) => {
 	const [result, fields] = await promisePool.query("SELECT * FROM articulocliente WHERE cantidad < cantMinima and idComercio = ?", req.session.idUser);
 	const rows = <RowDataPacket>result;
-	console.log(rows)
 	res.json(rows);
 }
 

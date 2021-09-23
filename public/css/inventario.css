@@ -5,7 +5,7 @@ body { background: #f7f7f7;
 .granContenedor {
 	display: grid;
 	grid-template-columns: 1fr 20em;
-	height: 91vh;
+	height: 85.5vh;
 	padding: 30px;
 }
 
@@ -19,11 +19,6 @@ body { background: #f7f7f7;
 .input-contenedor-registro{
     margin-bottom: 15px;
     border: 1px solid var(--color-icono-lg);
-}
-
-.contenedor__tabla {
-	width: 80%;
-	margin: 0 auto ;
 }
 
 .input_none{
@@ -69,20 +64,14 @@ body { background: #f7f7f7;
     padding: 2.5px;
     display: inline-block;
 }
-/*.contenedor__cupones {
-	padding: 10px;
-	overflow: scroll;
-	display: grid;
-	grid-gap: 1em;
-	grid-auto-rows: 8rem;
-	grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
-}*/
 
 .admin__contenido { 
 	padding: 10px;
 	border:  none;
 	border-radius: 10px;
 	box-shadow: var(--sombra);
+	background: #fff;
+	height: 90%;
 }
 
 .admin__botones {
@@ -90,6 +79,13 @@ body { background: #f7f7f7;
 	flex-direction: column;
 	height: 40vh;
 }
+
+.contenedor__tabla {
+	width: 80%;
+	margin: 0 auto;
+	padding-right: 0;
+}
+
 .tarjeta_derecha{
     display: flex;
     flex-direction: column;
@@ -97,32 +93,10 @@ body { background: #f7f7f7;
 
 .vacio { height: 20vh; } 
 
-.tarjeta__contenido{
-	height: 80%;
-}
-
 .cupon__info {
 	padding-top: 10px;
 	display: flex;
 	justify-content: space-between;
-}
-
-/*scroll*/
-/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
-.contenedor__cupones::-webkit-scrollbar-thumb {
-	background: #ccc;
-	border-radius: 4px;
-}
-
-/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
-.contenedor__cupones::-webkit-scrollbar-thumb:hover {
-	background: #b3b3b3;
-	box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-}
-
-/* Cambiamos el fondo cuando esté en active */
-.contenedor__cupones::-webkit-scrollbar-thumb:active {
-	background-color: #999999;
 }
 
 .table{

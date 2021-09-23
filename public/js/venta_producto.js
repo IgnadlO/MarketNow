@@ -6,7 +6,8 @@ const cuerpo2 = document.getElementById('cuerpo2');
 let cuerpo3 = document.getElementById('cuerpo3');
 const nom = document.getElementById('Nombre_producto');
 let monto =0;
-let p2=[];
+let p2 = [];
+let idsAcumulados = [];
 const cant = document.getElementById("cant");
 nom.addEventListener("keyup", filtrador_nombre);
 document.getElementById('terminarVenta')
@@ -58,28 +59,44 @@ function filtrador_nombre() {
   console.log(producto);}
 
 function cancelarcompra(){
-  let total =document.getElementById("total");
+  let total = document.getElementById("total");
   let cant = document.getElementById("cant");
   cuerpo2.innerHTML="";
   total.innerText="Total:$ ";
   monto = 0;
+  p2 = [];
 }
 
 function pepe(e){
-  if (e.key=="Enter")productos();
+  if (e.key=="Enter") productos();
 }
+
 function productos(){
   var total =document.getElementById("total");
   let nuevaCantidad = 1;
+  const codigoB = parseInt(cdb.value);
+  let caca;
   if(cant.value != '' || cant.value != 0) nuevaCantidad = parseInt(cant.value);
-  const caca = info.filter(val=>{
-    if (val.cdb== cdb.value){
+  if(idsAcumulados.includes(codigoB)) {
+    p2.forEach(val => {
+      if (val.cdb == codigoB) {
+      val.cantidad += nuevaCantidad;
+      monto += parseInt(val.precioVenta) * nuevaCantidad;
+    }
+    })
+  } else {
+  caca = info.filter(val=>{
+    if (val.cdb == codigoB){
       val.cantidad=nuevaCantidad;
       return true;}
   })
-  p2.push(caca);
-  if(document.getElementById('td' + caca[0].cdb) != undefined) {
-    const cantidad = document.getElementById('cant' + caca[0].cdb);
+  p2.push(caca[0]);
+  idsAcumulados.push(caca[0].cdb)
+  monto += parseInt(caca[0].precioVenta) * nuevaCantidad;
+  }
+  
+  if(document.getElementById('td' + codigoB) != undefined) {
+    const cantidad = document.getElementById('cant' + codigoB);
     const oldCant = parseInt(cantidad.innerText);
     cantidad.innerText = oldCant + nuevaCantidad;
   } else {
@@ -87,26 +104,23 @@ function productos(){
    cuerpo2.insertAdjacentHTML('beforeend', `
       <tr><td id="td${caca[0].cdb}">${caca[0].cdb}</td><td>${caca[0].nombre}</td><td>$${caca[0].precioVenta}</td><td id="cant${caca[0].cdb}">${nuevaCantidad}</td><td><i class="fas fa-times-circle quitar"></i></td></tr>`)
   }
-  monto += parseInt(caca[0].precioVenta) * nuevaCantidad;
   total.innerText = "Total:$ "+ monto;
   cdb.value = '';
 }
 
-function subirVenta(){
-  const ventas = p2 ;
-  const idCliente = cdc;
-
-fetch('http://localhost:3000/comercio/venderProducto', {
-  method: "POST",
-  body: JSON.stringify({monto, ventas, idCliente}),
-  headers: {"Content-type": "application/json"}
-})
-.then(response => response.json())
-.then(json =>{
-  console.log(json);
-  monto=0;
-cancelarcompra();})
-.catch(err => console.log(err));
-
-
+function subirVenta() {
+  const ventas = p2;
+  const idCliente = cdc.value;
+  console.log(ventas)
+  fetch("http://localhost:3000/comercio/venderProducto", {
+    method: "POST",
+    body: JSON.stringify({ monto, ventas, idCliente }),
+    headers: { "Content-type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+    })
+    .catch((err) => console.log(err));
+    cancelarcompra();
 }
