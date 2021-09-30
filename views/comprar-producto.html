@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+<link rel="stylesheet" href="/static/css/predefinido.css">
+<link rel="stylesheet" href="/static/css/detalle-producto.css">
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="https://kit.fontawesome.com/ee5c196280.js" crossorigin="anonymous"></script>
+<title>Comprar Producto | MarketNow</title>
+<meta charset="utf-8">
+</head>
+<body>
+	<%- include('partials/menuComercio.html', {sitio: 'Comprar Producto', nombre: nombre}) %>
+<main>
+	<div class="cuadrado">
+		<div class="contenedor-padre">
+			<img class="producto-img" src="">
+			<div class="contenedor-detalles">
+			<div class="contenedor-desc">
+				<label>Producto: </label><label><%= producto %></label>
+				<label>Cantidad: </label><label><%= cantidad %></label>
+				<label>Monto Total: </label><label><%= montoTotal %></label>
+
+				<label>Metodos de Pago</label>
+				<% for(let i = 0; i < metodos.length; i++) { %>
+				<div><label>Metodo: </label><label><%= metodos[i].metodo %></label></div>
+				<div class="info_metodos">
+				<div><label>Cuil: </label><label><%= metodos[i].cuil %></label></div>
+				<div><label>Cbu: </label><label><%= metodos[i].cvu %></label></div>
+				<div><label>Alias: </label><label><%= metodos[i].alias %></label></div>
+				</div>
+				<% } %>
+
+				<label>Pago a Realizar</label><label>15:00</label>
+				<label>Si no realiza el pago en el tiempo estipulado el pedido se cancelara</label>
+				<label id="contenedor_imagen" class="button_verde">
+					<input type="file" name="imagen" id="imagen" onchange="validarImagen(this);" required>
+						Mandar Recibo
+					</label>
+				<button class="button_verde">Cancelar Pedido</button>
+
+		</div>
+		</div>
+	</div>
+<script>feather.replace()</script>
+</main>
+</body>
+</html>

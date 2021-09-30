@@ -122,6 +122,8 @@ tbody tr:nth-child(even){
 	background-color:#f1f1f1 ;
 }
 
+.ventas tr {cursor: pointer;}
+
 .detallesVentas {
 	height: auto;
 }

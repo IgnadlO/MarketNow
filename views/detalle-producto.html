@@ -35,16 +35,22 @@
 			<label class="precio">$<%= row.precio %></label>
 			<label><%= row.descripcion %></label>
 			<label></label>
+			<form method="POST" action="/mercado/comprarProducto">
+			<input type="number" name="idProveedor" value="<%= row.idProveedor  %>">
+			<input type="text" name="producto" value="<%= row.nombre %>">
+			<input type="number" name="idProducto" value="<%= row.idArtProv %>">
+			<input type="number" name="precio" value="<%= row.precio %>">
 			<div>
 				<label>Stock Disponible</label>
 				<div>
 					<label>Cantidad:</label>
-					<input type="number" name="">
+					<input type="number" name="cantidad" required="">
 					<label>(Disponibles: <%= row.cantidad %>)</label>
 				</div>
 				<label>Podes comprar hasta 3 unidades</label>
 			</div>
 			<button class="button_verde">Comprar</button>
+			</form>
 		</div>
 		</div>
 	</div>

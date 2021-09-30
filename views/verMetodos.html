@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://unpkg.com/feather-icons"></script>
+	<link rel="stylesheet" href="/static/css/predefinido.css">
+	<link rel="stylesheet" href="/static/css/Reporte_Diario.css">
+	<meta charset="utf-8">
+	<title>Metodo de Pago| MarketNow</title>
+</head>
+<body>
+	<%- include('partials/menuProveedor.html', {sitio:'Metodos de Pago', nombre: nombre}) %>
+<main>
+	<div class="contenedor_registro">
+		<% if (datos.length == 0) { %>
+		<div class="tarjeta">
+			<div class="tarjeta__header">
+				<label class="tarjeta__titulo"><b>Metodos de Pago</b></label>
+			</div>
+			<div class="tarjeta__contenido" style="text-align: center; align-items: center; flex-direction: column;">
+				<label>Usted no posee ningun metodo de Pago</label><br>
+				<input type="submit" onclick="window.location = '/proveedor/nuevoMetodo'" value="Nuevo Metodo" class="button_verde" id="boton_env" style="width: 30%; margin: 0;">
+			</div>
+		</div>
+		<% } %>
+		<% for(let i = 0; i < datos.length; i++) { %>
+		<div class="tarjeta">
+			<div class="tarjeta__header">
+				<label class="tarjeta__titulo"><b><%= datos[i].metodo %></b></label>
+			</div>
+			<div class="tarjeta__contenido" style="justify-content: space-around;">
+				<div><label>Cuil: </label><label><%= datos[i].cuil %></label></div>
+				<div><label>Cvu: </label><label><%= datos[i].cvu %></label></div>
+				<div><label>Alias: </label><label><%= datos[i].alias %></label></div>
+			</div>
+		</div>
+	<% } %>
+	</div>
+</main>
+<script>
+    feather.replace()
+</script>
+</body>
+</html>

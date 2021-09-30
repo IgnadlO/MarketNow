@@ -6,13 +6,48 @@ const promisePool = pool.promise();
 
 export const proveedor = (req: Request, res: Response) => {
 	const param = req.params.page;
-	const permitidas = ["cargaProveedor", "Inventario"];
+	const permitidas = ["cargaProveedor", "Inventario", 'nuevoMetodo', 'indexProveedor'];
 	if (typeof param === "string" && permitidas.includes(param))
 		res.render(param + ".html", {
 			nombre: req.session.name,
 			rol: req.session.rol,
 		});
-	else res.redirect("/home/Iniciar-sesion");
+	else res.redirect("/proveedor/indexProveedor");
+};
+
+export const verMetodos = async (req: Request, res: Response) => {
+	const [result, fields] = await promisePool.query(
+		"SELECT * FROM infodepago WHERE idUsuario = ?",
+		req.session.idUser
+	);
+	const rows = <RowDataPacket>result;
+	res.render("verMetodos.html", {
+			nombre: req.session.name,
+			rol: req.session.rol,
+			datos: rows,
+		});
+};
+
+export const nuevoMetodo = (req: Request, res: Response) => {
+	const post = req.body;
+	console.log(post)
+	pool.query(
+		"INSERT INTO infodepago(metodo, cuil, cvu, alias, idUsuario) VALUES (?,?,?,?,?)",
+		[
+			post.metodo,
+			post.cuil,
+			parseInt(post.cvu, 10),
+			post.alias,
+			req.session.idUser,
+		],
+		async (error, resp) => {
+			if (error) throw error;
+			else {
+				const row = <OkPacket>resp;
+				res.status(201).redirect("/proveedor/indexProveedor");
+			}
+		}
+	);
 };
 
 export const verProductos = async (req: Request, res: Response) => {

@@ -24,6 +24,13 @@ export const devPage = (req: Request, res: Response) => {
 	res.render(param + ".html", ({loged: loged, nombre: 'admin', rol: (req.session.rol)? req.session.rol: null}));
 };
 
+export const vistaVender = (req: Request, res: Response) => {
+	res.render("vender-producto.html", {
+			nombre: req.session.name,
+			rol: req.session.rol
+		});
+};
+
 export const verMercado = async (req: Request, res: Response) => {
 	const valores = req.params.valor.split(" ");
 	const resultado = [];
@@ -59,3 +66,22 @@ export const mercado = async (req: Request, res: Response) => {
 		rol: req.session.rol,
 		valor: req.params.producto})
 }
+
+export const comprarProducto = async (req: Request, res: Response) => {
+	const post = req.body;
+	const montoTotal = parseFloat(post.precio) * parseInt(post.cantidad);
+	const [result, fields] = await promisePool.query(
+		"SELECT * FROM infodepago WHERE idUsuario = ?",
+		post.idProveedor
+	);
+	const rows = <RowDataPacket>result;
+
+	res.render('comprar-producto.html', {
+		nombre: req.session.name,
+		rol: req.session.rol,
+		producto: post.producto,
+		cantidad: post.cantidad,
+		montoTotal: montoTotal,
+		metodos: rows})
+}
+

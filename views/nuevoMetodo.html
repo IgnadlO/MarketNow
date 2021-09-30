@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://unpkg.com/feather-icons"></script>
+	<link rel="stylesheet" href="/static/css/predefinido.css">
+	<link rel="stylesheet" href="/static/css/cargaManual.css">
+	<meta charset="utf-8">
+	<title>Nuevo Metodo | MarketNow</title>
+</head>
+<body>
+	<%- include('partials/menuProveedor.html', {sitio:'Nuevo Metodo de Pago', nombre: nombre}) %>
+	<main>
+		<blockquote>
+			<div class="tarjeta sombra">
+				<div class="tarjeta__header">
+					<label class="tarjeta__titulo">Datos</label>
+				</div>
+				<div class="tarjeta__contenido" style="height: 300%;">
+					<form method="POST" action="/proveedor/nuevoMetodo">
+					<div class="contenedor__input">
+						<label>Metodo: </label>
+            			<input type="text" name="metodo" class="input">
+            		</div>
+            		<div class="contenedor__input">
+						<label>Cuil: </label>
+						<input type="text" name="cuil" class="input">
+					</div>
+					<div class="contenedor__input">
+						<label>CBU: </label>
+						<input type="number" name="cvu" class="input">
+					</div>
+					<div class="contenedor__input">
+						<label>Alias: </label>
+						<input type="text" name="alias" id="iva" class="input">
+					</div>
+					<br>
+					<input type="submit" value="Subir" class="button_verde">
+					</form>
+				</div>
+			</div>
+		</blockquote>
+	</main>
+	<script>feather.replace()</script>
+</body>
+</html>
