@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <%- include('partials/headerHome.html', {loged: loged})%>
+    <%- include('../partials/headerHome.html', {loged: loged})%>
 </header>
 
 <form class="formulario" id="form" method="POST" action="/nuevaPass/<%= token %>">
@@ -60,3 +60,4 @@
     }
 </script>
 </body>
+</html>

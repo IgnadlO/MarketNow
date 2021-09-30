@@ -9,10 +9,8 @@
 </head>
 <body>
 <header>
-    <%- include('partials/headerHome.html', {loged: loged})%>
+    <%- include('../partials/headerHome.html', {loged: loged})%>
 </header>
-
-
 <form class="formulario" method="POST" action="/enviarEmail">
     <h1 class="registrate">Restablecer Contraseña</h1>
     <div clas="contenedor-registro">
@@ -31,3 +29,5 @@
         </div>
     </div>
 </form>
+</body>
+</html>
