@@ -47,6 +47,7 @@ ruta.post("/comercio/venderProducto", auth.verifyLogged, comercio.venderProducto
 //Proveedor
 ruta.get("/proveedor/metodos", auth.verifyLogged, proveedor.verMetodos);
 ruta.get("/proveedor/productos", auth.verifyLogged, proveedor.verProductos);
+ruta.get("/proveedor/pagos", auth.verifyLogged, proveedor.verPagos);
 ruta.get("/proveedor/:page", auth.verifyLogged, proveedor.proveedor);
 ruta.post("/proveedor/nuevoProducto", upload.single("imagen"), proveedor.nuevoProducto);
 ruta.post("/proveedor/nuevoMetodo", auth.verifyLogged, proveedor.nuevoMetodo);
@@ -57,6 +58,9 @@ ruta.get("/mercado/:producto", auth.verifyLogged, controlador.mercado);
 ruta.get("/mercado/productos/:valor", controlador.verMercado);
 ruta.get('/mercado/verProducto/:idProducto', controlador.verProducto);
 ruta.post('/mercado/comprarProducto', controlador.comprarProducto);
+ruta.post("/mercado/pagoPedido", upload.single("imagen"), controlador.pagoPedido);
+ruta.put('/mercado/pagoVerificado', controlador.pagoVerificado);
+
 
 //Cajero
 ruta.get('/cajero/vender-producto', auth.verifyLogged, controlador.vistaVender)

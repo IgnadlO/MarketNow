@@ -124,7 +124,7 @@ export const recuperePass = (req: Request, res: Response) => {
 			res.send('token no valido');
 		}
 		else
-			res.render('Nueva-Contraseña.html', {loged: false, token: token});
+			res.render('home/Nueva-Contraseña.html', {loged: false, token: token});
 		});
 }
 

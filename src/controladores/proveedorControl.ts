@@ -6,11 +6,12 @@ const promisePool = pool.promise();
 
 export const proveedor = (req: Request, res: Response) => {
 	const param = req.params.page;
-	const permitidas = ["cargaProveedor", "Inventario", 'nuevoMetodo', 'indexProveedor'];
+	const permitidas = ["cargaProveedor", "Inventario", 'nuevoMetodo', 'indexProveedor','pedidosProv'];
 	if (typeof param === "string" && permitidas.includes(param))
 		res.render(param + ".html", {
 			nombre: req.session.name,
 			rol: req.session.rol,
+			idProveedor: req.session.idUser,
 		});
 	else res.redirect("/proveedor/indexProveedor");
 };
@@ -85,4 +86,13 @@ export const nuevoProducto = (req: Request, res: Response) => {
 			}
 		}
 	);
+};
+
+export const verPagos = async (req: Request, res: Response) => {
+	const [result, fields] = await promisePool.query(
+		"SELECT * FROM pedido WHERE idUsuario = ? AND estado = 'pagado'",
+		req.session.idUser
+	);
+	const rows = <RowDataPacket>result;
+	res.json(rows);
 };

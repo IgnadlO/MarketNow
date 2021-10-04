@@ -19,11 +19,6 @@
 			<div class="contenedor-desc">
 				<label class="label-1"><b><%= row.nombre %></b></label>
 				<div>
-					<!--<i class="fas fa-star icono"></i>
-					<i class="fas fa-star icono"></i>
-					<i class="fas fa-star icono"></i>
-					<i class="fas fa-star icono"></i>
-					<i class="fas fa-star icono"></i> -->
 					<img class="icono" src="/static/img/palta-buena.png">
 					<img class="icono" src="/static/img/palta-buena.png">
 					<img class="icono" src="/static/img/palta-buena.png">
@@ -36,10 +31,8 @@
 			<label><%= row.descripcion %></label>
 			<label></label>
 			<form method="POST" action="/mercado/comprarProducto">
-			<input type="number" name="idProveedor" value="<%= row.idProveedor  %>">
-			<input type="text" name="producto" value="<%= row.nombre %>">
-			<input type="number" name="idProducto" value="<%= row.idArtProv %>">
-			<input type="number" name="precio" value="<%= row.precio %>">
+			<input type="number" name="idProducto" value="<%= row.idArtProv %>" hidden>
+			<input type="number" name="idComercio" value="<%= idComercio %>" hidden>
 			<div>
 				<label>Stock Disponible</label>
 				<div>

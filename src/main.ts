@@ -1,4 +1,6 @@
 import express, { Application } from "express";
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 import rutas from "./rutas";
 import path from "path";
 import mySqlSession from "express-mysql-session";
@@ -8,13 +10,19 @@ require("dotenv").config({ path: ".env.default" });
 class App {
 	private app: Application;
 	private puerto?: number;
+	private httpServer;
+	private io: any;
+
 	constructor(puerto: number) {
 		this.puerto = puerto;
 		this.app = express();
+		this.httpServer = createServer(this.app)
+		this.io = new Server(this.httpServer);
 		this.config();
 		this.middlewars();
 		this.sesiones();
 		this.rutas();
+		this.sockets()
 	}
 
 	config() {
@@ -61,8 +69,39 @@ class App {
 		this.app.use("/", rutas);
 	}
 
+	sockets() {
+		let proveedores: number[] = [];
+		let socketsProv: string[] = [];
+
+		this.io.on("connection", (socket: any) => {
+			console.log('alguien se conecto con sockets')
+			socket.on('nuevo-pedido', (val: any) => {
+				console.log('nuevo-pedido')
+				console.log(val)
+				if(proveedores.includes(parseInt(val))){
+					const indexVal = proveedores.indexOf(parseInt(val))
+					this.io.to(socketsProv[indexVal]).emit('validar-pedido', val)
+					console.log('pedido enviado')
+				} else {
+					console.log('no se encontro al proveedor')
+				}
+				this.io.to(socket.id).emit('pedido-visto')
+			})
+			socket.on('nuevo-proveedor', (val: number) => {
+				if(proveedores.includes(val)){
+					const indexVal = proveedores.indexOf(val)
+					socketsProv[indexVal] = socket.id;
+				}
+				else {
+				proveedores.push(val);
+				socketsProv.push(socket.id);
+				}	
+			})
+		})
+	}
+
 	prender() {
-		this.app.listen(this.app.get("port"), () => {
+		this.httpServer.listen(this.app.get("port"), () => {
 			console.log("Servidor escuchando en puerto", this.app.get("port"));
 		});
 	}
