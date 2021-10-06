@@ -10,13 +10,13 @@ body{
 	min-width: 480px;
 	min-height: 80vh;
 	margin-top: 20px;
-	margin-left: 50px;
+	margin-left: 125px;
 }
 
 .contenedor-detalles {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	
 	padding: 10px;
 	width: 40%;
 	border: 1px solid #ddd;
@@ -25,6 +25,7 @@ body{
 }
 .contenedor-padre {
 	display: flex;
+
 }
 
 .producto-img{
@@ -43,16 +44,64 @@ body{
 
 .label-1{
 	color: #222;
-	font-size: 30px;
+	font-size: 23px;
 	padding: 5px 0;
+}
+
+.label-2{
+	color: #222;
+	font-size: 20px;
+	padding: 5px 0;
+}
+
+.label-2.desc{
+	margin-top: 20px;
+
+}
+
+.label-2.stock{
+	font-size: 18px;
+	
+}
+
+.label-2.cantidad{
+	font-size: 15px;
+	color: #aaa;
+}
+
+.label-3{
+	font-size: 15px;
+	color: #aaa;
+}
+
+.label-4{
+	color: #627EF8;
+	font-size: 15px;
+}
+
+.nuevo{
+	margin-top: 10px;
 }
 
 .precio {
 	font-size: 30px;
 	color: #333;
+	margin-top: 20px;
 }
 
 .icono {
 	color: var(--doradoLg);
 	height: 20px;
+}
+
+.button_verde.palta{
+	margin-top: 15px;
+}
+
+.opi-paltas{
+	margin-top: 10px;
+}
+
+.contenedor-stock{
+	margin-top: 75px;
 }

@@ -6,19 +6,25 @@
 <link rel="stylesheet" href="/static/css/detalle-producto.css">
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="https://kit.fontawesome.com/ee5c196280.js" crossorigin="anonymous"></script>
-<title><%= row.nombre %> | MarketNow</title>
+<title> nombre | MarketNow</title>
 <meta charset="utf-8">
 </head>
 <body>
-	<%- include('partials/menuComercio.html', {sitio: row.nombre, nombre: nombre}) %>
+	<%- include('partials/menuComercio.html', {sitio: "nombre1", nombre: nombre}) %>
 <main>
 	<div class="cuadrado">
 		<div class="contenedor-padre">
-			<img class="producto-img" src="<%= row.imagen %>">
+			<img class="producto-img" src="/static/img/licor-paltero.jpg">
 			<div class="contenedor-detalles">
 			<div class="contenedor-desc">
-				<label class="label-1"><b><%= row.nombre %></b></label>
-				<div>
+				<div class="nuevo">
+					<label class="label-3">Nuevo</label>
+					<label class="label-3">|</label>
+					<label class="label-3">10 vedidos</label>
+				</div>
+				
+				<label class="label-1"><b>Licor Paltero</b></label>
+				<div class="opi-paltas">
 					<img class="icono" src="/static/img/palta-buena.png">
 					<img class="icono" src="/static/img/palta-buena.png">
 					<img class="icono" src="/static/img/palta-buena.png">
@@ -27,22 +33,25 @@
 					<label>115 OpiPaltas</label>
 				</div>
 			</div>
-			<label class="precio">$<%= row.precio %></label>
-			<label><%= row.descripcion %></label>
+			<label class="precio">$ 3.000</label>
+			<label class="label-4">Ver los medios de pago</label>
+			
+			<label class="label-2 desc">Licor Paltero importado de Bolivia con escencia de limón, exprimido por Paltero's Licores</label>
 			<label></label>
 			<form method="POST" action="/mercado/comprarProducto">
-			<input type="number" name="idProducto" value="<%= row.idArtProv %>" hidden>
-			<input type="number" name="idComercio" value="<%= idComercio %>" hidden>
-			<div>
-				<label>Stock Disponible</label>
+			<input type="number" name="idProducto" value="idArtProv" hidden>
+			<input type="number" name="idComercio" value="idComercio" hidden>
+			<div class="contenedor-stock">
+				<label class="label-2 stock"><b>Stock Disponible</b></label>
 				<div>
-					<label>Cantidad:</label>
+					<label class="label-2">Cantidad:</label>
 					<input type="number" name="cantidad" required="">
-					<label>(Disponibles: <%= row.cantidad %>)</label>
+					<label class="label-2 cantidad">(Disponibles: cantidad)</label>
 				</div>
-				<label>Podes comprar hasta 3 unidades</label>
+				
 			</div>
-			<button class="button_verde">Comprar</button>
+			<button class="button_verde palta">Comprar</button>
+			
 			</form>
 		</div>
 		</div>
