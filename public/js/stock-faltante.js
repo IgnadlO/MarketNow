@@ -11,15 +11,18 @@ fetch(urlFetch)
         return fechaD.getDate() + '/' + fechaD.getMonth() + '/' + fechaD.getFullYear();
       }
       const productos = info.length;
-      let monto = 0;
-      let urgente = 0;
-      info.forEach(val => {monto += val.precioUnitario * (val.cantIdeal - val.cantidad)});
-      info.forEach(val => {if(val.cantidad >= 0) monto++;})
-      info.forEach(val => {if(val.cantidad == 0) urgente++;})
+      let monto = 0, urgente = 0, paltas = 0;
+      info.forEach(val => {
+        monto += val.precioUnitario * (val.cantIdeal - val.cantidad);
+        if(val.cantidad >= 0) monto++;
+        if(val.cantidad <= 0) urgente++;
+        if(val.nombre.includes('palta')) paltas++;
+      });
 
       document.getElementById('info__productos').innerText = productos;
       document.getElementById('info__monto').innerText = '$' + monto;
       document.getElementById('info__urgente').innerText = urgente;
+      document.getElementById('info__paltas').innerText = paltas;
 
       for(let i = 0; i < info.length; i++) {
         const estado = (info[i].cantidad <= 0)? 'Vacio': 'Poco';

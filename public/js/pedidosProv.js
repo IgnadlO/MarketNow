@@ -34,7 +34,7 @@ function crearRegPago(dato) {
           <div class="contenedor-imagen" id="${dato.comprobante}" onclick="verImagen(this)"><img class="palta-img" src="${dato.comprobante}" width="100%"></div>
           <div class="monto"><label><b>Monto: $${dato.monto}</b></label></div>
           <div class="descripcion"><label>N° de Pedido: ${dato.idPedido}</label></div>
-          <div>
+          <div class"palta__botones">
           <button class="button_verde" onclick="verificarPago(${dato.idPedido}, 'verificado')">Aceptar</button>
           <button class="button_verde rojo" onclick="verificarPago(${dato.idPedido}, 'denegado')">Denegar</button>
           </div>`;

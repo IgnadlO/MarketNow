@@ -171,5 +171,42 @@ export const verFaltantes = async (req: Request, res: Response) => {
 export const notificaciones = async (req: Request, res: Response) => {
 	const [result, fields] = await promisePool.query("SELECT * FROM articulocliente WHERE cantidad < 1 and idComercio = ?", req.session.idUser);
 	const productVacio = <RowDataPacket>result;
-	
+}
+
+export const verEntregasPendientes = async (req: Request, res: Response) => {
+	const [result, fields] = await promisePool.query("SELECT * FROM pedido WHERE idComercio = ? and tipo = ? and estado not like 'entregado'", [req.session.idUser, 1]);
+	const rowsPedido = <RowDataPacket>result;
+	const proveedores: number[] = [];
+	const nombresProv: string[] = [];
+	const rowsProv = [];
+	let monto = 0;
+	let verificados = 0;
+	for(let i in rowsPedido){
+		monto += rowsPedido[i].monto;
+		if(rowsPedido[i].estado == 'verificado')
+			verificados ++;
+		if(proveedores.includes(rowsPedido[i].idUsuario)){
+			rowsPedido[i].nombreProv = nombresProv[proveedores.indexOf(rowsPedido[i].idUsuario)];
+			continue;
+		}
+		const [resultD, fieldsD] = await promisePool.query("select A.nombre,A.email,B.nombreLocal,B.telefono,B.logo from usuarios A left join proveedor B on A.idUsuario=B.idUsuario WHERE A.idUsuario = ?", rowsPedido[i].idUsuario);
+		const prov = <RowDataPacket>resultD;
+		rowsProv.push(prov[0]);
+		rowsPedido[i].nombreProv = prov[0].nombre;
+		proveedores.push(rowsPedido[i].idUsuario)
+		nombresProv.push(prov[0].nombre)
+	}
+	const info = {
+		pedidos : rowsPedido.length,
+		monto,
+		verificados,
+		proveedores : rowsProv.length
+	}
+	res.render("entregas-pendientes.html", {
+			nombre: req.session.name,
+			rol: req.session.rol,
+			rowsPedido,
+			rowsProv,
+			info
+		});
 }

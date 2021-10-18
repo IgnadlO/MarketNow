@@ -62,6 +62,7 @@ body{
 	width: 100%;
 	height: 60px;
 	display: flex;
+	align-items: center;
 	border-bottom: 1px solid #ddd;
 	background: white;
 	justify-content: space-between;	
@@ -70,7 +71,6 @@ body{
 .label-3{
 	color: black;
 	font-size: 20px;
-	margin-top: 21px;
 	margin-left: 13px;
 }
 
@@ -190,6 +190,8 @@ td {
 	background: white;
 	border: none;
 	border-bottom: 1px solid #aaa;
+	display: flex;
+	align-items: center;
 }
 
 .tabla-descripcion-proveedores{
@@ -275,3 +277,6 @@ td {
 .buscador {
 	cursor: pointer;
 }
+
+.denegado { color: red; }
+.pagado { color: #fab145; }

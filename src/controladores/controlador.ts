@@ -48,22 +48,30 @@ export const vistaVender = (req: Request, res: Response) => {
 };
 
 export const verMercado = async (req: Request, res: Response) => {
-	const valores = req.params.valor.split(" ");
-	const resultado = [];
-	const ids: number[] = [];
-	for (let valor of valores) {
-		const buscar = "%" + valor + "%";
-		console.log(valor);
-		const [result, fields] = await promisePool.query(
-			"SELECT * FROM articuloproveedor where nombre like ?",
-			buscar
-		);
-		const rows = <RowDataPacket>result;
-		if (rows.length != 0 && !ids.includes(rows[0].idArtProv)) {
-			ids.push(rows[0].idArtProv);
-			resultado.push(rows[0]);
-		}
-	}
+	// const valores = req.params.valor.split(" ");
+	// const resultado = [];
+	// const ids: number[] = [];
+	// for (let valor of valores) {
+	// 	const buscar = "%" + valor + "%";
+	// 	console.log(valor);
+	// 	const [result, fields] = await promisePool.query(
+	// 		"SELECT * FROM articuloproveedor where nombre like ?",
+	// 		buscar
+	// 	);
+	// 	const rows = <RowDataPacket>result;
+	// 	if (rows.length != 0 && !ids.includes(rows[0].idArtProv)) {
+	// 		ids.push(rows[0].idArtProv);
+	// 		resultado.push(rows[0]);
+	// 	}
+	// }
+	const valor = req.params.valor;
+	const buscar = "%" + valor + "%";
+	console.log(buscar);
+	const [result, fields] = await promisePool.query(
+		"SELECT * FROM articuloproveedor where nombre like ?",
+		buscar
+	);
+	const resultado = <RowDataPacket>result;
 	res.json(resultado);
 };
 

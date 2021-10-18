@@ -16,7 +16,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1">54</label>
+				<label class="label-1"><%= info.pedidos %></label>
 				<label class="label-2">Pedidos</label>
 			</div>
 			<i class="fas fa-parachute-box icono"></i>
@@ -26,7 +26,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1">$10.000</label>
+				<label class="label-1">$<%= info.monto %></label>
 				<label class="label-2">Monto</label>
 			</div>
 			<i class="fas fa-wallet icono"></i>
@@ -37,8 +37,8 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1">8</label>			
-				<label class="label-2">Llegan hoy</label>
+				<label class="label-1"><%= info.verificados %></label>			
+				<label class="label-2">Verificados</label>
 			</div>
 			<i class="fas fa-calendar-check icono"></i>
 			
@@ -48,7 +48,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1">10</label>			
+				<label class="label-1"><%= info.proveedores %></label>			
 				<label class="label-2">Proveedores</label>
 			</div>
 			<i class="fas fa-truck icono"></i>
@@ -74,31 +74,13 @@
 
 		<div class="tabla-descripcion">
 			<div class="contenedor-tabla-descripcion">
-				<label class="label-descripcion">16741</label>
-				<label class="label-raul">Raul Paltero</label>
+				<% for (let i = 0; i < rowsPedido.length; i++) { %>
+				<label class="label-descripcion"><%= rowsPedido[i].idPedido %></label>
+				<label class="label-raul"><%= rowsPedido[i].nombreProv %></label>
 				<div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
+					<i class="fas fa-circle icon-status <%= rowsPedido[i].estado %>"></i><label class="label-status"><%= rowsPedido[i].estado %></label>
 				</div>
-				<label class="label-descripcion">16741</label>
-				<label class="label-raul">Raul Paltero</label>
-				<div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
-				</div>
-
-				<label class="label-descripcion">16741</label>
-				<label class="label-raul">Raul Paltero</label>
-				<div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
-				</div>
-
-				<label class="label-descripcion">16741</label>
-				<label class="label-raul">Raul Paltero</label>
-				<div class="contenedor-status">
-					<i class="fas fa-circle icon-status"></i><label class="label-status">Llegó</label>
-				</div>
-
-				
-
+				<% } %>
 			</div>
 		</div>
 </div>
@@ -107,9 +89,9 @@
 			<label class="label-3"><b>Proveedores</b></label>
 		</div>
 
-		<div class="tabla-descripcion-proveedores">
+		<div class="tabla-descripcion-proveedores">				
 			<div class="contenedor-tabla-descripcion-proveedores">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
+<!-- 				<img class="proveedor-img" src="/static/img/proveedor.jpg">
 				<div class="nombre-rol">
 					<label class="label-nombre">Raul Paltero</label>
 					<label class="label-rol">Paltas al por mayor</label>
@@ -118,36 +100,27 @@
 					<i class="far fa-user-circle desc"></i>
 					<i class="far fa-envelope desc"></i>
 					<i class="fas fa-phone-alt desc"></i>
-				</div>
+				</div> -->
 			</div>
 
-			<div class="contenedor-tabla-descripcion-proveedores-1">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
-				<div class="nombre-rol">
-					<label class="label-nombre">Pedro Naranja</label>
-					<label class="label-rol">Naranja rica</label>
+			<% for (let i = 0; i < rowsProv.length; i++) { %>
+				<div class="contenedor-tabla-descripcion-proveedores-1">
+					<% if (rowsProv[i].logo == null) { %>
+						<img class="proveedor-img" src="/static/img/proveedor.jpg">
+					<% } else { %>
+						<img class="proveedor-img" src="<%= rowsProv[i].logo %>">
+					<% } %>
+					<div class="nombre-rol">
+						<label class="label-nombre"><%= rowsProv[i].nombre %></label>
+						<label class="label-rol"><%= rowsProv[i].nombreLocal %></label>
+					</div>
+					<div class="contenedor-icon-desc">
+						<i class="far fa-user-circle desc"></i>
+						<i class="far fa-envelope desc"></i>
+						<i class="fas fa-phone-alt desc"></i>
+					</div>
 				</div>
-				<div class="contenedor-icon-desc">
-					<i class="far fa-user-circle desc"></i>
-					<i class="far fa-envelope desc"></i>
-					<i class="fas fa-phone-alt desc"></i>
-				</div>
-
-			</div>
-
-			<div class="contenedor-tabla-descripcion-proveedores-1">
-				<img class="proveedor-img" src="/static/img/proveedor.jpg">
-				<div class="nombre-rol">
-					<label class="label-nombre">Joaco Salchicha</label>
-					<label class="label-rol">Salchichero CEO</label>
-				</div>
-				<div class="contenedor-icon-desc">
-					<i class="far fa-user-circle desc"></i>
-					<i class="far fa-envelope desc"></i>
-					<i class="fas fa-phone-alt desc"></i>
-				</div>
-
-			</div>
+			<% } %>
 		</div>
 	</div>
 </div>
