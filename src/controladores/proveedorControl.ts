@@ -68,10 +68,12 @@ export const nuevoProducto = (req: Request, res: Response) => {
 	}
 	console.log(post.descripcion)
 	pool.query(
-		"INSERT INTO ArticuloProveedor(nombre, descripcion, precio, cantidad, cdb, imagen, idProveedor) VALUES (?,?,?,?,?,?,?)",
+		"INSERT INTO ArticuloProveedor(nombre, descripcion, puntos, puntuadores, precio, cantidad, cdb, imagen, idProveedor) VALUES (?,?,?,?,?,?,?,?,?)",
 		[
 			post.nombre,
 			post.descripcion,
+			0,
+			0,
 			parseInt(post.precio, 10),
 			parseInt(post.cantidad, 10),
 			parseInt(post.cdb, 10),

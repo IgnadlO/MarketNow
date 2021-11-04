@@ -61,6 +61,7 @@ ruta.get('/mercado/verProducto/:idProducto', controlador.verProducto);
 ruta.post('/mercado/comprarProducto', controlador.comprarProducto);
 ruta.post("/mercado/pagoPedido", upload.single("imagen"), controlador.pagoPedido);
 ruta.put('/mercado/pagoVerificado', controlador.pagoVerificado);
+ruta.put('/mercado/calificarProducto', controlador.calificarProducto);
 
 
 //Cajero

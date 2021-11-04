@@ -20,7 +20,7 @@
 				<label class="label-2">Pedidos</label>
 			</div>
 			<i class="fas fa-parachute-box icono"></i>
-			
+
 		</div>
 	</div>
 	<div class="cuadrado-1">
@@ -30,29 +30,29 @@
 				<label class="label-2">Monto</label>
 			</div>
 			<i class="fas fa-wallet icono"></i>
-			
-		</div>
-	</div>		
 
-	<div class="cuadrado-1">
-		<div class="contenedor-padre">
-			<div class="contenedor-label">
-				<label class="label-1"><%= info.verificados %></label>			
-				<label class="label-2">Verificados</label>
-			</div>
-			<i class="fas fa-calendar-check icono"></i>
-			
 		</div>
 	</div>
 
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1"><%= info.proveedores %></label>			
+				<label class="label-1"><%= info.verificados %></label>
+				<label class="label-2">Verificados</label>
+			</div>
+			<i class="fas fa-calendar-check icono"></i>
+
+		</div>
+	</div>
+
+	<div class="cuadrado-1">
+		<div class="contenedor-padre">
+			<div class="contenedor-label">
+				<label class="label-1"><%= info.proveedores %></label>
 				<label class="label-2">Proveedores</label>
 			</div>
 			<i class="fas fa-truck icono"></i>
-			
+
 		</div>
 	</div>
 </div>
@@ -66,9 +66,10 @@
 		</div>
 
 		<div class="tabla-rol">
-			<label class="label-4">Numero de pedido</label>
+			<label class="label-4">N° de pedido</label>
 			<label class="label-proveedor">Proveedor</label>
 			<label class="label-estado">Estado</label>
+			<label class="label-estado">LLego</label>
 		</div>
 
 
@@ -80,6 +81,11 @@
 				<div class="contenedor-status">
 					<i class="fas fa-circle icon-status <%= rowsPedido[i].estado %>"></i><label class="label-status"><%= rowsPedido[i].estado %></label>
 				</div>
+					<% if( rowsPedido[i].estado == 'verificado') { %>
+						<div class="contenedor-status">
+							<i class="fas fa-check icon-status %>" onclick="llegoPedido(<%= rowsPedido[i].idPedido %>)"></i>
+						</div>
+					<% } %>
 				<% } %>
 			</div>
 		</div>
@@ -89,7 +95,7 @@
 			<label class="label-3"><b>Proveedores</b></label>
 		</div>
 
-		<div class="tabla-descripcion-proveedores">				
+		<div class="tabla-descripcion-proveedores">
 			<div class="contenedor-tabla-descripcion-proveedores">
 <!-- 				<img class="proveedor-img" src="/static/img/proveedor.jpg">
 				<div class="nombre-rol">
@@ -124,6 +130,30 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function llegoPedido(id) {
+	    const url = "/mercado/pagoVerificado";
+			const estado = 'entregado';
+	    fetch(url, {
+	        method: "PUT",
+	        body: JSON.stringify({ id, estado}),
+	        headers: {
+	            "Content-Type": "application/json",
+	        },
+	    })
+	        .then((res) => res)
+	        .then((response) => {
+	            console.log("Success:", response);
+	            recargar();
+	        })
+	        .catch((error) => console.error("Error:", error));
+	}
+
+	function recargar() {
+	    location.reload();
+	}
+</script>
 
 <script>feather.replace()</script>
 </main>

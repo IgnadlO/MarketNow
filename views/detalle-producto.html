@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+
 <link rel="stylesheet" href="/static/css/predefinido.css">
 <link rel="stylesheet" href="/static/css/detalle-producto.css">
 <script src="https://unpkg.com/feather-icons"></script>
@@ -22,24 +22,24 @@
 					<label class="label-3">|</label>
 					<label class="label-3">10 vedidos</label>
 				</div>
-				
+
 				<label class="label-1"><b><%= row.nombre %></b></label>
 				<div class="opi-paltas">
-					<img class="icono" src="/static/img/palta-buena.png">
-					<img class="icono" src="/static/img/palta-buena.png">
-					<img class="icono" src="/static/img/palta-buena.png">
-					<img class="icono" src="/static/img/palta-mala.png">
-					<img class="icono" src="/static/img/palta-mala.png">
-					<label>115 OpiPaltas</label>
+					<img class="icono opi" id="1opi" src="/static/img/palta-buena.png">
+					<img class="icono opi" id="2opi" src="/static/img/palta-buena.png">
+					<img class="icono opi" id="3opi" src="/static/img/palta-buena.png">
+					<img class="icono opi" id="4opi" src="/static/img/palta-mala.png">
+					<img class="icono opi" id="5opi" src="/static/img/palta-mala.png">
+					<label><%= row.puntuadores %> OpiPaltas</label>
 				</div>
 			</div>
 			<label class="precio">$ <%= row.precio %></label>
 			<label class="label-4">Ver los medios de pago</label>
-			
+
 			<label class="label-2 desc"><%= row.descripcion %></label>
 			<label></label>
 			<form method="POST" action="/mercado/comprarProducto">
-			<input type="number" name="idProducto" value="<%= row.idArtProv %>" hidden>
+			<input type="number" name="idProducto" id="idProducto" value="<%= row.idArtProv %>" hidden>
 			<input type="number" name="idComercio" value="<%= idComercio %>" hidden>
 			<div class="contenedor-stock">
 				<label class="label-2 stock"><b>Stock Disponible</b></label>
@@ -48,14 +48,65 @@
 					<input type="number" name="cantidad" required="">
 					<label class="label-2 cantidad">(Disponibles: <%= row.cantidad %>)</label>
 				</div>
-				
+
 			</div>
 			<button class="button_verde palta">Comprar</button>
-			
+
 			</form>
 		</div>
 		</div>
 	</div>
+	<script>
+	const opipaltas = document.querySelectorAll('.opi');
+	const opiPaltaInicial = Math.round(Number('<%= row.calificacion %>'));
+	console.log(opiPaltaInicial)
+	sacarPaltitas()
+
+	for(opi of opipaltas){
+		opi.addEventListener('click', puntuarProducto);
+		opi.addEventListener('mouseenter', cambiarPaltitas);
+		opi.addEventListener('mouseleave', sacarPaltitas);
+	}
+
+	function cambiarPaltitas(e){
+		ponerLasPaltitas(e.target.id[0]);
+	}
+
+	function sacarPaltitas(){
+		console.log('sacala')
+		ponerLasPaltitas(opiPaltaInicial);
+	}
+
+	function ponerLasPaltitas(id){
+		for(i in opipaltas){
+			if (i < id)
+				opipaltas[i].src = '/static/img/palta-buena.png'
+			else
+				opipaltas[i].src = '/static/img/palta-mala.png'
+		}
+	}
+
+	function puntuarProducto(e){
+		const puntos = e.target.id[0];
+		const id = document.getElementById('idProducto').value;
+		console.log('puntuar ' + puntos + ' puntuado por ' + id)
+
+		const url = "/mercado/calificarProducto";
+	    fetch(url, {
+	        method: "PUT",
+	        body: JSON.stringify({ puntos, id }),
+	        headers: {
+	            "Content-Type": "application/json",
+	        },
+	    })
+	        .then((res) => res)
+	        .then((response) => {
+	            console.log("Success:", response);
+	            location.reload();
+	        })
+	        .catch((error) => console.error("Error:", error));
+	}
+	</script>
 <script>feather.replace()</script>
 </main>
 </body>

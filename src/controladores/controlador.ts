@@ -78,10 +78,11 @@ export const verMercado = async (req: Request, res: Response) => {
 export const verProducto = async (req: Request, res: Response) => {
 	const id = req.params.idProducto;
 	const [result, fields] = await promisePool.query(
-		"SELECT * FROM articuloproveedor where idArtProv = ?",
+		"SELECT *, (puntos/puntuadores) AS calificacion FROM articuloproveedor where idArtProv = ?",
 		id
 	);
 	const rows = <RowDataPacket>result;
+	console.log(rows[0])
 	res.render("detalle-producto.html", {
 		nombre: req.session.name,
 		rol: req.session.rol,
@@ -182,7 +183,23 @@ export const pagoVerificado = (req: Request, res: Response) => {
 		(err, result) => {
 			if (err) res.status(500).json(err);
 			else {
-				console.log("pago " + put.id + " verificado");
+				console.log("pago " + put.id + " " + put.estado);
+				res.status(204).json(result);
+			}
+		}
+	);
+};
+
+export const calificarProducto = (req: Request, res: Response) => {
+	const put = req.body;
+	console.log(put)
+	pool.query(
+		"UPDATE articuloproveedor SET puntos = puntos + ?, puntuadores = puntuadores + 1  WHERE idArtProv = ?",
+		[put.puntos, put.id],
+		(err, result) => {
+			if (err) res.status(500).json(err);
+			else {
+				console.log("puntos " + put.puntos + " id: " + put.id);
 				res.status(204).json(result);
 			}
 		}

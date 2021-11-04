@@ -65,7 +65,7 @@ body{
 	align-items: center;
 	border-bottom: 1px solid #ddd;
 	background: white;
-	justify-content: space-between;	
+	justify-content: space-between;
 }
 
 .label-3{
@@ -81,7 +81,7 @@ body{
 	box-shadow: 0 7px 16px 0 rgb(0 0 0 / 5%), 0 1px 3px 0 rgb(0 0 0 / 5%);
 	display: grid;
 	grid-auto-rows: 23rem;
-	grid-template-columns: repeat(auto-fit, minmax(13em, 1fr));
+	grid-template-columns: auto auto auto auto;
 	grid-gap: 1em;
 	/**---**/
 	background: white;
@@ -151,12 +151,13 @@ td {
 	color: black;
 	font-size: 18px;
 	margin-top: 9px;
-	margin-left: 110px;
+	margin-left: 95px;
 }
 
 .contenedor-status{
 	display: flex;
 	justify-content: left;
+
 }
 
 .label-status{
@@ -170,7 +171,7 @@ td {
 	color: #333;
 	font-size: 18px;
 	font-weight: normal;
-	font-family: sans-serif; 
+	font-family: sans-serif;
 }
 
 .icon-status{
@@ -209,8 +210,17 @@ td {
 .contenedor-tabla-descripcion{
 	display: grid;
 	grid-auto-rows: 1rem;
-	grid-template-columns: auto auto auto;
+	grid-template-columns: 16% 40.5% 23% 15%;
 	grid-gap: 1em;
+}
+
+.fa-check {
+	color: royalblue;
+	cursor: pointer;
+}
+
+.fa-check:hover {
+	color: var(--doradoLg)
 }
 
 .contenedor-tabla-descripcion-proveedores{
