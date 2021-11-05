@@ -76,7 +76,7 @@ export const singIn = async (req: Request, res: Response) => {
 		req.session.rol = rows[0].rol;
 		req.session.idUser = rows[0].idUsuario;
 		const urlRedirect = (rows[0].rol == 2)? '/proveedor/indexProveedor': '/comercio/indexComercio';
-		res.redirect(urlRedirect);
+		res.json(urlRedirect);
 	} else res.json("Contraseña incorrecta");
 };
 

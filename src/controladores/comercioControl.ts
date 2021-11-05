@@ -43,7 +43,7 @@ export const nuevoProducto = (req: Request, res: Response) => {
 				const [result, fields] = await promisePool.query(
 					"INSERT INTO egresovario(tipo, cantidad, fecha, idComercio) VALUES (?,?,CURDATE(),?)",
 					[
-						"egresoCompras",
+						"compras",
 						parseInt(post.precioUnitario, 10) *
 							((parseInt(post.iva, 10) / 100) + 1) *
 							parseInt(post.cantidad, 10),
@@ -210,3 +210,32 @@ export const verEntregasPendientes = async (req: Request, res: Response) => {
 			info
 		});
 }
+
+export const verBalance = async (req: Request, res: Response) => {
+	const hoy = new Date(Date.now())
+	const fecha = hoy.getFullYear() + '-' + hoy.getMonth() + '-' + hoy.getDay();
+
+	const consulta = async (sql:string) => {
+		const result = await promisePool.query(sql, [fecha, req.session.idUser]);
+		const resultado = <RowDataPacket>result;
+		return resultado[0];
+	}
+
+	const informacion = {
+		egresos: await consulta('SELECT tipo, sum(cantidad) AS cantidad FROM egresovario WHERE fecha > ? and idComercio = ? GROUP BY tipo'),
+		pedidos: await consulta('SELECT tipo, count(tipo) AS cantidad, sum(monto) AS monto FROM pedido WHERE fecha > ? and idComercio = ? GROUP BY tipo'),
+		ventasPorDia: await consulta('SELECT fecha, count(fecha) AS cantidad  FROM pedido WHERE fecha > ? and idComercio = ? GROUP BY fecha'),
+		ventaPorductos: await consulta("SELECT sum(rc.cantidad) AS cantidad,ac.nombre FROM registrocompra rc inner join articulocliente ac on rc.cdb = ac.cdb inner join pedido p on ac.idComercio = p.idComercio WHERE p.fecha > ? and p.idComercio = ? and p.tipo = 2 GROUP BY ac.nombre")
+	}
+
+	console.log(informacion);
+}
+
+export const egresoVario = async (req: Request, res: Response) => {
+	const post = req.body;
+	console.log(post)
+	const [result, fields] = await promisePool.query(
+		"INSERT INTO egresovario(tipo, cantidad, fecha, idComercio) VALUES(?,?,CURDATE(),?)",
+		[post.tipo, post.monto, req.session.idUser]);
+	res.status(200).redirect('back');
+};

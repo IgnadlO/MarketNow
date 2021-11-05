@@ -12,27 +12,63 @@
     <%- include('../partials/headerHome.html', {loged: loged, rol: (rol)? rol: null})%>
 </header>
 
-<form class="formulario" method="POST" action="/singIn">
+<form class="formulario">
     <h1 class="registrate">Iniciar Sesion</h1>
     <div clas="contenedor-registro">
         <div class="input-contenedor-registro">
             <i class="far fa-envelope icono"></i>
-            <input type="email" class="input" name="email" placeholder="Correo Electronico">
+            <input type="email" class="input" name="email" id="email" placeholder="Correo Electronico">
         </div>
 
          <div class="input-contenedor-registro sinMargin">
             <i class="fas fa-key icono"></i>
-            <input type="password" class="input" name="contra" placeholder="Contraseña">
+            <input type="password" class="input" id="contra" name="contra" placeholder="Contraseña">
         </div>
         <div class="derecha">
             <a href="Restablecer-Contraseña" class="link">¿Has olvidado tu contraseña?</a>
         </div>
-        <input type="submit" value="Login" class="button">
+        <input type="submit" id="submit" value="Login" class="button">
         <div class="texto-p">
             <p></p>
             <p>¿No tienes cuenta? <a class="link" href="registrarse">Registrate</a></p>
         </div>
     </div>
 </form>
+
+<script type="text/javascript">
+    const submit = document.getElementById('submit');
+    submit.addEventListener('click', sigin);
+
+    function sigin(e){
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const contra = document.getElementById('contra').value;
+
+        const url = "/singIn";
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({ email, contra }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((resp) => resp.json())
+            .then((response) => {
+                if(response == 'El usuario no existe') noExite();
+                else if (response == 'Contraseña incorrecta') contraMal();
+                else {
+                    location.href = response;
+                }
+            })
+            .catch((error) => console.error("Error:", error));
+    }
+
+    function noExite() {
+    }
+
+    function contraMal() {
+    }
+    
+</script>
 
 

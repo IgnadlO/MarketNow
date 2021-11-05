@@ -10,13 +10,12 @@
 <body>
 	<%- include('partials/menuComercio.html', {sitio:'Reporte Diario', nombre: nombre}) %>
 <main>
-	<blockquote>
 	<div class="contenedor_registro">
 		<div class="tarjeta">
 			<div class="tarjeta__header">
 				<label class="tarjeta__titulo"><b>Registro Diario</b></label>
 			</div>
-			<div class="tarjeta__contenido" >
+			<div class="tarjeta__contenido reporte">
 						<div>
 							<label>Ganancia</label>
 							<span style="color: green;">+<%= ingreso %></span>
@@ -32,9 +31,40 @@
 				</div>
 		</div>
 	</div>
-	</blockquote>
+
+<div class="sol">
+	<div class="contenedor__gasto tarjeta__contenido">
+		<div class="contenedor__gasto-boton">
+			<button onclick="subir()" class="button_verde">Agregar Gasto</button>
+		</div>
+		<form method="POST" id="form" action="/comercio/egresoVario">
+			<div class="input-contenedor-registro">
+	            <i class="fas fa-user-tag icono" id="Barra__roles"></i>
+	            <select class="input" name="tipo" id="tipo" required>
+	            	<option value="nashe" selected="select" id="nada">Seleccione el Tipo de Gasto</option>
+	            	<option value="impuestos" id="Impuestos" >Impuestos</option>
+	            	<option value="salarios" id="Salarios">Salarios</option>
+	            	<option value="servicios" id="Servicios">Servicios</option>
+	            	<option value="alquiler" id="Alquiler">Alquiler</option>
+	            	<option value="otros" id="Otros">Otros</option>
+	            </select>
+        	</div>
+
+        	<div class="input-contenedor-registro" id="colorborde4">
+	            <i class="fas fa-phone-alt icono"></i>
+	            <input type="number" placeholder="Monto" id="monto" name="monto" required>
+	            <i class="fas fa-times incorrecto" id="incorrecto4"></i><i class="fas fa-check correcto" id="correcto4"></i>
+        	</div>
+
+		</form>
+	</div>
+</div>
 </main>
 <script>
+	function subir(){
+		document.getElementById('form').submit();
+	}
+
     feather.replace()
 </script>
 </body>

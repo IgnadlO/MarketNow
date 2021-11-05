@@ -82,12 +82,17 @@ export const verProducto = async (req: Request, res: Response) => {
 		id
 	);
 	const rows = <RowDataPacket>result;
-	console.log(rows[0])
+	const result2 = await promisePool.query(
+		"SELECT count(*) AS cantidad FROM puntuadores where idComercio = ? and idArticulo = ?",
+		[req.session.idUser, id]
+	);
+	const pun = <RowDataPacket>result2;
 	res.render("detalle-producto.html", {
 		nombre: req.session.name,
 		rol: req.session.rol,
 		row: rows[0],
 		idComercio: req.session.idUser,
+		puntuado: pun[0][0].cantidad
 	});
 };
 
@@ -153,6 +158,12 @@ export const pagoPedido = async (req: Request, res: Response) => {
 	);
 	const row = <ResultSetHeader>result;
 	pool.query(
+				"INSERT INTO egresovario(tipo, cantidad, fecha, idComercio) VALUES(?,?,CURDATE(),?)",
+				['compras', post.monto, req.session.idUser],
+				(err, result) => {
+					if (err) res.status(500).json(err);
+				});
+	pool.query(
 		"INSERT INTO registrocompra(cantidad,precio,cdb,idProducto,idPedido) VALUES (?,?,?,?,?)",
 		[
 			post.cantidad,
@@ -184,10 +195,23 @@ export const pagoVerificado = (req: Request, res: Response) => {
 			if (err) res.status(500).json(err);
 			else {
 				console.log("pago " + put.id + " " + put.estado);
-				res.status(204).json(result);
+				if(put.estado != 'entregado') res.status(204).json(result);
 			}
 		}
 	);
+
+	if(put.estado == 'entregado'){
+		pool.query(
+		"SELECT * FROM registrocompra WHERE idPedido = ?",
+		put.id,
+		(err, result) => {
+			if (err) res.status(500).json(err);
+			else {
+				console.log(result)
+				res.status(204).json(result);
+			}
+		});
+	}
 };
 
 export const calificarProducto = (req: Request, res: Response) => {
@@ -199,6 +223,12 @@ export const calificarProducto = (req: Request, res: Response) => {
 		(err, result) => {
 			if (err) res.status(500).json(err);
 			else {
+				pool.query(
+					"INSERT INTO puntuadores(idComercio, idArticulo) values(?,?)",
+					[req.session.idUser, put.id],
+					(err, result) => {
+						if (err) res.status(500).json(err);
+					})
 				console.log("puntos " + put.puntos + " id: " + put.id);
 				res.status(204).json(result);
 			}

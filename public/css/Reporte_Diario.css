@@ -7,16 +7,15 @@ label {
 }
 
 .tarjeta {
-	width: 80%;
-	margin: auto;
-	margin-top: 5vh;
+	width: 70%;
+	margin: 5vh auto;
 }
 
 .tarjeta label {
 	color: #333;
 }
 
-.tarjeta__contenido div {
+.reporte div {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -25,14 +24,52 @@ label {
 	width: 120px;
 }
 
-.tarjeta__contenido{
+.reporte{
 	height: 100%;
 	display: flex;
 	justify-content: space-between;
 	padding: 30px;
 }
 
-.tarjeta__contenido label {
+.reporte label {
 	line-height: 150%;
 }
 
+.sol {
+	width: 70%;
+	margin: auto;
+}
+
+.contenedor__gasto {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 30px;
+	border-radius: 10px;
+}
+
+form {
+	width: 50%;
+	height: 121px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: flex-end;
+}
+
+.contenedor__gasto-boton {
+	display: flex;
+	align-items: center;
+}
+
+.contenedor__gasto-boton button {
+	height: 50px;
+}
+
+form input {
+	width: 282px;
+	font-size: 20px;
+	border-radius: 10px;
+	padding: 5px;
+	outline: none;
+	border: 1px solid #666;
+}
