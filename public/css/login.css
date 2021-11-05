@@ -94,4 +94,10 @@ input[type="password"]{
     }
 }
 
+.texto-error{
+    font-size: 14px;
+    margin: 1px;
+    display: none;
+    color: red;
+}
 .sinMargin{margin: 0;}

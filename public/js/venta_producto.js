@@ -25,7 +25,7 @@ fetch('/comercio/productos')
       console.log(info)
       for(let i = 0; i < info.length; i++) {
         cuerpo.insertAdjacentHTML('beforeend', `
-        <tr><td>${info[i].nombre}</td><td>${info[i].precioVenta}</td></tr>`)
+        <tr><td>${info[i].nombre}</td><td>${info[i].precioVenta}</td><td>${info[i].cdb}</td></tr>`)
         }
     })
     .catch((error) => {
@@ -45,19 +45,17 @@ function filtrador_nombre() {
       if (td[j] && td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
         visible = true;
         producto=td[j];
-       
       }
     }
     if (visible === true) {
       tr[i].style.display = "";
       precio = td[1];
+      
     } else {
       tr[i].style.display = "none";
     }
   }
-  console.log(precio);
-  console.log(producto);}
-
+}  
 function cancelarcompra(){
   let total = document.getElementById("total");
   let cant = document.getElementById("cant");
@@ -70,6 +68,20 @@ function cancelarcompra(){
 function pepe(e){
   if (e.key=="Enter") productos();
 }
+
+
+function borrar_product() {
+  var elmtTable = document.getElementById('cuerpo2');
+var tableRows = elmtTable.getElementsByTagName('tr');
+var rowCount = tableRows.length;
+
+/*for (var x=rowCount-0; x>0; x--) {
+   elmtTable.removeChild(tableRows[x]);
+}*/
+rowCount.innerHTML="";
+  console.log("pepe");  
+}
+
 
 function productos(){
   var total =document.getElementById("total");
@@ -102,7 +114,7 @@ function productos(){
   } else {
     tr = cuerpo.getElementsByTagName("tr");
    cuerpo2.insertAdjacentHTML('beforeend', `
-      <tr><td id="td${caca[0].cdb}">${caca[0].cdb}</td><td>${caca[0].nombre}</td><td>$${caca[0].precioVenta}</td><td id="cant${caca[0].cdb}">${nuevaCantidad}</td><td><i class="fas fa-times-circle quitar"></i></td></tr>`)
+      <tr><td id="td${caca[0].cdb}">${caca[0].cdb}</td><td>${caca[0].nombre}</td><td>$${caca[0].precioVenta}</td><td id="cant${caca[0].cdb}">${nuevaCantidad}</td><td><i class="fas fa-times-circle quitar" onclick="borrar_product()"></i></td></tr>`)
   }
   total.innerText = "Total:$ "+ monto;
   cdb.value = '';

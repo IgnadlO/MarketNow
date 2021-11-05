@@ -15,15 +15,17 @@
 <form class="formulario">
     <h1 class="registrate">Iniciar Sesion</h1>
     <div clas="contenedor-registro">
-        <div class="input-contenedor-registro">
+        <div class="input-contenedor-registro" id="borde1">
             <i class="far fa-envelope icono"></i>
             <input type="email" class="input" name="email" id="email" placeholder="Correo Electronico">
         </div>
+        <p class="texto-error" id="texto-error">El mail ingresado no existe como usuario</p>
 
-         <div class="input-contenedor-registro sinMargin">
+         <div class="input-contenedor-registro sinMargin" id="borde2">
             <i class="fas fa-key icono"></i>
             <input type="password" class="input" id="contra" name="contra" placeholder="Contraseña">
         </div>
+        <p class="texto-error"  id="texto-error1">La contraseña es incorrecta.</p>
         <div class="derecha">
             <a href="Restablecer-Contraseña" class="link">¿Has olvidado tu contraseña?</a>
         </div>
@@ -64,9 +66,13 @@
     }
 
     function noExite() {
+        document.getElementById('texto-error').style.display="inline-block";
+        document.getElementById('borde1').style.borderColor= 'red';
     }
 
     function contraMal() {
+        document.getElementById('texto-error1').style.display="inline-block";
+        document.getElementById('borde2').style.borderColor= 'red';
     }
     
 </script>
