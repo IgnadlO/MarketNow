@@ -1,33 +1,340 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Reporte Balance</title>
-	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js"></script>
+	<link rel="stylesheet" href="/static/css/predefinido.css">
+	<link rel="stylesheet" href="/static/css/reporteBalance.css">
+	<script src="https://unpkg.com/feather-icons"></script>
+	<script src="https://kit.fontawesome.com/ee5c196280.js" crossorigin="anonymous"></script>
+	<title>Reporte de Balance | MarketNow</title>
+	<meta charset="utf-8">
 </head>
 <body>
+	<%- include('partials/menuComercio.html', {sitio:'Productos Faltantes', nombre: nombre}) %>
+	<!--
 	<div class="contenedor-grafico" style="width: 60%;">
 		<canvas id="myChart" width="100" height="100"></canvas>
 	</div>
+	-->
+<main>
+	
+<div class="contenedor-cuadrado">
+	<div class="cuadrado-1">
+		<div class="contenedor-padre">
+			<div class="contenedor-label">
+				<label class="label-1" id="info__paltas">$10.200</label>			
+				<label class="label-2">Haber</label>
+			</div>
+			<i class="fas fa-box icono"></i>
+			
+		</div>
+	</div>
+	<div class="cuadrado-1">
+		<div class="contenedor-padre">
+			<div class="contenedor-label">
+				<label class="label-1" id="info__paltas">$1200</label>			
+				<label class="label-2">Ingresos</label>
+			</div>
+			<i class="fas fa-hand-holding-usd icono"></i>
+			
+		</div>
+	</div>		
+
+	<div class="cuadrado-1">
+		<div class="contenedor-padre">
+			<div class="contenedor-label">
+				<label class="label-1" id="info__paltas">$600</label>			
+				<label class="label-2">Egresos</label>
+			</div>
+			<i class="fas fa-angle-double-down icono"></i>
+			
+		</div>
+	</div>
+
+	<div class="cuadrado-1">
+		<div class="contenedor-padre">
+			<div class="contenedor-label">
+				<label class="label-1" id="info__paltas">+$600</label>			
+				<label class="label-2">Balance</label>
+			</div>
+			<i class="fas fa-balance-scale icono"></i>
+			
+		</div>
+	</div>
+
+	<div class="cuadrado-1">
+		<div class="contenedor-padre">
+			<div class="contenedor-label">
+				<label class="label-1" id="info__paltas">50%</label>			
+				<label class="label-2">Margen</label>
+			</div>
+			<i class="fas fa-chart-pie icono"></i>
+			
+		</div>
+	</div>
+</div>
+	<div class="contenedor-contenedor">
+		<div class="contenedor-tablas">
+			<div class="granContenedor">
+			    <div class="contenedor__tabla admin__contenido">
+				    <div id="main-conteiner">
+				    	<table class="table comercio"id="tabla">
+				        <div class="titulo-tabla">
+				        	<label class="label-3">Ventas</label>
+				        </div>
+				    <tbody id="cuerpo" class="ventas">
+				    	<tr>
+				    		<th>Cantidad</th><th>12</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Ingreso</th><th>$1200</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Ganancia</th><th>$600</th>
+				    	</tr>
+				    </tbody>
+				    </table>    
+			    	</div>      
+		    	</div>
+			</div>
+		
+			<div class="granContenedor">
+			    <div class="contenedor__tabla admin__contenido">
+				    <div id="main-conteiner">
+				    	<table class="table comercio"id="tabla">
+				        <div class="titulo-tabla">
+				        	<label class="label-4">Compras</label>
+				        </div>
+				    <tbody id="cuerpo" class="ventas">
+				    	<tr>
+				    		<th>Cantidad</th><th>3</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Egresos</th><th>$600</th>
+				    	</tr>
+
+				    </tbody>
+				    </table>    
+			    	</div>      
+		    	</div>
+			</div>
+		</div>
+
+		<div class="contenedor-grafico-2" style="width: 60%;">
+			<canvas id="myChart2" width="100" height="40"></canvas>
+		</div>
+	</div>
+
+	<div class="contenedor-tablas-2">
+		<div class="granContenedor">
+			    <div class="contenedor__tabla1 admin__contenido">
+				    <div id="main-conteiner">
+				    	<table class="table comercio"id="tabla">
+				        <div class="titulo-tabla">
+				        	<label class="label-6">Otros gastos</label>
+				        </div>
+				    <tbody id="cuerpo" class="ventas">
+				    	<tr>
+				    		<th>Impuestos</th><th>$600</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Salario</th><th>$600</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Alquiler</th><th>$600</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Otros</th><th>$600</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Total</th><th>$600</th>
+				    	</tr>
+
+				    </tbody>
+				    </table>    
+			    	</div>      
+		    	</div>
+			</div>
+
+			<div class="granContenedor">
+			    <div class="contenedor__tabla2 admin__contenido">
+				    <div id="main-conteiner">
+				    	<table class="table comercio"id="tabla">
+				        <div class="titulo-tabla">
+				        	<label class="label-5">Top 5 productos mas vendidos</label>
+				        </div>
+				    <tbody id="cuerpo" class="ventas">
+				    	<tr>
+				    		<th>Paltas Grandes</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Paltas Chicas</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Paltas Verdes</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Paltas Bolivianas</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Paltas Polacas</th>
+				    	</tr>
+
+				    </tbody>
+				    </table>    
+			    	</div>      
+		    	</div>
+			</div>
+
+			<div class="granContenedor">
+			    <div class="contenedor__tabla3 admin__contenido">
+				    <div id="main-conteiner">
+				    	<table class="table comercio"id="tabla">
+				        <div class="titulo-tabla">
+				        	<label class="label-5">Top 5 productos menos vendidos</label>
+				        </div>
+				    <tbody id="cuerpo" class="ventas">
+				    	<tr>
+				    		<th>Naranja</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Fanta</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Paltas Podridas</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Tomate Verde</th>
+				    	</tr>
+				    	<tr>
+				    		<th>Paltas Chuecas</th>
+				    	</tr>
+				    	
+
+				    </tbody>
+				    </table>    
+			    	</div>      
+		    	</div>
+			</div>
+	</div>
+
+	<div class="contenedor-contenedor-tabla4">
+		<div class="granContenedor">
+				    <div class="contenedor__tabla4 admin__contenido">
+					    <div id="main-conteiner">
+					    	<table class="table comercio"id="tabla">
+					        <div class="titulo-tabla">
+					        	<label class="label-7">Perdidas</label>
+					        </div>
+					    <tbody id="cuerpo" class="ventas">
+					    	<tr>
+					    		<th>Total</th><th>$600</th>
+					    	</tr>
+
+					    </tbody>
+					    </table>    
+				    	</div>      
+			    	</div>
+				</div>
+
+		<div class="contenedor-grafico" style="width: 60%;">
+			<canvas id="myChart" width="100" height="40"></canvas>
+		</div>
+
+	</div>
+
+	<div class="contenedor-ultimos-graficos">
+
+		<div class="contenedor-grafico3" style="width: 60%;">
+				<canvas id="myChart4" width="100" height="100"></canvas>
+		</div>
+
+		<div class="contenedor-grafico3" style="width: 60%;">
+				<canvas id="myChart3" width="100" height="100"></canvas>
+		</div>
+
+	</div>
+<script>feather.replace()</script>
+<script src="/static/js/stock-faltante.js"></script>
+</main>
+
 </body>
 <script>
 	var ctx= document.getElementById('myChart').getContext("2d");
 	var myChart= new Chart(ctx,{
 		type:"bar",
 		data:{
-			labels:['col1','col2','col3'],
+			labels:['Julio','Agosto','Septiembre','Octubre','Noviembre'],
 			datasets:[{
-				label:'Num datos',
-				data:[5,9,10],
+				label:'Meses Anteriores',
+				data:[5,9,8,4,5],
 				backgroundColor:[
-					'rgb(66, 134, 244,0.5)',
-					'rgb(74, 135, 72,0.5)',
-					'rgb(229, 89, 50,0.5)'
+					'rgb(191, 54, 12)',
+					'rgb(139, 195, 74)',
+					'rgb(2, 119, 189)',
+					'rgb(77, 182, 172)',
+					'rgb(158, 157, 36)'
 				]
 			}]
 		}
 	});
 
+</script>
+<script>
+	var ctx= document.getElementById('myChart2').getContext("2d");
+	var myChart2= new Chart(ctx,{
+		type:"line",
+		data:{
+			labels:['1','2','3','4','5','6','7'],
+			datasets:[{
+				label:'Ventas por dia',
+				data:[5,9,10,4,5,8,9],
+				backgroundColor:[
+					'rgb(66, 134, 244,0.5)'
+				]
+			}]
+		}
+	});
+</script>
+<script>
+	var ctx= document.getElementById('myChart3').getContext("2d");
+	var myChart3= new Chart(ctx,{
+		type:'doughnut',
+		data:{
+			labels:['Impuestos','Salario','Alquiler','Otros','Total'],
+			datasets:[{
+				label:'Ventas por dia',
+				data:[600,600,600,600,600],
+				backgroundColor:[
+					'rgb(191, 54, 12)',
+					'rgb(216, 67, 21)',
+					'rgb(230, 74, 25)',
+					'rgb(255, 87, 34)',
+					'rgb(255, 112, 67)'
+				]
+			}]
+		}
+	});
+</script>
+<script>
+	var ctx= document.getElementById('myChart4').getContext("2d");
+	var myChart4= new Chart(ctx,{
+		type:'doughnut',
+		data:{
+			labels:['Fruta','Verdura','Carne','Pescado','Snaks'],
+			datasets:[{
+				label:'Ventas por dia',
+				data:[10,20,10,40,60],
+				backgroundColor:[
+					'rgb(255, 87, 34)',
+					'rgb(0, 230, 118)',
+					'rgb(255, 204, 188)',
+					'rgb(23, 164, 250)',
+					'rgb(255, 255, 0)'
+				]
+			}]
+		}
+	});
 </script>
 </html>
