@@ -41,6 +41,7 @@ ruta.get("/comercio/ventas/:idPedido/detalles", auth.verifyLogged, comercio.verD
 ruta.get("/comercio/verFaltantes", auth.verifyLogged, comercio.verFaltantes);
 ruta.get("/comercio/entregas-pendientes", auth.verifyLogged, comercio.verEntregasPendientes);
 ruta.get("/comercio/verBalance", auth.verifyLogged, comercio.verBalance)
+ruta.get("/comercio/indexComercio", auth.verifyLogged, comercio.inicio)
 ruta.get("/comercio/:page", auth.verifyLogged, comercio.comercio);
 ruta.get("/comercio/notificaciones", auth.verifyLogged, comercio.notificaciones)
 ruta.post("/comercio/egresoVario", auth.verifyLogged, comercio.egresoVario)
@@ -51,8 +52,11 @@ ruta.post("/comercio/venderProducto", auth.verifyLogged, comercio.venderProducto
 ruta.get("/proveedor/metodos", auth.verifyLogged, proveedor.verMetodos);
 ruta.get("/proveedor/productos", auth.verifyLogged, proveedor.verProductos);
 ruta.get("/proveedor/pagos", auth.verifyLogged, proveedor.verPagos);
+ruta.get("/proveedor/indexProveedor", auth.verifyLogged, proveedor.inicio);
+ruta.get("/proveedor/entregas-pendientes", auth.verifyLogged, proveedor.verEntregasPendientes);
 ruta.get("/proveedor/:page", auth.verifyLogged, proveedor.proveedor);
 ruta.post("/proveedor/nuevoProducto", upload.single("imagen"), proveedor.nuevoProducto);
+ruta.post("/proveedor/imagen", upload.single("imagen"), proveedor.imagen);
 ruta.post("/proveedor/nuevoMetodo", auth.verifyLogged, proveedor.nuevoMetodo);
 
 //Mercado

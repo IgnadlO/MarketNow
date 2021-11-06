@@ -9,14 +9,23 @@
 <meta charset="utf-8">
 </head>
 <body>
-<%- include('partials/menuComercio.html', {sitio:'Productos Faltantes', nombre: nombre}) %>
+	<% if(rol == 2) { %>
+        <%- include('partials/menuProveedor.html', {sitio:'Entregas Pendientes', nombre: nombre}) %>
+    <% } else { %>  
+		<%- include('partials/menuComercio.html', {sitio:'Productos Faltantes', nombre: nombre}) %>
+	<% } %>
 <main>
 <div class="contenedor-cuadrado">
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__productos"></label>
-				<label class="label-2">Productos</label>
+				<% if(rol == 2) { %>
+		        	<label class="label-1" id="info__productos"><%= info.pedidos %></label>
+					<label class="label-2">Productos</label> 
+				<% } else { %>
+					<label class="label-1" id="info__productos"></label>
+					<label class="label-2">Productos</label>
+				<% } %>
 			</div>
 			<i class="fas fa-parachute-box icono"></i>
 			
@@ -25,8 +34,13 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__monto"></label>
-				<label class="label-2">Monto Estimativo</label>
+				<% if(rol == 2) { %>
+		        	<label class="label-1" id="info__monto"><%= info.monto %></label>
+					<label class="label-2">Monto Estimativo</label>
+				<% } else { %>
+					<label class="label-1" id="info__monto"></label>
+					<label class="label-2">Monto Estimativo</label>
+				<% } %>
 			</div>
 			<i class="fas fa-wallet icono"></i>
 			
@@ -36,8 +50,13 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__urgente"></label>			
-				<label class="label-2">Urgente</label>
+				<% if(rol == 2) { %>
+		        	<label class="label-1" id="info__urgente"><%= info.verificados %></label>			
+					<label class="label-2">Verificados</label>
+				<% } else { %>
+					<label class="label-1" id="info__urgente"></label>			
+					<label class="label-2">Urgente</label>
+				<% } %>
 			</div>
 			<i class="fas fa-calendar-check icono"></i>
 			
@@ -47,8 +66,13 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">0</label>			
-				<label class="label-2">Paltas</label>
+				<% if(rol == 2) { %>
+		        	<label class="label-1" id="info__paltas"><%= info.proveedores %></label>			
+					<label class="label-2">Comerciantes</label>
+				<% } else { %>
+					<label class="label-1" id="info__paltas"></label>			
+					<label class="label-2">Paltas</label>
+				<% } %>
 			</div>
 			<i class="fas fa-truck icono"></i>
 			
@@ -61,34 +85,53 @@
 	<div class="contenedor-tabla">
 		<div class="tabla-title">
 			<label class="label-3"><b>Productos Faltantes</b></label>
-			<button class="button_verde" id="botonPedirTodos">Pedir Todos</button>
+			<% if(rol == 1) { %>
+				<button class="button_verde" id="botonPedirTodos">Pedir Todos</button>
+			<% } %>
 		</div>
 		<div class="tabla">
 		<table>
 			<thead>
 				<tr>
-					<th><label class="label-titulo">Cantidad</label></th>
-					<th><label class="label-titulo">Producto</label></th>
-					<th><label class="label-titulo">Cant. Minima</label></th>
-					<th><label class="label-titulo">Cant. Ideal</label></th>
-					<th><label class="label-titulo">Estado</label></th>
-					<th></th>
+					<% if(rol == 2) { %>
+		        		<th><label class="label-titulo">N° de pedido</label></th> 
+						<th><label class="label-titulo">Comercio</label></th> 
+						<th><label class="label-titulo">Estado</label></th> 
+						<th><label class="label-titulo">Direccion</label></th> 
+					<% } else { %>
+						<th><label class="label-titulo">Cantidad</label></th>  
+						<th><label class="label-titulo">Producto</label></th>
+						<th><label class="label-titulo">Cant. Minima</label></th>
+						<th><label class="label-titulo">Cant. Ideal</label></th>
+						<th><label class="label-titulo">Estado</label></th>
+					<% } %>
 				</tr>
 			</thead>
 			<tbody id="cuerpo">
+				<% if(rol == 2) { %>
+			        <% for (let i = rowsPedido.length - 1; i > 0; i--) { %>
+			        <tr>
+						<td><label><%= rowsPedido[i].idPedido %></label></td>
+						<td><label><%= rowsPedido[i].nombreProv %></label></td>
+						<td><div class="contenedor-status">
+							<i class="fas fa-circle icon-status <%= rowsPedido[i].estado %>"></i><label class="label-status"><%= rowsPedido[i].estado %></label>
+						</div></td>
+		        		<td><label><%= rowsProv[0].direccion %></label></td>
+		        	</tr>
+					<% } %>
+				<% } %>
 			</tbody>
 		</table>
 	</div>
 			</div>
-	
-
-
 		</div>
 	</div>
 </div>
 
 <script>feather.replace()</script>
-<script src="/static/js/stock-faltante.js"></script>
+	<% if(rol == 1) { %>
+		<script src="/static/js/stock-faltante.js"></script>
+	<% } %>
 </main>
 </body>
 </html>

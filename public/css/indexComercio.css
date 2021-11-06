@@ -54,7 +54,7 @@ body{
 	flex-direction: column;
 	margin-top: 10px;
 	align-items: flex-end;
-	width: 30%;
+	width: 24%;
 	min-width: 200px;
 	padding-right: 15px;
 }
@@ -70,4 +70,21 @@ body{
     /**background: #b5a067;**/
     border-radius: 5px;
     cursor: pointer;
+}
+
+.centrar {
+	display: flex;
+	justify-content: center;
+	margin-top: 0;
+}
+
+.contenedor__reporte {
+	display: flex;
+	justify-content: space-between;
+}
+
+.contenedor__reporte div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }

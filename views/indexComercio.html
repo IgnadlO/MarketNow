@@ -26,13 +26,43 @@
 				<input type="submit" onclick="window.location = '/cajero/vender-producto'" value="Vender Producto" class="button" id="boton_env">
 			</div>
 		</div>
-
+	<% if(faltante.length > 0) { %>
 		<div class="rectangulo-1">
-			
+			<i class="fas fa-exclamation-triangle icono" style="color: red;"></i>
+			<div class="contenedor-label">
+				<label class=label-1>Se esta quedando sin Stock</label>
+				<label class="label-2">Tiene <%= faltante.length %> productos sin stock</label>
+				<label class="label-3">Los articulos: <% for(let i = 0; i < faltante.length; i++) { %><%= faltante[i].nombre %>,<% } %>. Carecen de Stock. Para obtener mas informacion precione "Ver Productos".</label>
+			</div>
+			<div class="contenedor-boton centrar">
+				<input style="margin: 0;" type="submit" onclick="window.location = '/comercio/entregas-pendientes'" value="Ver Productos" class="button" id="boton_env">
+			</div>
 		</div>
-
+	<% } %>
 		<div class="rectangulo-1">
-			
+			<i class="fas fa-dollar-sign icono"></i>
+			<div class="contenedor-label">
+				<label class=label-1>Resumen del Dia</label>
+				<label class="label-2">Info de los Movimientos realizados durante este dia</label>
+				<div class="contenedor__reporte">
+					<div>
+							<label class="label-2">Ganancia</label>
+							<span style="color: green;">+<%= ingreso %></span>
+						</div>
+						<div>
+							<label class="label-2">Gastos</label>
+							<span style="color: red;">-<%= egreso %></span>
+						</div>
+						<div>
+							<label class="label-2">Balance</label>
+							<span style="color: <% if(balance >= 0) { %>green<% } else {%> red <% } %>;"><%= balance %></span>
+						</div>
+				</div>
+				<label class="label-3">Para obtener mas informacion precione "Ver Reporte".</label>
+			</div>
+			<div class="contenedor-boton centrar">
+				<input style="margin: 0;" type="submit" onclick="window.location = '/comercio/reporteDiario'" value="Ver Reporte" class="button" id="boton_env">
+			</div>
 		</div>
 
 	</div>

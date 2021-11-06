@@ -22,13 +22,71 @@
 				<label class="label-3">Los Metodos de pago son las cuentas en la que los comerciantes que le compren productos depositaran el dinero</label>
 			</div>
 			<div class="contenedor-boton">
-				<input type="submit" onclick="window.location = '/proveedor/nuevoMetodo'" value="Nuevo Metodo" class="button" id="boton_env">
-				<input type="submit" onclick="window.location = '/proveedor/metodos'" value="Ver Metodos" class="button" id="boton_env">
+				<input type="submit" onclick="window.location = '/proveedor/nuevoMetodo'" value="Nuevo Metodo" class="button_verde" id="boton_env">
+				<input type="submit" onclick="window.location = '/proveedor/metodos'" value="Ver Metodos" class="button_verde" id="boton_env">
 			</div>
 		</div>
+	
+		<div class="rectangulo-1">
+			<i class="fas fa-image icono"></i>
+			<div class="contenedor-label">
+				<label class=label-1>Cambiar Imagen de Perfil</label>
+				<label class="label-2">Administre La Imagen de su Empresa</label>
+				<label class="label-3">La imagen de Perfil es la imagen que van a ver sus clientes cuando le compren productos</label>
+			</div>
+			<div class="contenedor-boton centrar">
+				<form method="POST" action="/proveedor/imagen" id="subirFoto" enctype="multipart/form-data" accept-charset="utf-8">
+					<div class="contenedor__imagen">
+						<div id="cuadroImagen"></div>
+						<label id="contenedor_imagen" class="button_verde">
+							<input type="file" name="imagen" id="imagen" class="button_verde" onchange="validarImagen(this);" required>
+							Elegir Imagen
+						</label>
+					</div>
+				</form>
+			</div>
+		</div>
+	<% if(pedidos.length > 0) { %>
+		<div class="rectangulo-1">
+			<i class="fas fa-ambulance icono"></i>
+			<div class="contenedor-label">
+				<label class=label-1>Validar Pedidos</label>
+				<label class="label-2">Usted posee <%= pedidos.length %> pedidos para validar</label>
+				<label class="label-3">Para Poder ver estos respectivos pedidos presione el boton "Ver Pedidos"</label>
+			</div>
+			<div class="contenedor-boton centrar">
+				<input type="submit" onclick="window.location = '/proveedor/pedidosProv'" value="Ver Pedidos" class="button_verde" id="boton_env">
+			</div>
+		</div>
+	<% } %>
 	</div>
 </main>
 <script>
+	function validarImagen(obj) {
+    var uploadFile = obj.files[0];
+
+    if (!window.FileReader) {
+        alert("El navegador no soporta la lectura de archivos");
+        document.getElementById("imagen").value = "";
+        return;
+    }
+
+    if (!/\.(jpg|png|gif|jpeg)$/i.test(uploadFile.name)) {
+        alert("El archivo a adjuntar no es una imagen");
+        document.getElementById("imagen").value = "";
+    } else {
+        var img = new Image();
+        img.onload = function () {
+            if (uploadFile.size > 1000000) {
+                alert("El peso de la imagen no puede exceder los 10mb");
+                document.getElementById("imagen").value = "";
+            } else {
+                document.getElementById('subirFoto').submit();
+            }
+        };
+        img.src = URL.createObjectURL(uploadFile);
+    }
+	}
     feather.replace()
 </script>
 </body>

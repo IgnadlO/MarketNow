@@ -18,7 +18,6 @@
 	</div>
 	-->
 <main>
-	
 <div class="contenedor-cuadrado">
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
@@ -33,7 +32,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">$1200</label>			
+				<label class="label-1" id="info__paltas">$<%= pedidos[1].monto %></label>			
 				<label class="label-2">Ingresos</label>
 			</div>
 			<i class="fas fa-hand-holding-usd icono"></i>
@@ -44,7 +43,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">$600</label>			
+				<label class="label-1" id="info__paltas">$<%= pedidos[0].monto %></label>			
 				<label class="label-2">Egresos</label>
 			</div>
 			<i class="fas fa-angle-double-down icono"></i>
@@ -85,13 +84,13 @@
 				        </div>
 				    <tbody id="cuerpo" class="ventas">
 				    	<tr>
-				    		<th>Cantidad</th><th>12</th>
+				    		<th>Cantidad</th><th><%= pedidos[1].cantidad %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Ingreso</th><th>$1200</th>
+				    		<th>Ingreso</th><th>$<%= pedidos[1].monto %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Ganancia</th><th>$600</th>
+				    		<th>Ganancia</th><th>$<%= pedidos[1].monto - pedidos[0].monto %></th>
 				    	</tr>
 				    </tbody>
 				    </table>    
@@ -108,10 +107,10 @@
 				        </div>
 				    <tbody id="cuerpo" class="ventas">
 				    	<tr>
-				    		<th>Cantidad</th><th>3</th>
+				    		<th>Cantidad</th><th><%= pedidos[0].cantidad %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Egresos</th><th>$600</th>
+				    		<th>Egresos</th><th>$<%= pedidos[0].monto %></th>
 				    	</tr>
 
 				    </tbody>
@@ -150,7 +149,6 @@
 				    	<tr>
 				    		<th>Total</th><th>$600</th>
 				    	</tr>
-
 				    </tbody>
 				    </table>    
 			    	</div>      
@@ -210,8 +208,6 @@
 				    	<tr>
 				    		<th>Paltas Chuecas</th>
 				    	</tr>
-				    	
-
 				    </tbody>
 				    </table>    
 			    	</div>      
@@ -256,9 +252,7 @@
 
 	</div>
 <script>feather.replace()</script>
-<script src="/static/js/stock-faltante.js"></script>
 </main>
-
 </body>
 <script>
 	var ctx= document.getElementById('myChart').getContext("2d");
@@ -280,8 +274,6 @@
 		}
 	});
 
-</script>
-<script>
 	var ctx= document.getElementById('myChart2').getContext("2d");
 	var myChart2= new Chart(ctx,{
 		type:"line",
@@ -296,8 +288,7 @@
 			}]
 		}
 	});
-</script>
-<script>
+
 	var ctx= document.getElementById('myChart3').getContext("2d");
 	var myChart3= new Chart(ctx,{
 		type:'doughnut',
@@ -316,8 +307,7 @@
 			}]
 		}
 	});
-</script>
-<script>
+
 	var ctx= document.getElementById('myChart4').getContext("2d");
 	var myChart4= new Chart(ctx,{
 		type:'doughnut',

@@ -154,6 +154,10 @@ td {
 	margin-left: 95px;
 }
 
+.label-titulo {
+	color: #222;
+}
+
 .contenedor-status{
 	display: flex;
 	justify-content: left;
@@ -168,7 +172,7 @@ td {
 }
 
 .label-titulo {
-	color: #333;
+	color: #111;
 	font-size: 18px;
 	font-weight: normal;
 	font-family: sans-serif;
@@ -235,7 +239,12 @@ td {
 }
 
 .proveedor-img{
-	width: 40px;
+	width: 35px;
+	margin: 1px;
+	background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
 }
 
 .nombre-rol{
@@ -259,6 +268,10 @@ td {
 .contenedor-icon-desc{
 	margin-top: 10px;
 	margin-right: 5px;
+}
+
+td label {
+	color: #222;
 }
 
 .desc{
@@ -290,3 +303,4 @@ td {
 
 .denegado { color: red; }
 .pagado { color: #fab145; }
+.error {color:  red;}

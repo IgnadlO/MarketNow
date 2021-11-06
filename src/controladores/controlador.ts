@@ -92,7 +92,7 @@ export const verProducto = async (req: Request, res: Response) => {
 		rol: req.session.rol,
 		row: rows[0],
 		idComercio: req.session.idUser,
-		puntuado: pun[0][0].cantidad
+		puntuado: pun[0][0].cantidad,
 	});
 };
 
@@ -117,6 +117,7 @@ export const esperarProducto = (req: Request, res: Response) => {
 
 export const comprarProducto = async (req: Request, res: Response) => {
 	const post = req.body;
+	console.log(post);
 	const [result, fields] = await promisePool.query(
 		"SELECT * FROM articuloproveedor WHERE idArtProv = ?",
 		post.idProducto
@@ -141,6 +142,7 @@ export const comprarProducto = async (req: Request, res: Response) => {
 
 export const pagoPedido = async (req: Request, res: Response) => {
 	const post = req.body;
+	console.log(post);
 	if (!req.file) {
 		res.status(500).redirect("/comercio/indexComercio");
 		return 0;
@@ -158,18 +160,19 @@ export const pagoPedido = async (req: Request, res: Response) => {
 	);
 	const row = <ResultSetHeader>result;
 	pool.query(
-				"INSERT INTO egresovario(tipo, cantidad, fecha, idComercio) VALUES(?,?,CURDATE(),?)",
-				['compras', post.monto, req.session.idUser],
-				(err, result) => {
-					if (err) res.status(500).json(err);
-				});
+		"INSERT INTO egresovario(tipo, cantidad, fecha, idComercio) VALUES(?,?,CURDATE(),?)",
+		["compras", post.monto, req.session.idUser],
+		(err, result) => {
+			if (err) res.status(500).json(err);
+		}
+	);
 	pool.query(
 		"INSERT INTO registrocompra(cantidad,precio,cdb,idProducto,idPedido) VALUES (?,?,?,?,?)",
 		[
-			post.cantidad,
-			post.precioVenta,
-			post.cdb,
-			post.idArticulo,
+			parseInt(post.cantidad, 10),
+			Number(post.precio),
+			parseInt(post.cdb, 10),
+			parseInt(post.idArticulo, 10),
 			row.insertId,
 		],
 		async (error, result) => {
@@ -195,28 +198,48 @@ export const pagoVerificado = (req: Request, res: Response) => {
 			if (err) res.status(500).json(err);
 			else {
 				console.log("pago " + put.id + " " + put.estado);
-				if(put.estado != 'entregado') res.status(204).json(result);
+				if (put.estado != "entregado") res.status(204).json(result);
 			}
 		}
 	);
 
-	if(put.estado == 'entregado'){
+	if (put.estado == "entregado") {
 		pool.query(
-		"SELECT * FROM registrocompra WHERE idPedido = ?",
-		put.id,
-		(err, result) => {
-			if (err) res.status(500).json(err);
-			else {
-				console.log(result)
-				res.status(204).json(result);
+			"SELECT * FROM registrocompra WHERE idPedido = ?",
+			put.id,
+			async (err, result) => {
+				if (err) res.status(500).json(err);
+				else {
+					// const result2 = await promisePool.query(
+					// 	"SELECT count(*) AS cantidad FROM puntuadores where idComercio = ? and idArticulo = ?",
+					// 	[req.session.idUser, id]
+					// 	);
+					// const result2 = await promisePool.query(
+					// "SELECT count(*) AS cantidad FROM puntuadores where idComercio = ? and idArticulo = ?",
+					// [req.session.idUser, id]
+					// );
+					// const result2 = await promisePool.query(
+					// "SELECT count(*) AS cantidad FROM puntuadores where idComercio = ? and idArticulo = ?",
+					// [req.session.idUser, id]
+					// );
+					// pool.query(
+					// 	"UPDATE articulocliente SET cantidad = cantidad + ? WHERE cdb = ? and idComercio = ?",
+					// 	[result.cantidad, result.cdb, req.session.idUser],
+					// 	(err, result) => {
+					// 		if (err) res.status(500).json(err);
+					// 		else {
+					// 			res.status(204);
+					// 		}
+					// 	});
+				}
 			}
-		});
+		);
 	}
 };
 
 export const calificarProducto = (req: Request, res: Response) => {
 	const put = req.body;
-	console.log(put)
+	console.log(put);
 	pool.query(
 		"UPDATE articuloproveedor SET puntos = puntos + ?, puntuadores = puntuadores + 1  WHERE idArtProv = ?",
 		[put.puntos, put.id],
@@ -228,7 +251,8 @@ export const calificarProducto = (req: Request, res: Response) => {
 					[req.session.idUser, put.id],
 					(err, result) => {
 						if (err) res.status(500).json(err);
-					})
+					}
+				);
 				console.log("puntos " + put.puntos + " id: " + put.id);
 				res.status(204).json(result);
 			}

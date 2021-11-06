@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 </head>
 <body>
-<%- include('partials/menuComercio.html', {sitio:'Entregas Pendientes', nombre: nombre}) %>
+		<%- include('partials/menuComercio.html', {sitio:'Entregas Pendientes', nombre: nombre}) %>
 <main>
 <div class="contenedor-cuadrado">
 	<div class="cuadrado-1">
@@ -69,19 +69,27 @@
 			<label class="label-4">N° de pedido</label>
 			<label class="label-proveedor">Proveedor</label>
 			<label class="label-estado">Estado</label>
-			<label class="label-estado">LLego</label>
+			<% if(rol == 2) { %>
+        		<label class="label-estado">Direccion</label>
+    		<% } else { %>  
+				<label class="label-estado">LLego</label>
+			<% } %>
+			
 		</div>
 
 
 		<div class="tabla-descripcion">
 			<div class="contenedor-tabla-descripcion">
-				<% for (let i = 0; i < rowsPedido.length; i++) { %>
+				<% for (let i = rowsPedido.length - 1; i > 0; i--) { %>
 				<label class="label-descripcion"><%= rowsPedido[i].idPedido %></label>
 				<label class="label-raul"><%= rowsPedido[i].nombreProv %></label>
 				<div class="contenedor-status">
 					<i class="fas fa-circle icon-status <%= rowsPedido[i].estado %>"></i><label class="label-status"><%= rowsPedido[i].estado %></label>
 				</div>
-					<% if( rowsPedido[i].estado == 'verificado') { %>
+				<% if(rol == 2) { %>
+        		<label class="label-estado"><%= rowsProv[0].direccion %></label>
+    		<% } else { %>  
+				<% if( rowsPedido[i].estado == 'verificado') { %>
 						<div class="contenedor-status">
 							<i class="fas fa-check icon-status %>" onclick="llegoPedido(<%= rowsPedido[i].idPedido %>)"></i>
 						</div>
@@ -91,6 +99,7 @@
 						</div>
 					<% } %>
 				<% } %>
+			<% } %>
 			</div>
 		</div>
 </div>

@@ -98,3 +98,77 @@ export const verPagos = async (req: Request, res: Response) => {
 	const rows = <RowDataPacket>result;
 	res.json(rows);
 };
+
+export const imagen = async (req: Request, res: Response) => {
+	console.log('img')
+	if(!req.file) {
+		console.log('error no req.file')
+		res.status(500).redirect("/proveedor/indexProveedor");
+		return 0;
+	}
+	const [result, fields] = await promisePool.query(
+		"UPDATE proveedor SET logo = ? WHERE idUsuario = ?",
+		['/static/upload/' + req.file.filename, req.session.idUser]
+	);
+	console.log('foto perfil actualizada')
+	res.status(204).redirect('back');
+};
+
+export const inicio = async (req: Request, res: Response) => {
+	const [result, fields] = await promisePool.query(
+		"SELECT * FROM pedido WHERE idUsuario = ? AND estado = 'pagado'",
+		req.session.idUser
+	);
+	const pedidos = <RowDataPacket>result;
+	res.render("indexProveedor.html", {
+			nombre: req.session.name,
+			rol: req.session.rol,
+			idProveedor: req.session.idUser,
+			pedidos
+		});
+};
+
+export const verEntregasPendientes = async (req: Request, res: Response) => {
+	const [result, fields] = await promisePool.query(
+		"SELECT * FROM pedido WHERE idUsuario = ? and tipo = 1 and estado not like 'entregado'",
+		req.session.idUser
+	);
+	const rowsPedido = <RowDataPacket>result;
+	const proveedores: number[] = [];
+	const nombresProv: string[] = [];
+	const rowsProv = [];
+	let monto = 0;
+	let verificados = 0;
+	for (let i in rowsPedido) {
+		monto += rowsPedido[i].monto;
+		if (rowsPedido[i].estado == "verificado") verificados++;
+		if (proveedores.includes(rowsPedido[i].idUsuario)) {
+			rowsPedido[i].nombreProv =
+				nombresProv[proveedores.indexOf(rowsPedido[i].idUsuario)];
+			continue;
+		}
+		const [resultD, fieldsD] = await promisePool.query(
+			"select A.nombre,A.email,B.nombreLocal,B.direccion,B.telefono,B.logo from usuarios A left join comercio B on A.idUsuario=B.idUsuario WHERE B.idUsuario = ?",
+			rowsPedido[i].idComercio
+		);
+		const prov = <RowDataPacket>resultD;
+		rowsProv.push(prov[0]);
+		rowsPedido[i].nombreProv = prov[0].nombre;
+		proveedores.push(rowsPedido[i].idUsuario);
+		nombresProv.push(prov[0].nombre);
+	}
+	const info = {
+		pedidos: rowsPedido.length,
+		monto,
+		verificados,
+		proveedores: rowsProv.length,
+	};
+	console.log(rowsProv)
+	res.render("stock-faltante.html", {
+		nombre: req.session.name,
+		rol: req.session.rol,
+		rowsPedido,
+		rowsProv,
+		info,
+	});
+};
