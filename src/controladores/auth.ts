@@ -57,7 +57,7 @@ export const singUp = async (req: Request, res: Response) => {
 					[row.insertId])
 			else if (post.rol == 4)
 				insertSQL("INSERT INTO cajero(idComercio, idUsuario) values(?,?)",
-					[post.idComercio, row.insertId])
+					[req.session.idUser, row.insertId])
 			}	
 		}
 	);
@@ -74,8 +74,16 @@ export const singIn = async (req: Request, res: Response) => {
 		req.session.email = email;
 		req.session.name = rows[0].nombre;
 		req.session.rol = rows[0].rol;
-		req.session.idUser = rows[0].idUsuario;
-		const urlRedirect = (rows[0].rol == 2)? '/proveedor/indexProveedor': '/comercio/indexComercio';
+		let urlRedirect: string;
+		if(rows[0].rol == 4){
+			urlRedirect = '/cajero/vender-producto'
+			const result1 = await promisePool.query("SELECT * FROM cajero WHERE idUsuario = ?", rows[0].idUsuario);
+			const cajero = <RowDataPacket>result1;
+			req.session.idUser = cajero[0][0].idComercio;
+		} else {
+			req.session.idUser = rows[0].idUsuario;
+			urlRedirect = (rows[0].rol == 2)? '/proveedor/indexProveedor': '/comercio/indexComercio';
+		}
 		res.json(urlRedirect);
 	} else res.json("Contraseña incorrecta");
 };

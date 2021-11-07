@@ -101,6 +101,7 @@ function validar_nombre_local(nombre_local){
   }
   return false;
 }
+
 function EnviarFormulario(){
   if (document.getElementById('usuario').selected == true && validacion.reduce((a, b) => a + b, 0) >= 4)
     document.getElementById('form').submit();

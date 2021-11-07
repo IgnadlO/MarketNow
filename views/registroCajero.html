@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://kit.fontawesome.com/ee5c196280.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/static/js/Registro.js"></script>
+    <meta charset="utf-8"/></meta>
+    <title>Registrar Cajero | MarketNow</title>
+    <link rel="stylesheet" href="/static/css/predefinido.css">
+    <link rel="stylesheet" href="/static/css/registro.css">
+</head>
+<body>
+    <%- include('partials/menuComercio.html', {sitio:'Registrar Cajero', nombre: nombre}) %>
+    <main>
+
+<form class="formulario" id="form" method="POST" action="/singUp">
+        <h1 class="registrate">Nuevo Cajero</h1>
+        <div clas="contenedor-registro">
+
+        <!--Input nombre-->   
+        <p class="texto-error" id="texto-error0">Complete el campo, gracias.</p> 
+        <div class="input-contenedor-registro" id="colorborde0">
+            <i class="fas fa-user icono"></i>
+              <input type="text"  placeholder="Nombre" id="nombre" name="nombre" onchange="validar_nombre(document.getElementById('nombre'))"><i class="fas fa-times incorrecto" id="incorrecto0"></i><i class="fas fa-check correcto" id="correcto0"></i>
+        </div>
+        
+        
+        <!--Input mail-->
+        <p class="texto-error" id="texto-error1">El mail debe contar con un @(arroba) y con un .(punto), gracias.</p>
+         <div class="input-contenedor-registro " id="colorborde1">
+            <i class="fas fa-envelope icono"></i>
+              <input type="text" placeholder="Correo Electronico" id="mail" name="email" onchange="validar_mail(document.getElementById('mail'))"><i class="fas fa-times incorrecto" id="incorrecto1"></i><i class="fas fa-check correcto" id="correcto1"></i>
+        </div>
+        
+
+        <!--Input contra-->
+        <p class="texto-error" id="texto-error2">La contraseña debe poseer al menos un numero y una letra.</p>
+         <div class="input-contenedor-registro"id="colorborde2">
+            <i class="fas fa-key icono"></i>
+            <input type="password" placeholder="Contraseña" id="contra" name="contra" onchange="validar_contra(document.getElementById('contra'))"><i class="fas fa-times incorrecto" id="incorrecto2"></i><i class="fas fa-check correcto" id="correcto2"></i>
+        </div>
+        
+
+        <!--Input contra2-->
+        <p class="texto-error" id="texto-error3">La contraseña no conincide con la anterior.</p>
+        <div class="input-contenedor-registro"id="colorborde3">
+            <i class="fas fa-key icono"></i>
+            <input type="password" placeholder=" Repita su contraseña" id="contra2" onchange="validar_contra2(document.getElementById('contra2'))"><i class="fas fa-times incorrecto" id="incorrecto3"></i><i class="fas fa-check correcto" id="correcto3"></i>
+        </div>
+        
+
+        <!--Barra de roles-->
+        <div class="input-contenedor-registro" hidden>
+            <input type="number" value="4" name="rol" hidden>
+            <div class="input-contenedor-registro" hidden>
+                <select class="input" onchange="Barra_Roles()" id="tipo" hidden>
+                <option value="nashe" id="nada">Seleccione un rol</option>
+                <option value="3"id="usuario" selected="select" >Cliente</option>
+                <option value="1"id="comerciante">Comerciante</option>
+                <option value="2"id="proveedor">Proveedor</option></select>
+            </div>
+        </div>
+
+        <!--Boton de registrarse -->
+        <input type="submit" onclick="return EnviarFormulario() " value="Crear" class="button" id="boton_env"><p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+        <div class="texto-p">
+        <p style="color:#666;">Al registrar un nuevo cajero, acepta nuestras condiciones de uso y politica de privacidad</p>
+        <p>Para volver atras <a class="link" href="/comercio/indexComercio">Presione Aqui</a></p>
+    </div>  
+    </div>
+</form>
+</main>
+<script>feather.replace()</script>
+</body>
+</html>

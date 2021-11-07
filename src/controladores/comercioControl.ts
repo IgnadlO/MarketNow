@@ -14,6 +14,7 @@ export const comercio = (req: Request, res: Response) => {
 		"regVentas",
 		"stock-faltante",
 		"entregas-pendientes",
+		"registroCajero",
 		"indexComercio",
 	];
 	if (typeof param === "string" && permitidas.includes(param))
@@ -66,6 +67,7 @@ export const nuevoProducto = (req: Request, res: Response) => {
 };
 
 export const verProductos = async (req: Request, res: Response) => {
+	console.log(req.session.idUser);
 	const [result, fields] = await promisePool.query(
 		"SELECT * FROM articulocliente WHERE idComercio = ?",
 		req.session.idUser
@@ -231,7 +233,7 @@ export const verEntregasPendientes = async (req: Request, res: Response) => {
 		verificados,
 		proveedores: rowsProv.length,
 	};
-	console.log(rowsProv)
+	console.log(rowsProv);
 	res.render("entregas-pendientes.html", {
 		nombre: req.session.name,
 		rol: req.session.rol,
@@ -269,21 +271,85 @@ export const verBalance = async (req: Request, res: Response) => {
 		),
 		ventaPorCategoria: await consulta(
 			"SELECT sum(rc.cantidad) AS cantidad,ac.categoria FROM registrocompra rc inner join articulocliente ac on rc.cdb = ac.cdb inner join pedido p on ac.idComercio = p.idComercio WHERE p.fecha > ? and p.idComercio = ? and p.tipo = 2 GROUP BY ac.categoria"
-		)
+		),
 	};
-
 	console.log(informacion);
 
-	res.render('reporteBalance.html', {
-			nombre: req.session.name,
-			rol: req.session.rol,
-			pedidos: informacion.pedidos,
-			egresos: informacion.egresos,
-			ventasPorDia: informacion.ventasPorDia,
-			ventaPorductos: informacion.ventaPorductos,
-			ventaPorCategoria: informacion.ventaPorCategoria
+	const habersql = await promisePool.query(
+		"SELECT sum(precioVenta  * cantidad) AS haber FROM articulocliente WHERE idComercio = ?",
+		req.session.idUser
+	);
+	const haber = <RowDataPacket>habersql;
 
-		});
+	let topMas = [],
+		topMenos = [],
+		ventasPorDia = [],
+		dia = [],
+		diaCantidad = [],
+		cateTipo = [],
+		cateCanti = [];
+	const cantTop = informacion.ventaPorductos.length;
+	const cantMax = cantTop >= 10 ? 5 : cantTop / 2;
+	type ventaPro = {
+		cantidad: number;
+		nombre: string;
+	};
+	informacion.ventaPorductos.sort(function (a: ventaPro, b: ventaPro) {
+		return b.cantidad - a.cantidad;
+	});
+	for (let i = 0; i < cantMax; i++)
+		topMas.push(informacion.ventaPorductos[i].nombre);
+	for (let i = cantTop - 1; i > cantMax; i--)
+		topMenos.push(informacion.ventaPorductos[i].nombre);
+	let egresos = [],
+		egresosTotal = 0,
+		gastoTotal = 0;
+	for (let egreso of informacion.egresos) {
+		egresos[egreso.tipo] = egreso.cantidad;
+		gastoTotal += Number(egreso.cantidad);
+		if (egreso.tipo != "compras") {
+			egresosTotal += Number(egreso.cantidad);
+		}
+	}
+
+	const ultimaFecha = informacion.ventasPorDia[informacion.ventasPorDia.length - 1].fecha;
+	const ultimoDia = ultimaFecha.getDay();
+	const ultimoMes = ultimaFecha.getMonth() + 1;
+	for (let venta of informacion.ventasPorDia) {
+		if (venta.fecha.getMonth() + 1 == ultimoMes) {
+			dia.push(venta.fecha.getDay());
+			diaCantidad.push(venta.cantidad);
+		}
+	}
+	for (let i = ultimoDia; i > 0; i--) {
+		ventasPorDia.push(
+			diaCantidad[dia.indexOf(i)] == undefined
+				? 0
+				: diaCantidad[dia.indexOf(i)]
+		);
+	}
+
+	for (let cate of informacion.ventaPorCategoria) {
+		cateTipo.push(cate.categoria);
+		cateCanti.push(cate.cantidad);
+	}
+
+	res.render("reporteBalance.html", {
+		nombre: req.session.name,
+		rol: req.session.rol,
+		pedidos: informacion.pedidos,
+		egresos: egresos,
+		gastoTotal,
+		haber: haber[0][0].haber,
+		egresosTotal,
+		ventasPorDia: ventasPorDia,
+		topMas,
+		cateTipo: cateTipo,
+		cateCanti: cateCanti,
+		topMenos,
+		ventaPorductos: informacion.ventaPorductos,
+		ventaPorCategoria: informacion.ventaPorCategoria,
+	});
 };
 
 export const egresoVario = async (req: Request, res: Response) => {
@@ -314,11 +380,11 @@ export const inicio = async (req: Request, res: Response) => {
 	const row2 = <RowDataPacket>result2;
 	const balance = row2[0].totalGanancia - row1[0].totalGasto;
 	res.render("indexComercio.html", {
-			nombre: req.session.name,
-			rol: req.session.rol,
-			faltante,
-			egreso: (row1[0].totalGasto == null)? 0: row1[0].totalGasto,
-			ingreso: (row2[0].totalGanancia == null)? 0: row2[0].totalGanancia,
-			balance: balance,
-		});
+		nombre: req.session.name,
+		rol: req.session.rol,
+		faltante,
+		egreso: row1[0].totalGasto == null ? 0 : row1[0].totalGasto,
+		ingreso: row2[0].totalGanancia == null ? 0 : row2[0].totalGanancia,
+		balance: balance,
+	});
 };

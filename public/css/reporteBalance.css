@@ -48,10 +48,6 @@ main{
 	color: #b5a067;
 }
 
-.granContenedor {
-	display: grid;	
-}
-
 .wrapper {
     margin: 15px auto 0;
     margin-bottom: 45px;
@@ -174,7 +170,7 @@ thead{
 }
 
 tbody tr:nth-child(even){
-	background-color:#f1f1f1 ;
+	background-color:#f6f6f6;
 }
 
 th{
@@ -225,20 +221,17 @@ th{
 .contenedor-tablas-2{
 	display: grid;
 	grid-template-columns: auto auto auto;
-	margin-right: 4%;
-	margin-left: 4%;
 }
 
 .contenedor__tabla4 {
 	width: 100%;
 	height: 10%;
 	margin-top: 4%;
-	margin-left: 18%;
 }
 
 .contenedor-grafico {
  	flex-grow: 1;
- 	margin-left: 7%;
+ 	margin-left: 4%;
 }
 
 .contenedor-contenedor-tabla4 {
@@ -263,3 +256,7 @@ th{
 }
 
 .titulo-tabla label { color: #222; }
+
+#main-conteiner {
+	box-shadow: var(--sombra);
+}

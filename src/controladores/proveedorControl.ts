@@ -6,7 +6,13 @@ const promisePool = pool.promise();
 
 export const proveedor = (req: Request, res: Response) => {
 	const param = req.params.page;
-	const permitidas = ["cargaProveedor", "Inventario", 'nuevoMetodo', 'indexProveedor','pedidosProv'];
+	const permitidas = [
+		"cargaProveedor",
+		"Inventario",
+		"nuevoMetodo",
+		"indexProveedor",
+		"pedidosProv",
+	];
 	if (typeof param === "string" && permitidas.includes(param))
 		res.render(param + ".html", {
 			nombre: req.session.name,
@@ -23,15 +29,15 @@ export const verMetodos = async (req: Request, res: Response) => {
 	);
 	const rows = <RowDataPacket>result;
 	res.render("verMetodos.html", {
-			nombre: req.session.name,
-			rol: req.session.rol,
-			datos: rows,
-		});
+		nombre: req.session.name,
+		rol: req.session.rol,
+		datos: rows,
+	});
 };
 
 export const nuevoMetodo = (req: Request, res: Response) => {
 	const post = req.body;
-	console.log(post)
+	console.log(post);
 	pool.query(
 		"INSERT INTO infodepago(metodo, cuil, cvu, alias, idUsuario) VALUES (?,?,?,?,?)",
 		[
@@ -62,11 +68,11 @@ export const verProductos = async (req: Request, res: Response) => {
 
 export const nuevoProducto = (req: Request, res: Response) => {
 	const post = req.body;
-	if(!req.file) {
+	if (!req.file) {
 		res.status(500).redirect("/proveedor/cargaProveedor");
 		return 0;
 	}
-	console.log(post.descripcion)
+	console.log(post.descripcion);
 	pool.query(
 		"INSERT INTO ArticuloProveedor(nombre, descripcion, puntos, puntuadores, precio, cantidad, cdb, imagen, idProveedor) VALUES (?,?,?,?,?,?,?,?,?)",
 		[
@@ -77,7 +83,7 @@ export const nuevoProducto = (req: Request, res: Response) => {
 			parseInt(post.precio, 10),
 			parseInt(post.cantidad, 10),
 			parseInt(post.cdb, 10),
-			'/static/upload/' + req.file.filename,
+			"/static/upload/" + req.file.filename,
 			req.session.idUser,
 		],
 		async (error, resp) => {
@@ -100,18 +106,18 @@ export const verPagos = async (req: Request, res: Response) => {
 };
 
 export const imagen = async (req: Request, res: Response) => {
-	console.log('img')
-	if(!req.file) {
-		console.log('error no req.file')
+	console.log("img");
+	if (!req.file) {
+		console.log("error no req.file");
 		res.status(500).redirect("/proveedor/indexProveedor");
 		return 0;
 	}
 	const [result, fields] = await promisePool.query(
 		"UPDATE proveedor SET logo = ? WHERE idUsuario = ?",
-		['/static/upload/' + req.file.filename, req.session.idUser]
+		["/static/upload/" + req.file.filename, req.session.idUser]
 	);
-	console.log('foto perfil actualizada')
-	res.status(204).redirect('back');
+	console.log("foto perfil actualizada");
+	res.status(204).redirect("back");
 };
 
 export const inicio = async (req: Request, res: Response) => {
@@ -121,16 +127,16 @@ export const inicio = async (req: Request, res: Response) => {
 	);
 	const pedidos = <RowDataPacket>result;
 	res.render("indexProveedor.html", {
-			nombre: req.session.name,
-			rol: req.session.rol,
-			idProveedor: req.session.idUser,
-			pedidos
-		});
+		nombre: req.session.name,
+		rol: req.session.rol,
+		idProveedor: req.session.idUser,
+		pedidos,
+	});
 };
 
 export const verEntregasPendientes = async (req: Request, res: Response) => {
 	const [result, fields] = await promisePool.query(
-		"SELECT * FROM pedido WHERE idUsuario = ? and tipo = 1 and estado not like 'entregado'",
+		"SELECT * FROM pedido WHERE idUsuario = ? and tipo = 1 and estado like 'verificado'",
 		req.session.idUser
 	);
 	const rowsPedido = <RowDataPacket>result;
@@ -155,7 +161,7 @@ export const verEntregasPendientes = async (req: Request, res: Response) => {
 		rowsProv.push(prov[0]);
 		rowsPedido[i].nombreProv = prov[0].nombre;
 		proveedores.push(rowsPedido[i].idUsuario);
-		nombresProv.push(prov[0].nombre);
+		nombresProv.push(prov[0].nombreLocal);
 	}
 	const info = {
 		pedidos: rowsPedido.length,
@@ -163,7 +169,7 @@ export const verEntregasPendientes = async (req: Request, res: Response) => {
 		verificados,
 		proveedores: rowsProv.length,
 	};
-	console.log(rowsProv)
+	console.log(rowsProv);
 	res.render("stock-faltante.html", {
 		nombre: req.session.name,
 		rol: req.session.rol,

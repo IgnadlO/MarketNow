@@ -22,7 +22,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">$10.200</label>			
+				<label class="label-1" id="info__paltas">$<%= (haber == null)? 0: haber %></label>			
 				<label class="label-2">Haber</label>
 			</div>
 			<i class="fas fa-box icono"></i>
@@ -32,7 +32,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">$<%= pedidos[1].monto %></label>			
+				<label class="label-1" id="info__paltas">$<%= (pedidos[1].monto == null)? 0: pedidos[1].monto %></label>			
 				<label class="label-2">Ingresos</label>
 			</div>
 			<i class="fas fa-hand-holding-usd icono"></i>
@@ -43,7 +43,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">$<%= pedidos[0].monto %></label>			
+				<label class="label-1" id="info__paltas">$<%= (gastoTotal == null)? 0: gastoTotal %></label>			
 				<label class="label-2">Egresos</label>
 			</div>
 			<i class="fas fa-angle-double-down icono"></i>
@@ -54,7 +54,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">+$600</label>			
+				<label class="label-1" id="info__paltas">$<%= pedidos[1].monto - gastoTotal %></label>			
 				<label class="label-2">Balance</label>
 			</div>
 			<i class="fas fa-balance-scale icono"></i>
@@ -65,7 +65,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">50%</label>			
+				<label class="label-1" id="info__paltas"><%= Math.round(((pedidos[1].monto - gastoTotal)*100)/(pedidos[1].monto)) %>%</label>			
 				<label class="label-2">Margen</label>
 			</div>
 			<i class="fas fa-chart-pie icono"></i>
@@ -84,13 +84,13 @@
 				        </div>
 				    <tbody id="cuerpo" class="ventas">
 				    	<tr>
-				    		<th>Cantidad</th><th><%= pedidos[1].cantidad %></th>
+				    		<th>Cantidad</th><th><%= (pedidos[1].cantidad == null)? 0: pedidos[1].cantidad %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Ingreso</th><th>$<%= pedidos[1].monto %></th>
+				    		<th>Ingreso</th><th>$<%= (pedidos[1].monto == null)? 0: pedidos[1].monto%></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Ganancia</th><th>$<%= pedidos[1].monto - pedidos[0].monto %></th>
+				    		<th>Ganancia</th><th>$<%= (pedidos[1].monto - pedidos[0].monto == null)? 0: pedidos[1].monto - pedidos[0].monto %></th>
 				    	</tr>
 				    </tbody>
 				    </table>    
@@ -107,10 +107,10 @@
 				        </div>
 				    <tbody id="cuerpo" class="ventas">
 				    	<tr>
-				    		<th>Cantidad</th><th><%= pedidos[0].cantidad %></th>
+				    		<th>Cantidad</th><th><%= (pedidos[0].cantidad == null)? 0: pedidos[0].cantidad %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Egresos</th><th>$<%= pedidos[0].monto %></th>
+				    		<th>Egresos</th><th>$<%= (pedidos[0].monto == null)? 0: pedidos[0].monto %></th>
 				    	</tr>
 
 				    </tbody>
@@ -121,7 +121,7 @@
 		</div>
 
 		<div class="contenedor-grafico-2" style="width: 60%;">
-			<canvas id="myChart2" width="100" height="40"></canvas>
+			<canvas id="myChart2" width="100" height="40" style="max-height: 364px;"></canvas>
 		</div>
 	</div>
 
@@ -135,19 +135,22 @@
 				        </div>
 				    <tbody id="cuerpo" class="ventas">
 				    	<tr>
-				    		<th>Impuestos</th><th>$600</th>
+				    		<th>Impuestos</th><th>$<%= (egresos['impuestos'] == null)? 0: egresos['impuestos'] %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Salario</th><th>$600</th>
+				    		<th>Salario</th><th>$<%= (egresos['salarios'] == null)? 0: egresos['salarios'] %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Alquiler</th><th>$600</th>
+				    		<th>Alquiler</th><th>$<%= (egresos['alquiler'] == null)? 0: egresos['alquiler'] %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Otros</th><th>$600</th>
+				    		<th>Servicios</th><th>$<%= (egresos['servicios'] == null)? 0: egresos['servicios'] %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Total</th><th>$600</th>
+				    		<th>Otros</th><th>$<%= (egresos['otros'] == null)? 0: egresos['otros'] %></th>
+				    	</tr>
+				    	<tr>
+				    		<th>Total</th><th>$<%= (egresosTotal == null)? 0: egresosTotal %></th>
 				    	</tr>
 				    </tbody>
 				    </table>    
@@ -163,22 +166,11 @@
 				        	<label class="label-5">Top 5 productos mas vendidos</label>
 				        </div>
 				    <tbody id="cuerpo" class="ventas">
+				    	<% for(let i = 0; i < topMas.length; i++) { %>
 				    	<tr>
-				    		<th>Paltas Grandes</th>
+				    		<th><%= topMas[i] %></th>
 				    	</tr>
-				    	<tr>
-				    		<th>Paltas Chicas</th>
-				    	</tr>
-				    	<tr>
-				    		<th>Paltas Verdes</th>
-				    	</tr>
-				    	<tr>
-				    		<th>Paltas Bolivianas</th>
-				    	</tr>
-				    	<tr>
-				    		<th>Paltas Polacas</th>
-				    	</tr>
-
+				    	<% } %>
 				    </tbody>
 				    </table>    
 			    	</div>      
@@ -193,21 +185,11 @@
 				        	<label class="label-5">Top 5 productos menos vendidos</label>
 				        </div>
 				    <tbody id="cuerpo" class="ventas">
+				    	<% for(let i = 0; i < topMenos.length; i++) { %>
 				    	<tr>
-				    		<th>Naranja</th>
+				    		<th><%= topMenos[i] %></th>
 				    	</tr>
-				    	<tr>
-				    		<th>Fanta</th>
-				    	</tr>
-				    	<tr>
-				    		<th>Paltas Podridas</th>
-				    	</tr>
-				    	<tr>
-				    		<th>Tomate Verde</th>
-				    	</tr>
-				    	<tr>
-				    		<th>Paltas Chuecas</th>
-				    	</tr>
+				    	<% } %>
 				    </tbody>
 				    </table>    
 			    	</div>      
@@ -235,7 +217,7 @@
 				</div>
 
 		<div class="contenedor-grafico" style="width: 60%;">
-			<canvas id="myChart" width="100" height="40"></canvas>
+			<canvas id="myChart" width="100" height="40" style="max-height: 400px;"></canvas>
 		</div>
 
 	</div>
@@ -243,11 +225,11 @@
 	<div class="contenedor-ultimos-graficos">
 
 		<div class="contenedor-grafico3" style="width: 60%;">
-				<canvas id="myChart4" width="100" height="100"></canvas>
+				<canvas id="myChart4" width="100" height="100" style="max-height: 364px;"></canvas>
 		</div>
 
 		<div class="contenedor-grafico3" style="width: 60%;">
-				<canvas id="myChart3" width="100" height="100"></canvas>
+				<canvas id="myChart3" width="100" height="100" style="max-height: 364px;"></canvas>
 		</div>
 
 	</div>
@@ -261,42 +243,49 @@
 		data:{
 			labels:['Julio','Agosto','Septiembre','Octubre','Noviembre'],
 			datasets:[{
-				label:'Meses Anteriores',
-				data:[5,9,8,4,5],
+				label:'Balance Meses Anteriores',
+				data:[5000,-900,3500,2300,'<%= pedidos[1].monto - gastoTotal %>'],
 				backgroundColor:[
-					'rgb(191, 54, 12)',
-					'rgb(139, 195, 74)',
-					'rgb(2, 119, 189)',
-					'rgb(77, 182, 172)',
-					'rgb(158, 157, 36)'
+					'rgb(2, 119, 189)'
 				]
 			}]
 		}
 	});
 
-	var ctx= document.getElementById('myChart2').getContext("2d");
+	const ventasDia = '<%= ventasPorDia %>';
+	const ventasPorDia = ventasDia.split(',').reverse()
+	const contador = (array) => {
+		const nuevoArray = [];
+		array.forEach((val, i) => {
+			nuevoArray.push(i + 1);
+		})
+		return nuevoArray;
+	} 
+	const cantidadDias = contador(ventasPorDia);
+
+	var ctx = document.getElementById('myChart2').getContext("2d");
 	var myChart2= new Chart(ctx,{
 		type:"line",
 		data:{
-			labels:['1','2','3','4','5','6','7'],
+			labels:cantidadDias,
 			datasets:[{
 				label:'Ventas por dia',
-				data:[5,9,10,4,5,8,9],
+				data: ventasPorDia,
 				backgroundColor:[
 					'rgb(66, 134, 244,0.5)'
 				]
 			}]
-		}
+		},
 	});
 
 	var ctx= document.getElementById('myChart3').getContext("2d");
 	var myChart3= new Chart(ctx,{
 		type:'doughnut',
 		data:{
-			labels:['Impuestos','Salario','Alquiler','Otros','Total'],
+			labels:['Impuestos','Salario','Alquiler','Servicios','Otros'],
 			datasets:[{
 				label:'Ventas por dia',
-				data:[600,600,600,600,600],
+				data:['<%= egresos["impuestos"] %>','<%= egresos["salarios"] %>','<%= egresos["alquiler"] %>','<%= egresos["servicios"] %>','<%= egresos["otros"] %>'],
 				backgroundColor:[
 					'rgb(191, 54, 12)',
 					'rgb(216, 67, 21)',
@@ -305,17 +294,36 @@
 					'rgb(255, 112, 67)'
 				]
 			}]
-		}
+		},
+		options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Desglose de Gastos'
+      }
+    }
+  }
 	});
 
+	const cateTipo = '<%= cateTipo %>';
+	const cateCanti = '<%= cateCanti %>';
+
+	const categoria = cateTipo.split(',');
+	const cantidadCategoria = cateCanti.split(',');
+
+		cateCanti
 	var ctx= document.getElementById('myChart4').getContext("2d");
 	var myChart4= new Chart(ctx,{
 		type:'doughnut',
 		data:{
-			labels:['Fruta','Verdura','Carne','Pescado','Snaks'],
+			labels:categoria,
 			datasets:[{
 				label:'Ventas por dia',
-				data:[10,20,10,40,60],
+				data:cantidadCategoria,
 				backgroundColor:[
 					'rgb(255, 87, 34)',
 					'rgb(0, 230, 118)',
@@ -324,7 +332,19 @@
 					'rgb(255, 255, 0)'
 				]
 			}]
-		}
+		},
+		options: {
+    		responsive: true,
+    		plugins: {
+      		legend: {
+        		position: 'top',
+      		},
+      		title: {
+        		display: true,
+        		text: 'Desglose de Ventas por Categoria'
+      			}
+    		}
+  		}
 	});
 </script>
 </html>
