@@ -1,0 +1,170 @@
+body{ 
+    margin: 0;
+    background: #f7f7f7;
+}
+
+main{ 
+    margin-left: 4em; 
+    transition: all 0.1s;
+}
+
+label {
+    color: #666;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+.texto{
+    color: #666;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+.button_verde{
+    border: none;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    background: #4caf50;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px auto;
+}
+
+.button_verde:hover{
+    background: #e4bc6c;
+    transition: all 0.2s ease-out;
+}
+
+.button_sec {
+    border: none;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    background: #e4bc6c;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button_sec:hover{
+    background: #333333;
+    color: #4caf50;
+    border-color: #333333;
+    transition: all 0.2s ease-out;
+}
+
+.contenedor-padre{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.contenedor-tabla {
+    margin-top: 70px;
+    box-shadow: 0 7px 16px 0 rgb(0 0 0 / 5%), 0 1px 3px 0 rgb(0 0 0 / 5%);
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.tabla-title{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    background: white;
+    justify-content: space-between;
+}
+
+.label-3{
+    color: black;
+    font-size: 20px;
+    margin-left: 13px;
+}
+
+table {
+    background: #fff;
+    width: 100%;
+}
+
+th {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    font-family: sans-serif;
+    font-weight: normal;
+}
+
+td label {
+    padding-left: 10px;
+}
+
+td {
+    text-align: left;
+}
+
+.label-titulo {
+    color: #333;
+    font-size: 18px;
+    font-weight: normal;
+    font-family: sans-serif;
+}
+
+.contenedor-tabla-descripcion-proveedores-1{
+    padding: 0px;
+    display: flex;
+    margin-top: 1px;
+    width: 100%;
+
+}
+
+.proveedor-img{
+    width: 40px;
+}
+
+.nombre-rol{
+    display: grid;
+    margin-left: 1px;
+    height: 50px;
+    width: 130px;
+}
+
+.label-nombre{
+    color: black;
+    font-size: 15px;
+}
+
+.label-rol{
+    color: #aaa;
+    font-size: 15px;
+}
+
+.check{
+    font-size: 30px;
+    color: rgb(181, 160, 103);
+    margin-left: 25%;
+}
+
+.cancel{
+    font-size: 30px;
+    color: rgb(181, 160, 103);
+    margin-left: 24%;
+}
+
+.desc{
+    color: #b5a067;
+    margin-left: 2px;
+    font-size: 25px;
+}
+
+.interacciones{
+    margin-left: 25%;
+}
+
+span{
+    font-family: sans-serif;
+}
