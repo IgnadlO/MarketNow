@@ -23,7 +23,7 @@ fetch(urlFetch[pathname])
       for(let i = 0; i < info.length; i++) {
         const htmlInsert = {
           '/comercio/Inventario' : `<tr><td>${info[i].nombre}</td><td>${info[i].categoria}</td><td>$${info[i].precioVenta}</td><td>$${info[i].precioUnitario}</td><td>${info[i].cantidad}</td><td>${info[i].cantIdeal}</td></tr>`,
-          '/proveedor/Inventario' : `<tr><td><img style="object-fit: contain;" src="${info[i].imagen}" height="100" width="100"></td><td>${info[i].nombre}</td><td>${info[i].descripcion}</td><td>${info[i].precio}</td><td>${info[i].cantidad}</td></tr>`,
+          '/proveedor/Inventario' : `<tr><td><img style="object-fit: contain;" src="${info[i].imagen}" height="100" width="100"></td><td>${info[i].nombre}</td><td>${info[i].descripcion}</td><td class="stock" onclick="crearInputPrecio(${info[i].idArtProv})">${info[i].precio}</td><td class="stock" onclick="crearInput(${info[i].idArtProv})">${info[i].cantidad}</td></tr>`,
           '/comercio/regVentas' : `<tr><td>${info[i].idPedido}</td><td>$${info[i].monto}</td><td>${convertirFecha(info[i].fecha)}</td><td>${info[i].hora}</td><td>${info[i].idComercio}</td></tr>`
         }
         cuerpo.insertAdjacentHTML('beforeend', htmlInsert[pathname])
@@ -44,7 +44,7 @@ function crearTabla(datos){
     console.log(datos[i])
       const htmlInsert = {
           '/comercio/Inventario' : `<tr><td>${datos[i].nombre}</td><td>${datos[i].categoria}</td><td>$${datos[i].precioVenta}</td><td>$${datos[i].precioUnitario}</td><td>${datos[i].cantidad}</td><td>${datos[i].cantIdeal}</td></tr>`,
-          '/proveedor/Inventario' : `<tr><td><img style="object-fit: contain;" src="${datos[i].imagen}" height="100" width="100"></td><td>${datos[i].nombre}</td><td>${datos[i].descripcion}</td><td>${datos[i].precio}</td><td>${datos[i].cantidad}</td></tr>`
+          '/proveedor/Inventario' : `<tr><td><img style="object-fit: contain;" src="${datos[i].imagen}" height="100" width="100"></td><td>${datos[i].nombre}</td><td>${datos[i].descripcion}</td><td class="stock" onclick="crearInputPrecio(${info[i].idArtProv})">${datos[i].precio}</td><td class="stock" onclick="crearInput(${info[i].idArtProv})">${datos[i].cantidad}</td></tr>`
         }
         cuerpo.insertAdjacentHTML('beforeend', htmlInsert[pathname])
       }
@@ -113,4 +113,32 @@ function Barra_accion(e){
           cuerpo.insertAdjacentHTML('beforeend',`<tr><td>${ord[i].nombre}</td><td>${ord[i].categoria}</td><td>$${ord[i].precioVenta}</td><td>$${ord[i].precioUnitario}</td><td>${ord[i].cantidad}</td><td>${ord[i].cantIdeal}</td></tr>`)
         } 
     }
+}
+
+function crearInput(id){
+  const cantidad = prompt('Nuevo Valor');
+  if(cantidad != '' && !isNaN(cantidad)) subirValor(cantidad, id, 'stock');
+}
+
+function crearInputPrecio(id){
+  const cantidad = prompt('Nuevo Precio');
+  if(cantidad != '' && !isNaN(cantidad)) subirValor(cantidad, id, 'precio');
+}
+
+function subirValor(cantidad, id, url) {
+  fetch(`http://localhost:3000/proveedor/${url}`, {
+    method: "PUT",
+    body: JSON.stringify({ cantidad, id }),
+    headers: { "Content-type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json)
+      if (json.info == 'ok'){
+        location.reload();
+      } else {
+        console.log('error en la actualizacion de la informacion');
+      }
+    })
+    .catch((err) => console.log(err));
 }

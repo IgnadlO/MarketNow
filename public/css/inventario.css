@@ -139,4 +139,6 @@ tbody tr:nth-child(even){
 	padding: 20px;
 }
 
-
+.stock {
+	cursor: pointer;
+}

@@ -178,3 +178,37 @@ export const verEntregasPendientes = async (req: Request, res: Response) => {
 		info,
 	});
 };
+
+export const actStock = (req: Request, res: Response) => {
+	const put = req.body;
+	if(put.cantidad == null) res.json({ info: "error", error: 'valor null' });
+	pool.query(
+		"UPDATE articuloproveedor SET cantidad = ? WHERE idArtProv = ?",
+		[put.cantidad, put.id],
+		async (error, resp) => {
+			if (error) {
+				res.json({ info: "error", error });
+				throw error;
+			} else {
+				res.json({ info: "ok" });
+			}
+		}
+	);
+};
+
+export const actPrecio = (req: Request, res: Response) => {
+	const put = req.body;
+	if(put.cantidad == null) res.json({ info: "error", error: 'valor null' });
+	pool.query(
+		"UPDATE articuloproveedor SET precio = ? WHERE idArtProv = ?",
+		[put.cantidad, put.id],
+		async (error, resp) => {
+			if (error) {
+				res.json({ info: "error", error });
+				throw error;
+			} else {
+				res.json({ info: "ok" });
+			}
+		}
+	);
+};

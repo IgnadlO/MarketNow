@@ -60,6 +60,8 @@ ruta.get("/proveedor/:page", auth.verifyLogged, proveedor.proveedor);
 ruta.post("/proveedor/nuevoProducto", upload.single("imagen"), proveedor.nuevoProducto);
 ruta.post("/proveedor/imagen", upload.single("imagen"), proveedor.imagen);
 ruta.post("/proveedor/nuevoMetodo", auth.verifyLogged, proveedor.nuevoMetodo);
+ruta.put("/proveedor/stock", auth.verifyLogged, proveedor.actStock);
+ruta.put("/proveedor/precio", auth.verifyLogged, proveedor.actPrecio);
 
 //Mercado
 ruta.get("/mercado", controlador.mercado)
