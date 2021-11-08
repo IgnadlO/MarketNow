@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/static/css/predefinido.css">
 <link rel="stylesheet" href="/static/css/stock-faltante.css">
+<link rel="stylesheet" href="/static/css/entregas-pendientes2.css">
+<link rel="stylesheet" href="/static/css/predefinido.css">
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="https://kit.fontawesome.com/ee5c196280.js" crossorigin="anonymous"></script>
 <title>Entregas Pendientes | MarketNow</title>
@@ -103,6 +104,56 @@
 			</div>
 		</div>
 </div>
+
+<form class="cuadrado-entrega" id="cuadrado-entrega" method="POST" action="/comercio/agregarProducto" style="display: none">
+		<div class="contenedor-label">
+			<label class="label-fact">N° pedido <span id="nPedido"></span></label>
+		</div>
+
+		<div class="contenedor-producto">
+			<label class="label-fact">Descripcion</label>
+			<label class="label-fact">Cantidad</label>
+		</div>
+
+		<div class="puntito">
+			
+		</div>
+		
+		<div class="contenedor-producto">
+			<label class="label-fact" id="nombre"></label>
+			<label class="label-fact" id="cantidad"></label>
+		</div>
+		<input type="number" name="cdb" id="cdbInput" hidden>
+		<input type="text" name="nombre" id="nombreInput" hidden>
+		<input type="number" name="cantidad" id="cantidadInput" hidden>
+		<input type="number" name="precioUnitario" id="precioUnitario" hidden>
+
+		<div class="contenedor__input">
+            <input type="text" name="categoria" class="input" placeholder="Categoria">
+        </div>
+
+        <div class="contenedor__input">
+            <input type="number" name="iva" class="input" value="21" id="iva" placeholder="iva">
+        </div>
+
+        <div class="contenedor__input">
+            <input type="text" name="PdeGanancia" id="PdeGanancia" class="input" placeholder="Margen de Ganancia">
+        </div>
+
+        <div class="contenedor__input">
+            <input type="text" name="precioVenta" class="input" id="precioVenta" placeholder="Precio de Venta">
+        </div>
+
+        <div class="contenedor__input">
+            <input type="number" name="cantMinima" class="input" placeholder="Cantidad Minima">
+        </div>
+
+        <div class="contenedor__input">
+            <input type="number" name="cantIdeal" class="input" placeholder="Cantidad Ideal">
+        </div>
+
+        <input class="button_verde button" type="submit"> 
+	</form>
 	<div class="contenedor-tabla-proveedores">
 		<div class="tabla-proveedores">
 			<label class="label-3"><b>Proveedores</b></label>
@@ -145,26 +196,82 @@
 </div>
 
 <script>
+	const precioUnitario = document.getElementById("precioUnitario");
+	const iva = document.getElementById("iva");
+	const precioVenta = document.getElementById("precioVenta");
+	const pGanancia = document.getElementById("PdeGanancia");
+	let ulti;
+
 	function llegoPedido(id) {
-	    const url = "/mercado/pagoVerificado";
-			const estado = 'entregado';
-	    fetch(url, {
-	        method: "PUT",
-	        body: JSON.stringify({ id, estado}),
-	        headers: {
-	            "Content-Type": "application/json",
-	        },
-	    })
-	        .then((res) => res)
-	        .then((response) => {
-	            console.log("Success:", response);
-	            recargar();
-	        })
-	        .catch((error) => console.error("Error:", error));
+		const url = "/mercado/pagoVerificado";
+		const estado = "entregado";
+		fetch(url, {
+			method: "PUT",
+			body: JSON.stringify({ id, estado }),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((resp) => resp.json())
+			.then((response) => {
+				console.log(response);
+				if (response.info == "no se ha encontrado")
+					ponerCuadro(response.datos);
+			})
+			.catch((error) => console.error("Error:", error));
+	}
+
+	function ponerCuadro(datos) {
+		console.log(datos)
+		document.getElementById("cuadrado-entrega").style.display =
+			"inline-block";
+		document.getElementById("nPedido").innerText = datos.nPedido;
+		document.getElementById("nombre").innerText = datos.nombre;
+		document.getElementById("cantidad").innerText = datos.cantidad;
+		precioUnitario.value = datos.precio;
+		document.getElementById("nombreInput").value = datos.nombre;
+		document.getElementById("cantidadInput").value = datos.cantidad;
+		document.getElementById("cdbInput").value = datos.cdb;
+	}
+
+	pGanancia.addEventListener("keyup", calcularVenta);
+	precioVenta.addEventListener("keyup", calcularPGanancia);
+	iva.addEventListener("keyup", actualizarPrecio);
+	precioUnitario.addEventListener("keyup", actualizarPrecio);
+
+	const porcentaje = (num) => num / 100 + 1;
+
+	function actualizarPrecio() {
+		if (precioVenta.value == "" || pGanancia.value == "" || ulti == undefined)
+			return 0;
+		ulti();
+	}
+
+	function calcularVenta() {
+		if (precioUnitario.value == "" || iva.value == "" || pGanancia.value == "")
+			return 0;
+		const pv =
+			precioUnitario.value *
+			porcentaje(pGanancia.value) *
+			porcentaje(iva.value);
+		const nv =
+			precioUnitario.value * porcentaje(pGanancia.value) -
+			precioUnitario.value;
+		precioVenta.value = pv.toFixed(2);
+		ulti = calcularVenta;
+	}
+
+	function calcularPGanancia() {
+		if (precioUnitario.value == "" || iva.value == "" || precioUnitario.value == "")
+			return 0;
+		const pg =
+			precioVenta.value / porcentaje(iva.value) / precioUnitario.value;
+		pGanancia.value = ((pg - 1) * 100).toFixed(2);
+		ulti = calcularPGanancia;
 	}
 
 	function recargar() {
-	    location.reload();
+		location.reload();
 	}
 </script>
 

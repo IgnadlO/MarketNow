@@ -7,6 +7,6 @@
     <li class="header__item" style="float:right"><a class="header__link" href="/home/Iniciar-sesion">Iniciar Sesion</a></li>
     <% } else { %>
     <li class="header__item" style="float:right"><a class="header__link" href="/logOut">Cerrar Sesion</a></li>
-    <li class="header__item" Style ="float:right"><a class="header__link" href="<%= (rol == 2)? '/proveedor/Inventario' : '/comercio/cupones' %>">Acceder</a></li>
+    <li class="header__item" Style ="float:right"><a class="header__link" href="<%= (rol == 2)? '/proveedor/indexProveedor' : '/comercio/indexComercio' %>">Acceder</a></li>
     <% } %>
 </ul>

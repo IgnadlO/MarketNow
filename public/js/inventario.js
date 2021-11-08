@@ -35,7 +35,19 @@ fetch(urlFetch[pathname])
 /*-------------Filtrador----------*/
 
 function buscar(e) {
-  crearTabla(() => info.filter(v => v.nombre.includes(buscador.value)));
+  crearTabla(info.filter(v => v.nombre.includes(buscador.value)))
+}
+
+function crearTabla(datos){
+  cuerpo.innerHTML = '';
+  for(let i = 0; i < datos.length; i++) {
+    console.log(datos[i])
+      const htmlInsert = {
+          '/comercio/Inventario' : `<tr><td>${datos[i].nombre}</td><td>${datos[i].categoria}</td><td>$${datos[i].precioVenta}</td><td>$${datos[i].precioUnitario}</td><td>${datos[i].cantidad}</td><td>${datos[i].cantIdeal}</td></tr>`,
+          '/proveedor/Inventario' : `<tr><td><img style="object-fit: contain;" src="${datos[i].imagen}" height="100" width="100"></td><td>${datos[i].nombre}</td><td>${datos[i].descripcion}</td><td>${datos[i].precio}</td><td>${datos[i].cantidad}</td></tr>`
+        }
+        cuerpo.insertAdjacentHTML('beforeend', htmlInsert[pathname])
+      }
 }
 
 function Barra_accion(e){

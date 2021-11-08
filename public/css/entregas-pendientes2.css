@@ -56,17 +56,18 @@ label {
     transition: all 0.2s ease-out;
 }
 
-.cuadrado-1{
+.cuadrado-entrega{
     display: flex;
     flex-direction: column;
     background: white;
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 400px;
-    height: 100%;
     margin: auto;
     margin-top: 4%;
     padding: 10px;
+    position: absolute;
+    left: 50%;
 }
 
 .contenedor-label{
@@ -75,8 +76,9 @@ label {
     margin-bottom: 10px;
 }
 
-.label-1{
-    color: #222;
+.label-fact{
+    color: #444;
+    font-size: 20px;
 }
 
 .contenedor-producto{

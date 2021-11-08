@@ -47,6 +47,7 @@ ruta.get("/comercio/notificaciones", auth.verifyLogged, comercio.notificaciones)
 ruta.post("/comercio/egresoVario", auth.verifyLogged, comercio.egresoVario)
 ruta.post("/comercio/nuevoProducto", auth.verifyLogged, comercio.nuevoProducto);
 ruta.post("/comercio/venderProducto", auth.verifyLogged, comercio.venderProducto);
+ruta.post("/comercio/agregarProducto", auth.verifyLogged, comercio.agregarProducto);
 
 //Proveedor
 ruta.get("/proveedor/metodos", auth.verifyLogged, proveedor.verMetodos);

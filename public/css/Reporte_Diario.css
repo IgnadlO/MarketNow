@@ -47,7 +47,7 @@ label {
 	border-radius: 10px;
 }
 
-form {
+.formulario {
 	width: 50%;
 	height: 121px;
 	display: flex;
@@ -72,4 +72,10 @@ form input {
 	padding: 5px;
 	outline: none;
 	border: 1px solid #666;
+}
+
+.tarjeta__metodos {
+	display: flex;
+	justify-content: space-between;
+	padding: 35px 0;
 }

@@ -1,105 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
-<link rel="stylesheet" href="/static/css/predefinido.css">
-<link rel="stylesheet" href="/static/css/detalle-producto.css">
-<script src="/socket.io/socket.io.js"></script>
-<script src="https://unpkg.com/feather-icons"></script>
-<script src="https://kit.fontawesome.com/ee5c196280.js" crossorigin="anonymous"></script>
-<title>Comprar Producto | MarketNow</title>
-<meta charset="utf-8">
+	<link rel="stylesheet" href="venta-producto2.css">
+	<script src="https://unpkg.com/feather-icons"></script>
+	<script src="https://kit.fontawesome.com/ee5c196280.js" crossorigin="anonymous"></script>
+	<title>Entregas Pendientes | MarketNow</title>
+	<meta charset="utf-8">
+
 </head>
 <body>
-	<%- include('partials/menuComercio.html', {sitio: 'Comprar Producto', nombre: nombre}) %>
 <main>
-	<div class="cuadrado">
-		<div class="contenedor-padre">
-			<img class="producto-img" src="">
-			<div class="contenedor-detalles">
-			<div class="contenedor-desc">
-				<label>Producto: </label><label><%= row.nombre %></label>
-				<label>Cantidad: </label><label><%= cantidad %></label>
-				<label>Monto Total: </label><label><%= montoTotal %></label>
+	<form class="cuadrado-1">
 
-				<label>Metodos de Pago</label>
-				<% for(let i = 0; i < metodos.length; i++) { %>
-				<div><label>Metodo: </label><label><%= metodos[i].metodo %></label></div>
-				<div class="info_metodos">
-				<div><label>Cuil: </label><label><%= metodos[i].cuil %></label></div>
-				<div><label>Cbu: </label><label><%= metodos[i].cvu %></label></div>
-				<div><label>Alias: </label><label><%= metodos[i].alias %></label></div>
-				</div>
-				<% } %>
-
-				<label>Pago a Realizar</label>
-				<br>
-				<form method="POST" action="/mercado/pagoPedido" id="formulario" enctype="multipart/form-data">
-					<input type="number" name="monto" value="<%= montoTotal %>" hidden>
-					<input type="number" name="idProveedor" id="idProveedor" value="<%= row.idProveedor  %>" hidden>
-					<input type="number" name="idComercio" value="<%= idComercio %>" hidden>
-					<input type="number" name="cantidad" value="<%= cantidad %>" hidden>
-					<input type="number" name="precio" value="<%= row.precio %>" hidden>
-					<input type="number" name="cdb" value="<%= row.cdb %>" hidden>
-					<input type="number" name="idArticulo" id="idArticulo" value="<%= row.idArtProv %>" hidden>
-				
-				<label style="text-align: center;" id="contenedor_imagen" class="button_verde">
-					<input type="file" name="imagen" id="imagen" onchange="validarImagen(this);" required>
-						Mandar Recibo
-					</label>
-				</form>
-				<br>
-				<button class="button_verde" id="cancelarPedido">Cancelar Pedido</button>
+		<div class="contenedor-label">
+			<label class="label-1">N° pedido <span>1328</span></label>
 		</div>
+
+		<div class="contenedor-producto">
+			<label class="label-1">Descripcion Producto</label>
+			<label class="label-1">Datos</label>
 		</div>
-	</div>
-<script type="text/javascript">
-	document.getElementById("cancelarPedido")
-	.addEventListener("click", cancelarPedido);
 
-	function cancelarPedido() {
-		window.history.back();
-	}
+		<div class="puntito">
+			
+		</div>
+		
+		<div class="contenedor-producto">
+			<label class="label-1">Producto</label>
+			<label class="label-1">Tomate Monsi</label>
+		</div>
 
-	function validarImagen(obj) {
-		var uploadFile = obj.files[0];
+		<div class="contenedor-producto">
+			<label class="label-1">Cantidad</label>
+			<label class="label-1">3</label>
+		</div>
 
-		if (!window.FileReader) {
-			alert("El navegador no soporta la lectura de archivos");
-			document.getElementById("imagen").value = "";
-			return;
-		}
+		<div class="contenedor-producto">
+			<label class="label-1">Monto Total</label>
+			<label class="label-1">150.0</label>
+		</div>
 
-		if (!/\.(jpg|png|pdf)$/i.test(uploadFile.name)) {
-			alert("El archivo a adjuntar no es un archivo valido");
-			document.getElementById("imagen").value = "";
-		} else {
-			var img = new Image();
-			img.onload = function () {
-				if (uploadFile.size > 1000000) {
-					alert("El peso de la imagen no puede exceder los 10mb");
-					document.getElementById("imagen").value = "";
-				} else {
-					enviarForm();
-				}
-			};
-			img.src = URL.createObjectURL(uploadFile);
-		}
-	}
+		<div class="contenedor-producto top">
+			<label class="label-1">Metodo de Pago</label>
+			<label class="label-1">Mercado Pago</label>
+		</div>
 
-	function enviarForm() {
-		const idProveedor = document.getElementById("idProveedor").value;
-		const socket = io();
-		socket.on("connect", () => {
-			console.log(socket.id);
-		});
-		socket.emit("nuevo-pedido", idProveedor);
-		socket.on("pedido-visto", () => {
-			document.getElementById("formulario").submit();
-		});
-	}
-</script>
-<script>feather.replace()</script>
+		<div class="puntito">
+			
+		</div>
+
+		<div class="contenedor-producto">
+			<label class="label-1">Cuil</label>
+			<label class="label-1">42143242</label>
+		</div>
+
+		<div class="contenedor-producto">
+			<label class="label-1">Cbu</label>
+			<label class="label-1">01702046600000087865</label>
+		</div>
+
+		<div class="contenedor-producto">
+			<label class="label-1">Alias</label>
+			<label class="label-1">Pepe Botella</label>
+		</div>
+
+		<div class="contenedor-producto top">
+			<label class="label-1 ">Metodo de Pago</label>
+			<label class="label-1 ">Santander</label>
+		</div>
+
+		<div class="puntito">
+			
+		</div>
+
+		<div class="contenedor-producto">
+			<label class="label-1">Cuil</label>
+			<label class="label-1">87654678</label>
+		</div>
+
+		<div class="contenedor-producto">
+			<label class="label-1">Cbu</label>
+			<label class="label-1">0340045600456793703008</label>
+		</div>
+
+		<div class="contenedor-producto">
+			<label class="label-1">Alias</label>
+			<label class="label-1">Rodri Palta</label>
+		</div>
+
+        <input class="button_verde button" type="submit"> 
+	</form>
+
+	
 </main>
 </body>
 </html>

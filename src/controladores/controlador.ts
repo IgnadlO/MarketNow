@@ -191,6 +191,7 @@ export const pagoPedido = async (req: Request, res: Response) => {
 
 export const pagoVerificado = (req: Request, res: Response) => {
 	const put = req.body;
+
 	pool.query(
 		"UPDATE pedido SET estado = ? WHERE idPedido = ?",
 		[put.estado, put.id],
@@ -203,17 +204,61 @@ export const pagoVerificado = (req: Request, res: Response) => {
 		}
 	);
 
+	type regCompra = {
+		cantidad: number;
+		idProducto: number;
+		cdb: number;
+	};
+
 	if (put.estado == "entregado") {
 		pool.query(
 			"SELECT * FROM registrocompra WHERE idPedido = ?",
 			put.id,
-			async (err, result) => {
+			async (err, result: any) => {
 				if (err) res.status(500).json(err);
 				else {
-					// const result2 = await promisePool.query(
-					// 	"SELECT count(*) AS cantidad FROM puntuadores where idComercio = ? and idArticulo = ?",
-					// 	[req.session.idUser, id]
-					// 	);
+					const reg = <regCompra>result[0];
+					pool.query(
+						"UPDATE articuloproveedor SET cantidad = cantidad - ? WHERE idArtProv = ?",
+						[reg.cantidad, reg.idProducto],
+						(err, result) => {
+							if (err) throw err;
+						}
+					);
+
+					const articulosCON = await promisePool.query(
+						"SELECT count(*) AS cantidad FROM articulocliente where idComercio = ? and cdb = ?",
+						[req.session.idUser, reg.cdb]
+						);
+					const articulosC = <RowDataPacket>articulosCON[0];
+					console.log(articulosC[0])
+					if(articulosC[0].cantidad == 0){
+						const nombreArtCON = await promisePool.query(
+							"SELECT nombre, precio FROM articuloproveedor where idArtProv = ?",
+							[reg.idProducto]
+							);
+						const nombreArt = <RowDataPacket>nombreArtCON[0];
+						res.json({
+							info: 'no se ha encontrado',
+							datos: { 
+								nombre: nombreArt[0].nombre,
+								cantidad: reg.cantidad,
+								cdb: reg.cdb,
+								nPedido: put.id,
+								precio: nombreArt[0].precio,
+								}
+						});
+					} else {
+						pool.query(
+						"UPDATE articulocliente SET cantidad = cantidad + ? WHERE idComercio = ? and cdb = ?",
+						[reg.cantidad, req.session.idUser, reg.cdb],
+						(err, result) => {
+							if (err) throw err;
+							res.redirect('/comercio/entregas-pendientes')
+						}
+					);
+
+					}
 					// const result2 = await promisePool.query(
 					// "SELECT count(*) AS cantidad FROM puntuadores where idComercio = ? and idArticulo = ?",
 					// [req.session.idUser, id]

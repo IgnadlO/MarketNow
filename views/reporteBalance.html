@@ -270,17 +270,19 @@
 			labels:cantidadDias,
 			datasets:[{
 				label:'Ventas por dia',
+				borderColor: 'rgb(66, 134, 244,0.5)',
 				data: ventasPorDia,
 				backgroundColor:[
 					'rgb(66, 134, 244,0.5)'
 				]
 			}]
+
 		},
 	});
 
 	var ctx= document.getElementById('myChart3').getContext("2d");
 	var myChart3= new Chart(ctx,{
-		type:'doughnut',
+		type:'pie',
 		data:{
 			labels:['Impuestos','Salario','Alquiler','Servicios','Otros'],
 			datasets:[{
@@ -318,7 +320,7 @@
 		cateCanti
 	var ctx= document.getElementById('myChart4').getContext("2d");
 	var myChart4= new Chart(ctx,{
-		type:'doughnut',
+		type:'pie',
 		data:{
 			labels:categoria,
 			datasets:[{

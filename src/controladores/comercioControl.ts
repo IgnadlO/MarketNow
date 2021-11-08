@@ -15,6 +15,7 @@ export const comercio = (req: Request, res: Response) => {
 		"stock-faltante",
 		"entregas-pendientes",
 		"registroCajero",
+		"registro-proveedores",
 		"indexComercio",
 	];
 	if (typeof param === "string" && permitidas.includes(param))
@@ -165,7 +166,7 @@ export const reporteDiario = async (req: Request, res: Response) => {
 
 export const verVentas = async (req: Request, res: Response) => {
 	const [result, fields] = await promisePool.query(
-		"SELECT * FROM pedido WHERE idComercio = ?",
+		"SELECT * FROM pedido WHERE idComercio = ? and tipo = 2",
 		req.session.idUser
 	);
 	const rows = <RowDataPacket>result;
@@ -264,7 +265,7 @@ export const verBalance = async (req: Request, res: Response) => {
 			"SELECT tipo, count(tipo) AS cantidad, sum(monto) AS monto FROM pedido WHERE fecha > ? and idComercio = ? GROUP BY tipo"
 		),
 		ventasPorDia: await consulta(
-			"SELECT fecha, count(fecha) AS cantidad  FROM pedido WHERE fecha > ? and idComercio = ? GROUP BY fecha"
+			"SELECT fecha, count(fecha) AS cantidad  FROM pedido WHERE fecha > ? and idComercio = ?  and tipo = 2 GROUP BY fecha"
 		),
 		ventaPorductos: await consulta(
 			"SELECT sum(rc.cantidad) AS cantidad,ac.nombre FROM registrocompra rc inner join articulocliente ac on rc.cdb = ac.cdb inner join pedido p on ac.idComercio = p.idComercio WHERE p.fecha > ? and p.idComercio = ? and p.tipo = 2 GROUP BY ac.nombre"
@@ -312,9 +313,10 @@ export const verBalance = async (req: Request, res: Response) => {
 		}
 	}
 
-	const ultimaFecha = informacion.ventasPorDia[informacion.ventasPorDia.length - 1].fecha;
-	const ultimoDia = ultimaFecha.getDay();
+	const ultimaFecha = new Date(Date.now());
+	const ultimoDia = ultimaFecha.getDate();
 	const ultimoMes = ultimaFecha.getMonth() + 1;
+
 	for (let venta of informacion.ventasPorDia) {
 		if (venta.fecha.getMonth() + 1 == ultimoMes) {
 			dia.push(venta.fecha.getDay());
@@ -387,4 +389,36 @@ export const inicio = async (req: Request, res: Response) => {
 		ingreso: row2[0].totalGanancia == null ? 0 : row2[0].totalGanancia,
 		balance: balance,
 	});
+};
+
+export const agregarProducto = (req: Request, res: Response) => {
+	const verificar = (dato: any) =>
+		dato == undefined || dato == "" ? null : parseInt(dato, 10);
+	const post = req.body;
+	console.log(post)
+	pool.query(
+		"INSERT INTO ArticuloCliente(nombre,cdb,categoria,iva,PdeGanancia,precioUnitario,precioVenta,cantidad,cantMinima,cantIdeal, idComercio) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+		[
+			post.nombre,
+			parseInt(post.cdb, 10),
+			post.categoria,
+			parseInt(post.iva, 10),
+			parseInt(post.PdeGanancia, 10),
+			parseInt(post.precioUnitario, 10),
+			parseInt(post.precioVenta, 10),
+			parseInt(post.cantidad, 10),
+			verificar(post.cantMinima),
+			verificar(post.cantIdeal),
+			verificar(post.idComercio) == null
+				? req.session.idUser
+				: post.idComercio,
+		],
+		async (error, resp) => {
+			if (error) throw error;
+			else {
+				const row = <OkPacket>resp;
+				res.status(201).redirect("/comercio/entregas-pendientes");
+			}
+		}
+	);
 };

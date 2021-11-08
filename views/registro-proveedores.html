@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="registro-proveedores.css">
+	<link rel="stylesheet" href="/static/css/registro-proveedores.css">
+	<link rel="stylesheet" href="/static/css/predefinido.css">
 	<script src="https://unpkg.com/feather-icons"></script>
 	<script src="https://kit.fontawesome.com/ee5c196280.js" crossorigin="anonymous"></script>
 	<title>Registro Proveedores | MarketNow</title>
@@ -9,6 +10,9 @@
 
 </head>
 <body>
+
+	<%- include('partials/menuComercio.html', {sitio:'Registro Proveedores', nombre: nombre}) %>
+
 <main>
 	
 <div class="contenedor-padre" style="width: 80%;">
@@ -33,7 +37,7 @@
 					<tr>
 						<th><div class="contenedor-tabla-descripcion-proveedores-1">
 						
-						<img class="proveedor-img" src="proveedor.jpg">
+						<img class="proveedor-img" src="/static/img/proveedor.jpg">
 
 						<div class="nombre-rol">
 							<label class="label-nombre">Raul Paltero</label>
@@ -47,49 +51,7 @@
 					<tr>
 						<th><div class="contenedor-tabla-descripcion-proveedores-1">
 						
-						<img class="proveedor-img" src="proveedor.jpg">
-
-						<div class="nombre-rol">
-							<label class="label-nombre">Raul Paltero</label>
-							<label class="label-rol">CEO Tomatero</label>
-						</div>
-						
-					</div></th>
-
-						<th>Tomateros Corp</th><th>1543257862</th><th class="interacciones">5</th><th class="th-icon"><i class="far fa-check-square check"></i></th>
-					</tr>
-					<tr>
-						<th><div class="contenedor-tabla-descripcion-proveedores-1">
-						
-						<img class="proveedor-img" src="proveedor.jpg">
-
-						<div class="nombre-rol">
-							<label class="label-nombre">Raul Paltero</label>
-							<label class="label-rol">CEO Tomatero</label>
-						</div>
-						
-					</div></th>
-
-						<th>Tomateros Corp</th><th>1543257862</th><th class="interacciones">5</th><th class="th-icon"><i class="far fa-check-square check"></i></th>
-					</tr>
-					<tr>
-						<th><div class="contenedor-tabla-descripcion-proveedores-1">
-						
-						<img class="proveedor-img" src="proveedor.jpg">
-
-						<div class="nombre-rol">
-							<label class="label-nombre">Raul Paltero</label>
-							<label class="label-rol">CEO Tomatero</label>
-						</div>
-						
-					</div></th>
-
-						<th>Tomateros Corp</th><th>1543257862</th><th class="interacciones">5</th><th class="th-icon"><i class="far fa-window-close cancel"></i></th>
-					</tr>
-					<tr>
-						<th><div class="contenedor-tabla-descripcion-proveedores-1">
-						
-						<img class="proveedor-img" src="proveedor.jpg">
+						<img class="proveedor-img" src="/static/img/proveedor.jpg">
 
 						<div class="nombre-rol">
 							<label class="label-nombre">Raul Paltero</label>
@@ -106,5 +68,6 @@
 	</div>
 	
 </main>
+<script>feather.replace()</script>
 </body>
 </html>
