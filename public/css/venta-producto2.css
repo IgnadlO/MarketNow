@@ -1,0 +1,116 @@
+body{ 
+    margin: 0;
+    background: #f7f7f7;
+}
+
+main{ 
+    margin-left: 4em; 
+    transition: all 0.1s;
+}
+
+label {
+    color: #555;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+.texto{
+    color: #666;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+.button_verde{
+    border: none;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    background: #4caf50;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px auto;
+}
+
+.button_verde:hover{
+    background: #e4bc6c;
+    transition: all 0.2s ease-out;
+}
+
+.button_sec {
+    border: none;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    background: #e4bc6c;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button_sec:hover{
+    background: #333333;
+    color: #4caf50;
+    border-color: #333333;
+    transition: all 0.2s ease-out;
+}
+
+.cuadrado-1{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 400px;
+    height: 100%;
+    margin: auto;
+    margin-top: 4%;
+    padding: 10px;
+}
+
+.contenedor-label{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.label-1{
+    color: #222;
+}
+
+.contenedor-producto{
+    display: flex;
+    justify-content: space-between;
+}
+
+.top{
+    margin-top: 10px;
+}
+
+.puntito{
+    border-bottom: 2px dashed #666;
+    margin: 5px 0px;
+}
+
+.contenedor__input {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    width: 60%;
+    min-width: 400px;
+}
+
+.input{
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #e4bc6c;
+    padding: 4px 5px;
+    font-size: 18px;
+    outline: none;
+}
+
+.button{
+    margin-top: 4%;
+}
+
