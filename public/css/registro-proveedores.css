@@ -168,3 +168,12 @@ td {
 span{
     font-family: sans-serif;
 }
+
+.proveedor-img{
+    width: 35px;
+    margin: 1px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+}

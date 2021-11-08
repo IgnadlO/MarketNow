@@ -422,3 +422,17 @@ export const agregarProducto = (req: Request, res: Response) => {
 		}
 	);
 };
+
+export const verRegistroProveedores = async (req: Request, res: Response) => {
+	const [result, fields] = await promisePool.query(
+		"SELECT pr.logo, us.nombre, pr.nombreLocal, pr.telefono, count(p.idUsuario) AS interacciones, us.email FROM pedido p inner join proveedor pr on p.idUsuario = pr.idUsuario inner join usuarios us on pr.idUsuario = us.idUsuario WHERE p.idComercio = ? and p.tipo = 1 GROUP BY p.idUsuario",
+		req.session.idUser
+	);
+	const row = <RowDataPacket>result;
+	console.log(row)
+	res.render("registro-proveedores.html", {
+			nombre: req.session.name,
+			rol: req.session.rol,
+			rows: row
+		});
+};

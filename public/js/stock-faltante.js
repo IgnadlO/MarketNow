@@ -16,7 +16,7 @@ fetch(urlFetch)
         monto += val.precioUnitario * (val.cantIdeal - val.cantidad);
         if(val.cantidad >= 0) monto++;
         if(val.cantidad <= 0) urgente++;
-        if(val.nombre.includes('palta')) paltas++;
+        if(val.nombre.includes('Palta')) paltas++;
       });
 
       document.getElementById('info__productos').innerText = productos;

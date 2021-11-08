@@ -90,7 +90,7 @@
 				    		<th>Ingreso</th><th>$<%= (pedidos[1].monto == null)? 0: pedidos[1].monto%></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Ganancia</th><th>$<%= (pedidos[1].monto - pedidos[0].monto == null)? 0: pedidos[1].monto - pedidos[0].monto %></th>
+				    		<th>Ganancia</th><th>$<%= (pedidos[1].monto - egresos['compras'] == null)? 0: pedidos[1].monto - egresos['compras'] %></th>
 				    	</tr>
 				    </tbody>
 				    </table>    
@@ -110,7 +110,7 @@
 				    		<th>Cantidad</th><th><%= (pedidos[0].cantidad == null)? 0: pedidos[0].cantidad %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Egresos</th><th>$<%= (pedidos[0].monto == null)? 0: pedidos[0].monto %></th>
+				    		<th>Egresos</th><th>$<%= (egresos['compras'] == null)? 0: egresos['compras'] %></th>
 				    	</tr>
 
 				    </tbody>

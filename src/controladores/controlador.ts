@@ -254,31 +254,11 @@ export const pagoVerificado = (req: Request, res: Response) => {
 						[reg.cantidad, req.session.idUser, reg.cdb],
 						(err, result) => {
 							if (err) throw err;
-							res.redirect('/comercio/entregas-pendientes')
-						}
-					);
-
-					}
-					// const result2 = await promisePool.query(
-					// "SELECT count(*) AS cantidad FROM puntuadores where idComercio = ? and idArticulo = ?",
-					// [req.session.idUser, id]
-					// );
-					// const result2 = await promisePool.query(
-					// "SELECT count(*) AS cantidad FROM puntuadores where idComercio = ? and idArticulo = ?",
-					// [req.session.idUser, id]
-					// );
-					// pool.query(
-					// 	"UPDATE articulocliente SET cantidad = cantidad + ? WHERE cdb = ? and idComercio = ?",
-					// 	[result.cantidad, result.cdb, req.session.idUser],
-					// 	(err, result) => {
-					// 		if (err) res.status(500).json(err);
-					// 		else {
-					// 			res.status(204);
-					// 		}
-					// 	});
+							res.json({info: 'se ha actualizado'});
+					})
 				}
 			}
-		);
+		});
 	}
 };
 

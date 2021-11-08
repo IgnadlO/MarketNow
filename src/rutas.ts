@@ -40,7 +40,8 @@ ruta.get("/comercio/ventas", auth.verifyLogged, comercio.verVentas);
 ruta.get("/comercio/ventas/:idPedido/detalles", auth.verifyLogged, comercio.verDetallesVentas);
 ruta.get("/comercio/verFaltantes", auth.verifyLogged, comercio.verFaltantes);
 ruta.get("/comercio/entregas-pendientes", auth.verifyLogged, comercio.verEntregasPendientes);
-ruta.get("/comercio/verBalance", auth.verifyLogged, comercio.verBalance)
+ruta.get("/comercio/verBalance", auth.verifyLogged, comercio.verBalance);
+ruta.get("/comercio/registro-proveedores", auth.verifyLogged, comercio.verRegistroProveedores)
 ruta.get("/comercio/indexComercio", auth.verifyLogged, comercio.inicio)
 ruta.get("/comercio/:page", auth.verifyLogged, comercio.comercio);
 ruta.get("/comercio/notificaciones", auth.verifyLogged, comercio.notificaciones)

@@ -1,4 +1,3 @@
-<!doctype html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -217,6 +216,8 @@
 				console.log(response);
 				if (response.info == "no se ha encontrado")
 					ponerCuadro(response.datos);
+				else if (response.info == "se ha actualizado")
+					recargar();
 			})
 			.catch((error) => console.error("Error:", error));
 	}

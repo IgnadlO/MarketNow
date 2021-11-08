@@ -160,6 +160,7 @@ export const verEntregasPendientes = async (req: Request, res: Response) => {
 		const prov = <RowDataPacket>resultD;
 		rowsProv.push(prov[0]);
 		rowsPedido[i].nombreProv = prov[0].nombre;
+		rowsPedido[i].direccion = prov[0].direccion;
 		proveedores.push(rowsPedido[i].idUsuario);
 		nombresProv.push(prov[0].nombreLocal);
 	}
@@ -169,12 +170,11 @@ export const verEntregasPendientes = async (req: Request, res: Response) => {
 		verificados,
 		proveedores: rowsProv.length,
 	};
-	console.log(rowsProv);
 	res.render("stock-faltante.html", {
 		nombre: req.session.name,
 		rol: req.session.rol,
-		rowsPedido,
-		rowsProv,
+		rowsPedido: rowsPedido,
+		rowsProv: rowsProv,
 		info,
 	});
 };

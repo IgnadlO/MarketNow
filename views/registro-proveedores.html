@@ -29,39 +29,30 @@
 						<th><label class="label-titulo">Nombre de la Empresa</label></th>
 						<th><label class="label-titulo">Telefono</label></th>
 						<th><label class="label-titulo">Interacciones</label></th>
-						<th><label class="label-titulo">Comprable</label></th>
+						<th><label class="label-titulo">Email</label></th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody id="cuerpo">
+					<% for(let i = 0; i < rows.length; i++) { %>
 					<tr>
 						<th><div class="contenedor-tabla-descripcion-proveedores-1">
-						
+						<% if (rows[i].logo == null) { %>
 						<img class="proveedor-img" src="/static/img/proveedor.jpg">
+					<% } else { %>
+						<img class="proveedor-img" src="<%= rows[i].logo %>">
+					<% } %>
 
 						<div class="nombre-rol">
-							<label class="label-nombre">Raul Paltero</label>
-							<label class="label-rol">CEO Tomatero</label>
+							<label class="label-nombre"><%= rows[i].nombre %></label>
+							<label class="label-rol">CEO</label>
 						</div>
 						
 					</div></th>
 
-						<th>Tomateros Corp</th><th>1543257862</th><th class="interacciones">5</th><th class="th-icon"><i class="far fa-check-square check"></i></th>
+						<th><%= rows[i].nombreLocal %></th><th><%= rows[i].telefono %></th><th class="interacciones"><%= rows[i].interacciones %></th><th class="th-icon"><a href="#" title="<%= rows[i].email %>" style="cursor: default;"><i class="far fa-envelope desc check"></i></a></i></th>
 					</tr>
-					<tr>
-						<th><div class="contenedor-tabla-descripcion-proveedores-1">
-						
-						<img class="proveedor-img" src="/static/img/proveedor.jpg">
-
-						<div class="nombre-rol">
-							<label class="label-nombre">Raul Paltero</label>
-							<label class="label-rol">CEO Tomatero</label>
-						</div>
-						
-					</div></th>
-
-						<th>Tomateros Corp</th><th>1543257862</th><th class="interacciones">5</th><th class="th-icon"><i class="far fa-window-close cancel"></i></th>
-					</tr>
+					<% } %>
 				</tbody>
 			</table>
 		</div>

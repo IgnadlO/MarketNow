@@ -5,6 +5,7 @@ body{
 main{	
 	padding: 10px 30px 30px 30px;
 }
+
 .contenedor-cuadrado{
 	display: grid;
 	grid-auto-rows: 10rem;
