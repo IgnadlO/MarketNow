@@ -7,7 +7,7 @@ function validarImagen(obj) {
         return;
     }
 
-    if (!/\.(jpg|png|gif)$/i.test(uploadFile.name)) {
+    if (!/\.(jpg|png|gif|jpeg)$/i.test(uploadFile.name)) {
         alert("El archivo a adjuntar no es una imagen");
         document.getElementById("imagen").value = "";
     } else {

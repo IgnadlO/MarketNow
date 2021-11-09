@@ -35,7 +35,7 @@
 				<label class="label-3">Los articulos: <% for(let i = 0; i < faltante.length; i++) { %><%= faltante[i].nombre %>,<% } %>. Carecen de Stock. Para obtener mas informacion precione "Ver Productos".</label>
 			</div>
 			<div class="contenedor-boton centrar">
-				<input style="margin: 0;" type="submit" onclick="window.location = '/comercio/entregas-pendientes'" value="Ver Productos" class="button" id="boton_env">
+				<input style="margin: 0;" type="submit" onclick="window.location = '/comercio/stock-faltante'" value="Ver Productos" class="button" id="boton_env">
 			</div>
 		</div>
 	<% } %>

@@ -80,14 +80,14 @@
 
 		<div class="tabla-descripcion">
 			<div class="contenedor-tabla-descripcion">
-				<% for (let i = rowsPedido.length - 1; i > 0; i--) { %>
+				<% for (let i = rowsPedido.length - 1; i >= 0; i--) { %>
 				<label class="label-descripcion"><%= rowsPedido[i].idPedido %></label>
 				<label class="label-raul"><%= rowsPedido[i].nombreProv %></label>
 				<div class="contenedor-status">
 					<i class="fas fa-circle icon-status <%= rowsPedido[i].estado %>"></i><label class="label-status"><%= rowsPedido[i].estado %></label>
 				</div>
 				<% if(rol == 2) { %>
-        		<label class="label-estado"><%= rowsProv[0].direccion %></label>
+        		<label class="label-estado"><%= rowsPedido[0].direccion %></label>
     		<% } else { %>  
 				<% if( rowsPedido[i].estado == 'verificado') { %>
 						<div class="contenedor-status">

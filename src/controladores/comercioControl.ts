@@ -234,7 +234,6 @@ export const verEntregasPendientes = async (req: Request, res: Response) => {
 		verificados,
 		proveedores: rowsProv.length,
 	};
-	console.log(rowsProv);
 	res.render("entregas-pendientes.html", {
 		nombre: req.session.name,
 		rol: req.session.rol,
@@ -319,17 +318,24 @@ export const verBalance = async (req: Request, res: Response) => {
 
 	for (let venta of informacion.ventasPorDia) {
 		if (venta.fecha.getMonth() + 1 == ultimoMes) {
-			dia.push(venta.fecha.getDay());
+			dia.push(venta.fecha.getDate());
 			diaCantidad.push(venta.cantidad);
 		}
 	}
-	for (let i = ultimoDia; i > 0; i--) {
+	for (let i = ultimoDia - 1; i >= 0; i--) {
 		ventasPorDia.push(
-			diaCantidad[dia.indexOf(i)] == undefined
+			diaCantidad[dia.indexOf(i + 1)] == undefined
 				? 0
-				: diaCantidad[dia.indexOf(i)]
+				: diaCantidad[dia.indexOf(i + 1)]
 		);
 	}
+
+	console.log(ultimoDia)
+	console.log(ventasPorDia)
+
+	const ingresos = (informacion.pedidos[1] == undefined || informacion.pedidos[1].monto == null)? 0: informacion.pedidos[1].monto;
+	const canVentas = (informacion.pedidos[1] == undefined || informacion.pedidos[1].cantidad == null)? 0: informacion.pedidos[1].cantidad;
+	const canCompras = (informacion.pedidos[0] == undefined || informacion.pedidos[0].cantidad == null)? 0: informacion.pedidos[0].cantidad;
 
 	for (let cate of informacion.ventaPorCategoria) {
 		cateTipo.push(cate.categoria);
@@ -340,8 +346,11 @@ export const verBalance = async (req: Request, res: Response) => {
 		nombre: req.session.name,
 		rol: req.session.rol,
 		pedidos: informacion.pedidos,
+		ingresos,
 		egresos: egresos,
 		gastoTotal,
+		canVentas,
+		canCompras,
 		haber: haber[0][0].haber,
 		egresosTotal,
 		ventasPorDia: ventasPorDia,

@@ -32,33 +32,95 @@ export const singUp = async (req: Request, res: Response) => {
 	const post = req.body;
 	pool.query(
 		"INSERT INTO usuarios(nombre, email, clave, fechaReg, rol) VALUES (?,?,?,CURDATE(),?)",
-		[post.nombre, post.email, pass, post.rol], (error, result) => {
-			if (error){ 
-				if (error.errno == 1062) res.send('este email ya esta registrado');
+		[post.nombre, post.email, pass, post.rol],
+		(error, result) => {
+			if (error) {
+				if (error.errno == 1062)
+					res.send("este email ya esta registrado");
 				else throw error;
-			}
-			else {
-			const row = <ResultSetHeader>result;
-			const insertSQL = (sql: string, valores:any[]) => {
-				pool.query(sql,valores,(error, rowDos) => {
+			} else {
+				const row = <ResultSetHeader>result;
+				const insertSQL = (sql: string, valores: any[]) => {
+					pool.query(sql, valores, (error, rowDos) => {
 						if (error) throw error;
+						const mensaje = `
+							<style type="text/css">
+								p {
+									font-family: sans-serif;
+									font-size: 15px;
+								}
+								h3 {
+									font-family: sans-serif;
+									color: #4caf50;
+									font-size: 17px;
+								}
+								span {
+									font-size: 13px;
+									color: #555;
+								}
+							</style>
+							<h3>Estimado/a ${post.nombre}</h3>
+							<p>
+								Ya hemos Registrado con exito su cuenta en la plataforma MarketNow.
+								Esperamos disfrute de ella.
+							</p>
+							<p>
+								Si usted no se ha registrado en MarketNow, ignore este mensaje o mande un
+								email a marketnow7c@gmail.com comunicando esta situacion.
+							</p>
+
+							<p>
+								Saludos Cordiales <br />
+								Dirección de MarketNow
+							</p>
+							<p>
+								<span>
+									-----------------------------------------
+									<br />
+									Gestion de Nuevos Usuarios<br />
+									© 2021 MarketNow. Derechos reservados</span
+								>
+							</p>`;
+						enviarEmail(post.email, 'Nueva Cuenta en MarketNow', mensaje)
 						res.redirect("/");
-					}
-				);
+					});
+				};
+				if (post.rol == 1)
+					//comercio
+					insertSQL(
+						"INSERT INTO comercio(dni, direccion, estado, telefono, nombreLocal, idUsuario) VALUES (?,?,?,?,?,?)",
+						[
+							post.dni,
+							post.direccion,
+							true,
+							post.telefono,
+							post.nombreLocal,
+							row.insertId,
+						]
+					);
+				else if (post.rol == 2)
+					//proveedor
+					insertSQL(
+						"INSERT INTO proveedor(dni, direccion, telefono, nombreLocal, idUsuario) VALUES (?,?,?,?,?)",
+						[
+							post.dni,
+							post.direccion,
+							post.telefono,
+							post.nombreLocal,
+							row.insertId,
+						]
+					);
+				else if (post.rol == 3)
+					//cliente
+					insertSQL("insert into clientes(idUsuario) values(?)", [
+						row.insertId,
+					]);
+				else if (post.rol == 4)
+					insertSQL(
+						"INSERT INTO cajero(idComercio, idUsuario) values(?,?)",
+						[req.session.idUser, row.insertId]
+					);
 			}
-			if (post.rol == 1) //comercio
-				insertSQL("INSERT INTO comercio(dni, direccion, estado, telefono, nombreLocal, idUsuario) VALUES (?,?,?,?,?,?)",
-			 	[post.dni, post.direccion, true, post.telefono, post.nombreLocal, row.insertId])
-			else if (post.rol == 2) //proveedor
-				insertSQL("INSERT INTO proveedor(dni, direccion, telefono, nombreLocal, idUsuario) VALUES (?,?,?,?,?)",
-			 	[post.dni, post.direccion, post.telefono, post.nombreLocal, row.insertId])
-			else if (post.rol == 3) //cliente
-				insertSQL("insert into clientes(idUsuario) values(?)",
-					[row.insertId])
-			else if (post.rol == 4)
-				insertSQL("INSERT INTO cajero(idComercio, idUsuario) values(?,?)",
-					[req.session.idUser, row.insertId])
-			}	
 		}
 	);
 };

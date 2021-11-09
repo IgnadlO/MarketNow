@@ -79,14 +79,7 @@ function validar_dni(dni){
 }
 function validar_direccion(direccion){
   var cb=document.getElementById('colorborde6');
-  var revi_direc=/^[a-z0-9_-]{4,50}$/;
-  const direccionValidado = revi_direc.test(direccion.value);
-    if ((direccion.value == "") || !direccionValidado) {
-    validacion_incorrecta(6,cb);
-    }
-  else {
-    validacion_correcta(6,cb);
-  }
+  validacion_correcta(6,cb);
   return false;
 }
 function validar_nombre_local(nombre_local){

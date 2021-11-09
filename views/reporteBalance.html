@@ -32,7 +32,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">$<%= (pedidos[1].monto == null)? 0: pedidos[1].monto %></label>			
+				<label class="label-1" id="info__paltas">$<%= ingresos %></label>			
 				<label class="label-2">Ingresos</label>
 			</div>
 			<i class="fas fa-hand-holding-usd icono"></i>
@@ -54,7 +54,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas">$<%= pedidos[1].monto - gastoTotal %></label>			
+				<label class="label-1" id="info__paltas">$<%= (isNaN(ingresos - gastoTotal))? 0: ingresos - gastoTotal %></label>			
 				<label class="label-2">Balance</label>
 			</div>
 			<i class="fas fa-balance-scale icono"></i>
@@ -65,7 +65,7 @@
 	<div class="cuadrado-1">
 		<div class="contenedor-padre">
 			<div class="contenedor-label">
-				<label class="label-1" id="info__paltas"><%= Math.round(((pedidos[1].monto - gastoTotal)*100)/(pedidos[1].monto)) %>%</label>			
+				<label class="label-1" id="info__paltas"><%= (isNaN(Math.round(((ingresos - gastoTotal)*100)/(ingresos))))? '': Math.round(((ingresos - gastoTotal)*100)/(ingresos)) %>%</label>			
 				<label class="label-2">Margen</label>
 			</div>
 			<i class="fas fa-chart-pie icono"></i>
@@ -84,13 +84,13 @@
 				        </div>
 				    <tbody id="cuerpo" class="ventas">
 				    	<tr>
-				    		<th>Cantidad</th><th><%= (pedidos[1].cantidad == null)? 0: pedidos[1].cantidad %></th>
+				    		<th>Cantidad</th><th><%= (canVentas == null)? 0: canVentas %></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Ingreso</th><th>$<%= (pedidos[1].monto == null)? 0: pedidos[1].monto%></th>
+				    		<th>Ingreso</th><th>$<%= (ingresos == null)? 0: ingresos%></th>
 				    	</tr>
 				    	<tr>
-				    		<th>Ganancia</th><th>$<%= (pedidos[1].monto - egresos['compras'] == null)? 0: pedidos[1].monto - egresos['compras'] %></th>
+				    		<th>Ganancia</th><th>$<%= (ingresos - egresos['compras'] == null)? 0: ingresos - egresos['compras'] %></th>
 				    	</tr>
 				    </tbody>
 				    </table>    
@@ -107,7 +107,7 @@
 				        </div>
 				    <tbody id="cuerpo" class="ventas">
 				    	<tr>
-				    		<th>Cantidad</th><th><%= (pedidos[0].cantidad == null)? 0: pedidos[0].cantidad %></th>
+				    		<th>Cantidad</th><th><%= (canCompras == null)? 0: canCompras %></th>
 				    	</tr>
 				    	<tr>
 				    		<th>Egresos</th><th>$<%= (egresos['compras'] == null)? 0: egresos['compras'] %></th>
@@ -244,7 +244,7 @@
 			labels:['Julio','Agosto','Septiembre','Octubre','Noviembre'],
 			datasets:[{
 				label:'Balance Meses Anteriores',
-				data:[5000,-900,3500,2300,'<%= pedidos[1].monto - gastoTotal %>'],
+				data:[5000,-900,3500,2300,'<%= ingresos - gastoTotal %>'],
 				backgroundColor:[
 					'rgb(2, 119, 189)'
 				]

@@ -140,41 +140,28 @@ export const verEntregasPendientes = async (req: Request, res: Response) => {
 		req.session.idUser
 	);
 	const rowsPedido = <RowDataPacket>result;
-	const proveedores: number[] = [];
-	const nombresProv: string[] = [];
-	const rowsProv = [];
 	let monto = 0;
 	let verificados = 0;
 	for (let i in rowsPedido) {
 		monto += rowsPedido[i].monto;
-		if (rowsPedido[i].estado == "verificado") verificados++;
-		if (proveedores.includes(rowsPedido[i].idUsuario)) {
-			rowsPedido[i].nombreProv =
-				nombresProv[proveedores.indexOf(rowsPedido[i].idUsuario)];
-			continue;
-		}
+		verificados++;
 		const [resultD, fieldsD] = await promisePool.query(
 			"select A.nombre,A.email,B.nombreLocal,B.direccion,B.telefono,B.logo from usuarios A left join comercio B on A.idUsuario=B.idUsuario WHERE B.idUsuario = ?",
 			rowsPedido[i].idComercio
 		);
 		const prov = <RowDataPacket>resultD;
-		rowsProv.push(prov[0]);
-		rowsPedido[i].nombreProv = prov[0].nombre;
+		rowsPedido[i].nombreProv = prov[0].nombreLocal;
 		rowsPedido[i].direccion = prov[0].direccion;
-		proveedores.push(rowsPedido[i].idUsuario);
-		nombresProv.push(prov[0].nombreLocal);
 	}
 	const info = {
 		pedidos: rowsPedido.length,
 		monto,
 		verificados,
-		proveedores: rowsProv.length,
 	};
 	res.render("stock-faltante.html", {
 		nombre: req.session.name,
 		rol: req.session.rol,
 		rowsPedido: rowsPedido,
-		rowsProv: rowsProv,
 		info,
 	});
 };

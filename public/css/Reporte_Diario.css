@@ -53,7 +53,7 @@ label {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	align-items: flex-end;
+	align-items: flex-start;
 }
 
 .contenedor__gasto-boton {

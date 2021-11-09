@@ -7,6 +7,12 @@
     <li class="header__item" style="float:right"><a class="header__link" href="/home/Iniciar-sesion">Iniciar Sesion</a></li>
     <% } else { %>
     <li class="header__item" style="float:right"><a class="header__link" href="/logOut">Cerrar Sesion</a></li>
-    <li class="header__item" Style ="float:right"><a class="header__link" href="<%= (rol == 2)? '/proveedor/indexProveedor' : '/comercio/indexComercio' %>">Acceder</a></li>
+        <% if(rol == 1) { %>
+            <li class="header__item" Style ="float:right"><a class="header__link" href="/comercio/indexComercio">Acceder</a></li>
+        <% } else if(rol == 2) { %>
+            <li class="header__item" Style ="float:right"><a class="header__link" href="/proveedor/indexProveedor">Acceder</a></li>
+        <% } else if(rol == 4) { %>
+            <li class="header__item" Style ="float:right"><a class="header__link" href="/cajero/vender-producto">Acceder</a></li>
+        <% } %>
     <% } %>
 </ul>
