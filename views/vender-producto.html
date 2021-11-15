@@ -8,10 +8,10 @@
 <title>Vender Producto | MarketNow</title>
 <meta charset="utf-8">
 </head>
-<body>
+<body onkeyup="presionoTeclaBody(event)">
     <% if(rol == 1) { %>
         <%- include('partials/menuComercio.html', {sitio:'Vender Productos', nombre: nombre}) %>
-    <% } else { %>    
+    <% } else { %>
     <ul class="header__lista"><!-- Botones de la barra -->
     <li class="header__item" style="width: 15em;">
         <div class="header__usuario">
@@ -65,7 +65,7 @@
     <div class="codigos">
         <label class="input-codigo">Codigo de barras</label><br>
         <input type="text" class="input-codigo"id="cdb">
-    </div>    
+    </div>
 
     <div class= "codigos">
         <label class="input-codigo">Codigo de cliente</label><br>
@@ -81,16 +81,16 @@
         <button id="terminarVenta" class="button_verde">Terminar venta</button>
         <button id="cancelarVenta" class="button_verde">Cancelar venta</button>
     </div>
-    <p class="total" id="total">Total: $</p>
+    <p class="total">Total: $<span id="total">0</span></p>
     </div>
 <!--------------------------------inputs del buscador--------------------------------------------->
     <div class="flex-container-padre">
         <div class="flex-container">
             <input class="hijos" type="text" placeholder="Buscar Producto" id="Nombre_producto">
             <input class="hijos" type="text" placeholder="Cantidad" id="cant">
-            <label class="total-derecha">Total: $230</label>
+            <label class="total-derecha">Subtotal $<span id="subtotal"><span></label>
         </div>
-        
+
         <div class="container-tabla-buscador scroll">
             <ul class="buscador__lista" id="filtrado">
                 <table class="listaProductos"id="tabla">
@@ -121,3 +121,4 @@
 <script> feather.replace() </script>
 </body>
 </html>
+

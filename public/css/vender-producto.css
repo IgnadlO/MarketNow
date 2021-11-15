@@ -83,7 +83,7 @@ body{
 	font-size: 20px;
 	margin-left: 1px;
 	margin-top: 15px;
-	
+
 }
 
 .container-tabla-buscador{
@@ -141,8 +141,9 @@ body{
 
 .buscador_dato:hover { background: var(--doradoLg); }
 
-th,td{
-	padding: 20px 80px 10px 40px;
+.table th,td{
+	padding: 20px 40px;
+	text-align: center;
 }
 
 thead{
@@ -157,7 +158,10 @@ tr:nth-child(even){
 
 .listaProductos { width: 100%; }
 
-.listaProductos th,td{ padding: 20px; }
+.listaProductos th,td{ 
+padding: 20px;
+cursor: pointer;
+ }
 
 .listaProductos tr:nth-child(even){
 	background-color:#f5f5f5;
@@ -246,4 +250,4 @@ tr:nth-child(even){
 	padding: 5px;
 	outline: none;
 }
-/**------------------------------**/
+
